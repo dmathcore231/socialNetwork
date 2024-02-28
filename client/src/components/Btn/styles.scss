@@ -1,0 +1,63 @@
+@import '../../styles/app.scss';
+
+.btn {
+  --btn-color: var(--white-color);
+  --btn-color-hover: var(--black-color);
+  --btn-color-active: var(--black-color);
+
+  --btn-bg-color: transparent;
+  --btn-bg-color-hover: transparent;
+  --btn-bg-color-active: transparent;
+
+  --btn-border-size: 1px;
+  --btn-border-color: transparent;
+  --btn-border-color-hover: transparent;
+  --btn-border-color-active: transparent;
+
+  --btn-radius: 0.5rem;
+
+  --btn-font-size: 1.375rem;
+  --btn-font-weight: 400;
+  --btn-line-height: 1.75rem;
+
+  --btn-padding: 0.75rem 1rem;
+
+  --btn-transition-time: 0.4s;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: capitalize;
+  color: var(--btn-color);
+  background-color: var(--btn-bg-color);
+  border: var(--btn-border-size) solid var(--btn-border-color);
+  border-radius: var(--btn-radius);
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
+  line-height: var(--btn-line-height);
+  padding: var(--btn-padding);
+  width: 100%;
+  cursor: pointer;
+  transition: background-color var(--btn-transition-time);
+
+  &:hover {
+    color: var(--btn-color-hover);
+    background-color: var(--btn-bg-color-hover);
+    border-color: var(--btn-border-color-hover);
+  }
+
+  &:active {
+    color: var(--btn-color-active);
+    background-color: var(--btn-bg-color-active);
+    border-color: var(--btn-border-color-active);
+    transition: border-color var(--btn-transition-time);
+  }
+
+  &__primary {
+    --btn-bg-color: var(--black-color);
+    --btn-border-size: 2px;
+
+    --btn-color-hover: var(--black-color);
+    --btn-border-color-hover: var(--black-color);
+  }
+}

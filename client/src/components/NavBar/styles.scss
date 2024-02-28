@@ -2,7 +2,6 @@
 
 .nav-bar {
   height: 100%;
-  min-width: 300px;
   padding: 1rem;
   border-right: 1px solid var(--gray-300);
   @include flex-column;
