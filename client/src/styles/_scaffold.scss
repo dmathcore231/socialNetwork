@@ -1,0 +1,30 @@
+* {
+  @font-face {
+    font-family: 'Patrick Hand';
+    src: url('../../assets/fonts/PatrickHand-Regular.ttf') format('truetype');
+  }
+
+  font-family: "Patrick Hand",
+  sans-serif;
+  font-weight: 400;
+  box-sizing: border-box;
+  list-style-type: none;
+  text-decoration: none;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+
+  //color
+  --white-color: #fff;
+  --black-color: #1B1B1B;
+  --red-color: #E12B56;
+  --orange-color: #FA9248;
+  --green-color: #4DA764;
+  --blue-color: #2B71DB;
+  --gray-100: #EEEEEE;
+  --gray-200: #D8D8D8;
+  --gray-300: #B4B4B4;
+  --gray-400: #929292;
+  --gray-500: #696969;
+  --gray-600: #454545;
+}

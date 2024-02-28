@@ -1,0 +1,43 @@
+@import './scaffold';
+
+h1 {
+  font-size: 65px;
+  line-height: 120%;
+}
+
+h2 {
+  font-size: 48px;
+  line-height: 60px;
+}
+
+h3 {
+  font-size: 34px;
+  line-height: 24px;
+}
+
+h4 {
+  font-size: 28px;
+  line-height: 120%;
+}
+
+h5 {
+  font-size: 25px;
+  line-height: normal;
+}
+
+.title {
+  font-size: 18px;
+  line-height: 24px;
+
+  &_size {
+    &_lg {
+      font-size: 22px;
+      line-height: 28px;
+    }
+
+    &_sm {
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+}
