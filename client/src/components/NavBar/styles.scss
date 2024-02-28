@@ -1,6 +1,33 @@
+@import '../../styles/app.scss';
+
 .nav-bar {
   height: 100%;
   min-width: 300px;
   padding: 1rem;
   border-right: 1px solid var(--gray-300);
+  @include flex-column;
+  gap: 3rem;
+
+  &__list {
+    @include flex-column;
+    gap: 1rem;
+  }
+
+  &__link {
+    display: flex;
+    justify-content: start;
+    gap: 1rem;
+    color: var(--black-color);
+    fill: var(--black-color);
+
+    &:hover {
+      color: var(--gray-400);
+      fill: var(--gray-400);
+    }
+
+    &:active {
+      color: var(--gray-500);
+      fill: var(--gray-500);
+    }
+  }
 }
