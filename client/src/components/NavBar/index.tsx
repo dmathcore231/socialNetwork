@@ -21,31 +21,31 @@ export function NavBar(): JSX.Element {
           </NavLink>
         </li>
         <li className='nav-bar__item'>
-          <NavLink to='#' className='nav-bar__link'>
+          <NavLink to='/notifications' className='nav-bar__link'>
             <NotificationsIcon width='24px' height='24px' />
             <h4>Notifications</h4>
           </NavLink>
         </li>
         <li className='nav-bar__item'>
-          <NavLink to='#' className='nav-bar__link'>
+          <NavLink to='/messages' className='nav-bar__link'>
             <MessagesIcon width='24px' height='24px' />
             <h4>Messages</h4>
           </NavLink>
         </li>
         <li className='nav-bar__item'>
-          <NavLink to='#' className='nav-bar__link'>
+          <NavLink to='/bookmarks' className='nav-bar__link'>
             <BookmarkIcon width='24px' height='24px' />
             <h4>Bookmarks</h4>
           </NavLink>
         </li>
         <li className='nav-bar__item'>
-          <NavLink to='#' className='nav-bar__link'>
+          <NavLink to='/profile' className='nav-bar__link'>
             <ProfileIcon width='24px' height='24px' />
             <h4>Profile</h4>
           </NavLink>
         </li>
         <li className='nav-bar__item'>
-          <NavLink to='#' className='nav-bar__link'>
+          <NavLink to='/communities' className='nav-bar__link'>
             <CommunitiesIcon width='24px' height='24px' />
             <h4>Communities</h4>
           </NavLink>

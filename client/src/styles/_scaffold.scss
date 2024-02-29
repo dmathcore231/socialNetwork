@@ -1,3 +1,5 @@
+@import './mixins';
+
 * {
   @font-face {
     font-family: 'Patrick Hand';
@@ -27,4 +29,9 @@
   --gray-400: #929292;
   --gray-500: #696969;
   --gray-600: #454545;
+}
+
+.content-page {
+  padding: 1rem;
+  width: 100%;
 }
