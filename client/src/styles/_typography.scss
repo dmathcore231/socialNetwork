@@ -40,4 +40,14 @@ h5 {
       line-height: 20px;
     }
   }
+
+  &_color {
+
+    &_gray {
+
+      &-500 {
+        color: var(--gray-500);
+      }
+    }
+  }
 }
