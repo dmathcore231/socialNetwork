@@ -1,6 +1,10 @@
 import './styles.scss'
 import { PostProps } from '../../types/interfaces/PostProps'
 import { AvatarContainer } from '../AvatarContainer'
+import { CommentsIcon } from '../../assets/icons/CommentsIcon'
+import { RepostIcon } from '../../assets/icons/RepostIcon'
+import { LikeIcon } from '../../assets/icons/LikeIcon'
+import { ViewedIcon } from '../../assets/icons/ViewedIcon'
 
 export function Post({ data }: PostProps): JSX.Element {
   return (
@@ -35,16 +39,20 @@ export function Post({ data }: PostProps): JSX.Element {
       <div className='post-footer
       title title_size_sm title_color_gray-500'>
         <span className='post-footer__item'>
-          Comments {data.statPost.comments}
+          <CommentsIcon width='24px' height='24px' />
+          {data.statPost.comments}
         </span>
         <span className='post-footer__item'>
-          Reposts {data.statPost.reposts}
+          <RepostIcon width='24px' height='24px' />
+          {data.statPost.reposts}
         </span>
         <span className='post-footer__item'>
-          Likes {data.statPost.likes}
+          <LikeIcon width='24px' height='24px' />
+          {data.statPost.likes}
         </span>
         <span className='post-footer__item'>
-          Viewed {data.statPost.viewed}
+          <ViewedIcon width='24px' height='24px' />
+          {data.statPost.viewed}
         </span>
       </div>
     </div>
