@@ -1,0 +1,14 @@
+.profile {
+
+  &-header {
+    display: flex;
+    gap: 1rem;
+
+    &__item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+  }
+}

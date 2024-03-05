@@ -1,0 +1,41 @@
+@import '../../styles/app.scss';
+
+.link-back {
+  --link-back-bg-color: var(--black-color);
+  --link-back-bg-color-hover: transparent;
+  --link-back-bg-color-active: transparent;
+
+  --link-back-border-color: transparent;
+  --link-back-border-color-hover: var(--black-color);
+  --link-back-border-color-active: transparent;
+  --link-back-border-size: 2px;
+  --link-back-border-radius: 2rem;
+
+  --link-back-padding: 0.3rem;
+
+  --link-back-transition-time: 0.4s;
+
+  --link-back-fill: var(--white-color);
+  --link-back-fill-hover: var(--black-color);
+  --link-back-fill-active: var(--black-color);
+
+  @include flex-center;
+  background-color: var(--link-back-bg-color);
+  border: var(--link-back-border-size) solid var(--link-back-border-color);
+  border-radius: var(--link-back-border-radius);
+  padding: var(--link-back-padding);
+  transition: background-color var(--link-back-transition-time);
+  fill: var(--link-back-fill);
+
+  &:hover {
+    background-color: var(--link-back-bg-color-hover);
+    border-color: var(--link-back-border-color-hover);
+    fill: var(--link-back-fill-hover);
+  }
+
+  &:active {
+    background-color: var(--link-back-bg-color-active);
+    border-color: var(--link-back-border-color-active);
+    transition: border-color var(--link-back-transition-time);
+  }
+}
