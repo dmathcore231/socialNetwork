@@ -5,6 +5,7 @@ import { CommentsIcon } from '../../assets/icons/CommentsIcon'
 import { RepostIcon } from '../../assets/icons/RepostIcon'
 import { LikeIcon } from '../../assets/icons/LikeIcon'
 import { ViewedIcon } from '../../assets/icons/ViewedIcon'
+import { Btn } from '../Btn'
 
 export function Post({ data }: PostProps): JSX.Element {
   return (
@@ -36,23 +37,47 @@ export function Post({ data }: PostProps): JSX.Element {
       <div className="post-body">
         {data.text}
       </div>
-      <div className='post-footer
-      title title_size_sm title_color_gray-500'>
+      <div className='post-footer'>
         <span className='post-footer__item'>
-          <CommentsIcon width='24px' height='24px' />
-          {data.statPost.comments}
+          <Btn
+            type='button'
+            className='btn__transparent title'
+            onClick={() => console.log('click comments')}
+          >
+            <CommentsIcon width='24px' height='24px' />
+            {data.statPost.comments}
+          </Btn>
+
         </span>
         <span className='post-footer__item'>
-          <RepostIcon width='24px' height='24px' />
-          {data.statPost.reposts}
+          <Btn
+            type='button'
+            className='btn__transparent title'
+            onClick={() => console.log('click reposts')}
+          >
+            <RepostIcon width='24px' height='24px' />
+            {data.statPost.reposts}
+          </Btn>
         </span>
         <span className='post-footer__item'>
-          <LikeIcon width='24px' height='24px' />
-          {data.statPost.likes}
+          <Btn
+            type='button'
+            className='btn__transparent title'
+            onClick={() => console.log('click likes')}
+          >
+            <LikeIcon width='24px' height='24px' />
+            {data.statPost.likes}
+          </Btn>
         </span>
         <span className='post-footer__item'>
-          <ViewedIcon width='24px' height='24px' />
-          {data.statPost.viewed}
+          <Btn
+            type='button'
+            className='btn__transparent title'
+            onClick={() => console.log('click viewed')}
+          >
+            <ViewedIcon width='24px' height='24px' />
+            {data.statPost.viewed}
+          </Btn>
         </span>
       </div>
     </div>
