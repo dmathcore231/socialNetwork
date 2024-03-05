@@ -5,6 +5,7 @@ import { CommentsIcon } from '../../assets/icons/CommentsIcon'
 import { RepostIcon } from '../../assets/icons/RepostIcon'
 import { LikeIcon } from '../../assets/icons/LikeIcon'
 import { ViewedIcon } from '../../assets/icons/ViewedIcon'
+import { MoreIcon } from '../../assets/icons/MoreIcon'
 import { Btn } from '../Btn'
 
 export function Post({ data }: PostProps): JSX.Element {
@@ -32,6 +33,15 @@ export function Post({ data }: PostProps): JSX.Element {
               {data.timeStamp}
             </span>
           </div>
+        </div>
+        <div className='post-header__more'>
+          <Btn
+            type='button'
+            className='btn__transparent'
+            onClick={() => console.log('click more')}
+          >
+            <MoreIcon width='24px' height='24px' />
+          </Btn>
         </div>
       </div>
       <div className="post-body">

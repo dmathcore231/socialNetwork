@@ -9,6 +9,8 @@
   border-radius: 0.5rem;
 
   &-header {
+    display: flex;
+    justify-content: space-between;
 
     &__user {
       display: flex;
