@@ -14,7 +14,9 @@ export function Post({ data }: PostProps): JSX.Element {
       <div className="post-header">
         <div className="post-header__user">
           <span className="post-header__item">
-            <AvatarContainer>
+            <AvatarContainer
+              className='avatar_size_sm'
+            >
               {data.user.userAvatar}
             </AvatarContainer>
           </span>

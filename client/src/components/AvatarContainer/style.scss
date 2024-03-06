@@ -2,8 +2,51 @@
 
 .avatar {
   @include flex-center;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  border: 1px solid black;
+
+  --avatar-border-color: var(--black-color);
+  --avatar-border-size: 0.063rem;
+
+  --avatar-border-radius: 50%;
+
+  --avatar-width: 8.125rem;
+  --avatar-height: 8.125rem;
+
+  --avatar-bg-color: transparent;
+
+  width: var(--avatar-width);
+  height: var(--avatar-height);
+  border-radius: var(--avatar-border-radius);
+  border: var(--avatar-border-size) solid var(--avatar-border-color);
+  overflow: hidden;
+  background-color: var(--avatar-bg-color);
+
+  &_size {
+
+    &_sm {
+      --avatar-width: 2.5rem;
+      --avatar-height: 2.5rem;
+    }
+  }
+
+  &_border {
+    &_color {
+      &_white {
+        --avatar-border-color: var(--white-color);
+      }
+    }
+
+    &_size {
+      &_xxl {
+        --avatar-border-size: 0.313rem;
+      }
+    }
+  }
+
+  &_bg {
+    &_color {
+      &_gray-200 {
+        --avatar-bg-color: var(--gray-200);
+      }
+    }
+  }
 }

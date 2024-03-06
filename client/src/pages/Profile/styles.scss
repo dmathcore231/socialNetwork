@@ -11,4 +11,27 @@
       align-items: flex-start;
     }
   }
+
+  &-body {
+
+
+    &__item {
+      position: relative;
+      height: 100%;
+      width: 100%;
+    }
+
+    &__user-banner {
+      height: 25vh;
+      max-height: 200px;
+      background-color: var(--gray-100);
+    }
+
+    &__user-avatar {
+      position: absolute;
+      top: 50%;
+      left: 5%;
+      fill: var(--gray-400);
+    }
+  }
 }
