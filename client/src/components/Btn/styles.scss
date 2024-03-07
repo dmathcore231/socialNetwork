@@ -60,7 +60,16 @@
     transition: border-color var(--btn-transition-time);
   }
 
-  &__primary {
+  &_size {
+    &_sm {
+      --btn-font-size: 1rem;
+      --btn-line-height: 1.5rem;
+
+      --btn-padding: 0.5rem 0.75rem;
+    }
+  }
+
+  &_primary {
     --btn-bg-color: var(--black-color);
     --btn-border-size: 2px;
 
@@ -68,7 +77,7 @@
     --btn-border-color-hover: var(--black-color);
   }
 
-  &__transparent {
+  &_transparent {
     --btn-color: var(--black-color);
     --btn-color-hover: var(--gray-400);
     --btn-color-active: var(--gray-500);

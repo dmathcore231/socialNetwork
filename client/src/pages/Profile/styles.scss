@@ -1,4 +1,8 @@
+@import '../../styles/app.scss';
+
 .profile {
+  @include flex-column;
+  gap: 0.5rem;
 
   &-header {
     display: flex;
@@ -13,25 +17,41 @@
   }
 
   &-body {
+    @include flex-column;
+    gap: 1rem;
+    position: relative;
 
+    align-items: flex-end;
 
     &__item {
-      position: relative;
       height: 100%;
       width: 100%;
+
+      &_width_sm {
+        width: 200px;
+      }
     }
 
     &__user-banner {
-      height: 25vh;
-      max-height: 200px;
+      height: 200px;
       background-color: var(--gray-100);
     }
 
     &__user-avatar {
       position: absolute;
-      top: 50%;
+      bottom: 0;
       left: 5%;
       fill: var(--gray-400);
+    }
+  }
+
+  &-footer {
+    padding-top: 1rem;
+    display: flex;
+
+    &__item {
+      @include flex-column;
+      align-items: flex-start;
     }
   }
 }

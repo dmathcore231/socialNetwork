@@ -2,6 +2,7 @@ import './styles.scss'
 import { LinkBack } from '../../components/LinkBack'
 import { AvatarContainer } from '../../components/AvatarContainer'
 import { AvatarDefaultIcon } from '../../assets/icons/AvatarDefaultIcon'
+import { Btn } from '../../components/Btn'
 
 export function Profile(): JSX.Element {
   return (
@@ -34,6 +35,23 @@ export function Profile(): JSX.Element {
               <AvatarDefaultIcon width='100px' height='100px' />
             </AvatarContainer>
           </div>
+        </div>
+        <div className='profile-body__item profile-body__item_width_sm'>
+          <Btn
+            type='button'
+            className='btn_primary btn_size_sm'
+            onClick={() => console.log('click')}
+          >
+            Settings Profile
+          </Btn>
+        </div>
+      </div>
+      <div className='profile-footer'>
+        <div className='profile-footer__item'>
+          <h3>Your Name</h3>
+          <span className='title title_size_lg title_color_gray-500'>
+            @userTag
+          </span>
         </div>
       </div>
     </div>

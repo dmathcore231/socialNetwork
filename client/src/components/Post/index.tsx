@@ -39,7 +39,7 @@ export function Post({ data }: PostProps): JSX.Element {
         <div className='post-header__more'>
           <Btn
             type='button'
-            className='btn__transparent'
+            className='btn_transparent'
             onClick={() => console.log('click more')}
           >
             <MoreIcon width='24px' height='24px' />
@@ -53,7 +53,7 @@ export function Post({ data }: PostProps): JSX.Element {
         <span className='post-footer__item'>
           <Btn
             type='button'
-            className='btn__transparent title'
+            className='btn_transparent title'
             onClick={() => console.log('click comments')}
           >
             <CommentsIcon width='24px' height='24px' />
@@ -64,7 +64,7 @@ export function Post({ data }: PostProps): JSX.Element {
         <span className='post-footer__item'>
           <Btn
             type='button'
-            className='btn__transparent title'
+            className='btn_transparent title'
             onClick={() => console.log('click reposts')}
           >
             <RepostIcon width='24px' height='24px' />
@@ -74,7 +74,7 @@ export function Post({ data }: PostProps): JSX.Element {
         <span className='post-footer__item'>
           <Btn
             type='button'
-            className='btn__transparent title'
+            className='btn_transparent title'
             onClick={() => console.log('click likes')}
           >
             <LikeIcon width='24px' height='24px' />
@@ -84,7 +84,7 @@ export function Post({ data }: PostProps): JSX.Element {
         <span className='post-footer__item'>
           <Btn
             type='button'
-            className='btn__transparent title'
+            className='btn_transparent title'
             onClick={() => console.log('click viewed')}
           >
             <ViewedIcon width='24px' height='24px' />

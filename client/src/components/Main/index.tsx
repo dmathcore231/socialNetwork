@@ -11,7 +11,7 @@ export function Main({ children }: MainProps): JSX.Element {
         Aside Content
         <Btn
           type='button'
-          className='btn__primary'
+          className='btn_primary'
           onClick={() => console.log('click')}
         >
           Button
