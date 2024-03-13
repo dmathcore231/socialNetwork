@@ -46,12 +46,26 @@
   }
 
   &-footer {
+    @include flex-column;
+    gap: 0.5rem;
     padding-top: 1rem;
-    display: flex;
 
     &__item {
       @include flex-column;
       align-items: flex-start;
+
+      &_padding {
+        &_top {
+          &_lg {
+            padding-top: 2rem;
+          }
+        }
+      }
     }
+  }
+
+  .ribbon {
+    display: flex;
+    justify-content: space-between;
   }
 }

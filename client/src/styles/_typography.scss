@@ -50,4 +50,12 @@ h5 {
       }
     }
   }
+
+  &_font {
+    &_weight {
+      &_bold {
+        font-weight: bold;
+      }
+    }
+  }
 }

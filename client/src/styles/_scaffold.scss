@@ -34,4 +34,6 @@
 .content-page {
   padding: 1rem;
   width: 100%;
+  max-height: 100vh;
+  overflow-y: scroll;
 }
