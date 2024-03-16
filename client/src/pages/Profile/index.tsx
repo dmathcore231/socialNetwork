@@ -3,7 +3,7 @@ import { LinkBack } from '../../components/LinkBack'
 import { AvatarContainer } from '../../components/AvatarContainer'
 import { AvatarDefaultIcon } from '../../assets/icons/AvatarDefaultIcon'
 import { Btn } from '../../components/Btn'
-import { ProfileWall } from '../../components/ProfileWall'
+import { Feed } from '../../components/Feed'
 
 export function Profile(): JSX.Element {
   return (
@@ -61,7 +61,7 @@ export function Profile(): JSX.Element {
           {`0 Subscriptions 0 Subscribers`}
         </div>
         <div className="profile-footer__item profile-footer__item_padding_top_lg">
-          <ProfileWall />
+          <Feed />
         </div>
       </div>
     </div>

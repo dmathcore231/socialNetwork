@@ -1,22 +1,10 @@
 @import '../../styles/app.scss';
 
-.profile-wall {
-  width: 100%;
-}
-
-.wall-nav-bar {
+.tabs {
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid var(--gray-100);
-
-  &__link {
-    color: inherit;
-    padding: 0.4rem;
-
-    &.active {
-      border-bottom: 3px solid var(--black-color);
-    }
-  }
+  width: 100%;
 
   &__item {
     padding: 0.5rem 1rem;
@@ -34,6 +22,10 @@
       color: var(--gray-500);
       background-color: transparent;
       transition: color 0.4s;
+    }
+
+    &_active {
+      border-bottom: 3px solid var(--black-color);
     }
   }
 }
