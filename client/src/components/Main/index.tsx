@@ -1,4 +1,5 @@
 import './styles.scss'
+import { Link } from 'react-router-dom'
 import { MainProps } from '../../types/interfaces/MainProps'
 import { Btn } from '../Btn'
 
@@ -16,6 +17,7 @@ export function Main({ children }: MainProps): JSX.Element {
         >
           Button
         </Btn>
+        <Link to="authorization">Authorization</Link>
       </aside>
     </main>
   )

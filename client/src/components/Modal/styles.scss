@@ -1,0 +1,44 @@
+@import '../../styles/app.scss';
+
+.modal {
+  --modal-color-shadow: rgba(0, 0, 0, 0.5019607843);
+
+  --modal-content-bg-color: var(--white-color);
+  --modal-content-padding: 2rem;
+  --modal-content-width: 32.375rem;
+  --modal-content-height: auto;
+  --modal-content-gap: 1rem;
+
+  --modal-content-border-radius: 0.5rem;
+  --modal-content-border-size: 3px;
+  --modal-content-border-color: var(--black-color);
+
+  @include flex-center;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--modal-color-shadow);
+
+  &-content {
+    @include flex-column;
+    background-color: var(--modal-content-bg-color);
+    border-radius: var(--modal-content-border-radius);
+    border: var(--modal-content-border-size) solid var(--modal-content-border-color);
+    padding: var(--modal-content-padding);
+    width: var(--modal-content-width);
+    height: var(--modal-content-height);
+    gap: var(--modal-content-gap);
+
+    &__header {}
+
+    &__body {}
+
+    &__footer {
+      display: flex;
+      gap: 2rem;
+    }
+  }
+}

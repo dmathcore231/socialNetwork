@@ -75,6 +75,14 @@
 
     --btn-color-hover: var(--black-color);
     --btn-border-color-hover: var(--black-color);
+
+    &_outline {
+      --btn-color: var(--black-color);
+      --btn-bg-color: transparent;
+      --btn-border-color: var(--black-color);
+
+      --btn-bg-color-hover: var(--gray-100);
+    }
   }
 
   &_transparent {

@@ -11,6 +11,7 @@ import { Answers } from '../pages/Answers'
 import { Articles } from '../pages/Articles'
 import { Media } from '../pages/Media'
 import { Like } from '../pages/Like'
+import { Authorization } from '../pages/Authorization'
 
 export const router = createBrowserRouter([
   {
@@ -62,5 +63,9 @@ export const router = createBrowserRouter([
         element: <Communities />,
       }
     ]
+  },
+  {
+    path: "/authorization",
+    element: <Authorization />,
   }
 ])
