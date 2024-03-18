@@ -3,6 +3,7 @@
 .authorization {
   @include flex-center;
   gap: 5rem;
+  height: 100vh;
 
   &__item {
     @include flex-column;

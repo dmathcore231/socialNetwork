@@ -2,9 +2,11 @@ import './styles.scss'
 import { useState } from 'react'
 import { Btn } from '../../components/Btn'
 import { Modal } from '../../components/Modal'
+import { Input } from '../../components/Input'
 
 export function Authorization(): JSX.Element {
   const [isModalActive, setIsModalActive] = useState(false)
+  const [userName, setUserName] = useState<string>('')
 
   return (
     <div className="authorization container">
@@ -47,11 +49,26 @@ export function Authorization(): JSX.Element {
       </div>
       <Modal
         isActive={isModalActive}
-        title='Modal title'
+        title='Create your account'
         onClose={() => setIsModalActive(false)}
         onSubmit={() => setIsModalActive(false)}
       >
-        Modal Content
+        <form className='form form-auth'>
+          <Input
+            type='text'
+            id='username'
+            label={
+              {
+                text: "What’s your name?",
+                labelInvisible: true
+              }
+            }
+            required={true}
+            placeholder='User Name'
+            onChange={(e) => setUserName(e.target.value)}
+            value={userName}
+          />
+        </form>
       </Modal>
     </div>
 

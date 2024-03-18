@@ -1,0 +1,100 @@
+@import '../../styles/app.scss';
+
+.input {
+  --input-bg-color: var(--white-color);
+  --input-color: var(--black-color);
+
+  --input-border-color: var(--black-color);
+  --input-border-color-focus: var(--gray-200);
+  --input-border-color-focus-visible: var(--gray-400);
+  --input-border-size: 2px;
+  --input-border-radius: 0.5rem;
+
+  --input-padding: 1.5rem 0.875rem 0.313rem 0.875rem;
+
+  --input-text-align: left;
+  --input-font-size: 1.125rem;
+  --input-font-weight: 400;
+  --input-font-line-height: 1.5rem;
+
+  width: 100%;
+  background-color: var(--input-bg-color);
+  color: var(--input-color);
+  border: var(--input-border-size) solid var(--input-border-color);
+  border-radius: var(--input-border-radius);
+  padding: var(--input-padding);
+  text-align: var(--input-text-align);
+  font-size: var(--input-font-size);
+  font-weight: var(--input-font-weight);
+  line-height: var(--input-font-line-height);
+  outline: none;
+
+  &-wrapper {
+    @include flex-column;
+    align-items: flex-start;
+
+    &__item {
+      position: relative;
+      width: 100%;
+    }
+  }
+
+  &__placeholder {
+    --placeholder-padding-top: 1rem;
+    --placeholder-padding-left: 1rem;
+
+    --placeholder-color: var(--gray-300);
+
+    --placeholder-font-size: 1.125rem;
+    --placeholder-font-weight: 400;
+    --placeholder-font-line-height: 1.5rem;
+
+    position: absolute;
+    top: var(--placeholder-padding-top);
+    left: var(--placeholder-padding-left);
+    color: var(--placeholder-color);
+    font-size: var(--placeholder-font-size);
+    font-weight: var(--placeholder-font-weight);
+    line-height: var(--placeholder-font-line-height);
+    transform: translateY(0%);
+    transition: top 0.3s, font-size 0.3s;
+
+    &_active {
+      top: 0.313rem;
+      font-size: 0.85rem;
+      transition: top 0.3s, font-size 0.3s;
+    }
+
+    &_error {
+      --placeholder-color: var(--red-color);
+    }
+  }
+
+  &__label {
+    padding-left: 0.5rem;
+    color: var(--black-color);
+
+    &_invisible {
+      display: none;
+    }
+
+    &_error {
+      color: var(--red-color);
+      display: block;
+    }
+  }
+
+  &:focus {
+    border: var(--input-border-size) solid var(--input-border-color-focus);
+  }
+
+  &:focus-visible {
+    border: var(--input-border-size) solid var(--input-border-color-focus-visible);
+  }
+
+  &_error {
+    --input-border-color: var(--red-color);
+    --input-border-color-focus: var(--red-color);
+    --input-border-color-focus-visible: var(--red-color);
+  }
+}
