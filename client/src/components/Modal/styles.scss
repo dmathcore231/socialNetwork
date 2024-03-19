@@ -32,7 +32,21 @@
     height: var(--modal-content-height);
     gap: var(--modal-content-gap);
 
-    &__header {}
+    &__title {
+      display: flex;
+      width: 100%;
+    }
+
+    &__close {
+      @include flex-center;
+      width: 34px;
+      height: 34px;
+    }
+
+    &__header {
+      @include flex-column;
+      align-items: flex-end;
+    }
 
     &__body {}
 

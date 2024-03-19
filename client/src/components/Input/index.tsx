@@ -17,7 +17,6 @@ export function Input({ type, id, label, placeholder, className, required, value
     }
   }, [value])
 
-
   return (
     <div className="input-wrapper">
       <div className="input-wrapper__item">

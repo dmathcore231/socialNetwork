@@ -1,14 +1,28 @@
 import './styles.scss'
 import { ModalProps } from '../../types/interfaces/ModalProps'
 import { Btn } from '../Btn'
+import { CloseIcon } from '../../assets/icons/CloseIcon'
 
-export function Modal({ isActive, title, children, onClose, onSubmit, modalClass, titleBtnSubmit, titleBtnCancel }: ModalProps): JSX.Element | null {
+export function Modal({ isActive, title, children, onClose, onSubmit, modalClass, titleBtnSubmit, titleBtnCancel, idForm }: ModalProps): JSX.Element | null {
+
   if (!isActive) return null
+
   return (
     <div className={"modal" + (modalClass ? ` ${modalClass}` : "")}>
       <div className="modal-content">
         <div className="modal-content__header">
-          <h2>{title}</h2>
+          <div className='modal-content__close'>
+            <Btn
+              type="button"
+              className="btn_transparent"
+              onClick={onClose}
+            >
+              <CloseIcon width='16' height='16' />
+            </Btn>
+          </div>
+          <div className='modal-content__title'>
+            <h2>{title}</h2>
+          </div>
         </div>
         <div className="modal-content__body">
           {children}
@@ -17,6 +31,7 @@ export function Modal({ isActive, title, children, onClose, onSubmit, modalClass
           <Btn
             type="submit"
             className="btn_primary"
+            formId={idForm}
             onClick={onSubmit}
           >
             {titleBtnSubmit ? titleBtnSubmit : "Submit"}

@@ -1,12 +1,72 @@
 import './styles.scss'
-import { useState } from 'react'
+import { useState, FormEvent } from 'react'
+import { Link } from 'react-router-dom'
 import { Btn } from '../../components/Btn'
 import { Modal } from '../../components/Modal'
 import { Input } from '../../components/Input'
+import { FormSignUp } from '../../types/FormSignUp'
 
 export function Authorization(): JSX.Element {
-  const [isModalActive, setIsModalActive] = useState(false)
-  const [userName, setUserName] = useState<string>('')
+  const [isModalSignUpActive, setIsModalSignUpActive] = useState(false)
+  const [isModalSignInActive, setIsModalSignInActive] = useState(false)
+  const [passwordInvalid, setPasswordInvalid] = useState(false)
+
+  const defaultFormSignUp: FormSignUp = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    birthDay: '',
+    gender: '',
+    password: '',
+    confirmPassword: '',
+  }
+  const [formSignUp, setFormSignUp] = useState(defaultFormSignUp)
+  const [formSignIn, setFormSignIn] = useState({
+    email: '',
+    password: '',
+  })
+
+  function handleSubmitFormSignUp(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    if (formSignUp.password === formSignUp.confirmPassword) {
+      setPasswordInvalid(false)
+      const formData = new FormData()
+      formData.append('firstName', formSignUp.firstName)
+      formData.append('lastName', formSignUp.lastName)
+      formData.append('email', formSignUp.email)
+      formData.append('birthDay', formSignUp.birthDay)
+      formData.append('gender', formSignUp.gender)
+      formData.append('password', formSignUp.password)
+      formData.append('confirmPassword', formSignUp.confirmPassword)
+      setIsModalSignUpActive(false)
+      console.log(formSignUp)
+      setFormSignUp(defaultFormSignUp)
+    } else {
+      setFormSignUp({ ...formSignUp, password: '', confirmPassword: '' })
+      setPasswordInvalid(true)
+    }
+  }
+
+  function handleClickCancelModalSignUp() {
+    setIsModalSignUpActive(false)
+    setFormSignUp(defaultFormSignUp)
+  }
+
+  function handleSubmitFormSignIn(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const formData = new FormData()
+    formData.append('email', formSignIn.email)
+    formData.append('password', formSignIn.password)
+
+    console.log(formSignIn)
+    setIsModalSignInActive(false)
+    setFormSignIn({ email: '', password: '' })
+  }
+
+  function handleClickCancelModalSignIn() {
+    setIsModalSignInActive(false)
+    setFormSignIn({ email: '', password: '' })
+  }
 
   return (
     <div className="authorization container">
@@ -25,11 +85,10 @@ export function Authorization(): JSX.Element {
             <Btn
               type='button'
               className='btn_primary'
-              onClick={() => setIsModalActive(true)}
+              onClick={() => setIsModalSignUpActive(true)}
             >
               Create account
             </Btn>
-
           </div>
           <div className='authorization-form__item'>
             <div className='authorization-form__subtitle title title_size_lg'>
@@ -40,7 +99,7 @@ export function Authorization(): JSX.Element {
             <Btn
               type='button'
               className='btn_primary btn_primary_outline'
-              onClick={() => console.log('click')}
+              onClick={() => setIsModalSignInActive(true)}
             >
               Sign In
             </Btn>
@@ -48,29 +107,132 @@ export function Authorization(): JSX.Element {
         </div>
       </div>
       <Modal
-        isActive={isModalActive}
+        isActive={isModalSignUpActive}
         title='Create your account'
-        onClose={() => setIsModalActive(false)}
-        onSubmit={() => setIsModalActive(false)}
+        onClose={handleClickCancelModalSignUp}
+        idForm="form-sign-up"
       >
-        <form className='form form-auth'>
+        <form className="form form-sign-up"
+          onSubmit={handleSubmitFormSignUp}
+          id="form-sign-up"
+        >
           <Input
             type='text'
-            id='username'
+            id='firstName'
             label={
               {
-                text: "What’s your name?",
+                text: "What’s your first name?",
                 labelInvisible: true
               }
             }
             required={true}
-            placeholder='User Name'
-            onChange={(e) => setUserName(e.target.value)}
-            value={userName}
+            placeholder="First Name"
+            onChange={(e) => setFormSignUp({ ...formSignUp, firstName: e.target.value })}
+            value={formSignUp.firstName}
+          />
+          <Input
+            type='text'
+            id='lastName'
+            label={
+              {
+                text: "What’s your last name?",
+                labelInvisible: true
+              }
+            }
+            required={true}
+            placeholder="Last Name"
+            onChange={(e) => setFormSignUp({ ...formSignUp, lastName: e.target.value })}
+            value={formSignUp.lastName}
+          />
+
+          <Input
+            type="email"
+            id="email"
+            label={
+              {
+                text: "What’s your email?",
+                labelInvisible: true
+              }
+            }
+            required={true}
+            placeholder="Email"
+            onChange={(e) => setFormSignUp({ ...formSignUp, email: e.target.value })}
+            value={formSignUp.email}
+          />
+          <Input
+            type="password"
+            id="password"
+            className={passwordInvalid ? "input_error" : ""}
+            label={
+              {
+                text: "Create a password",
+                labelInvisible: true
+              }
+            }
+            required={true}
+            placeholder='Password'
+            onChange={(e) => setFormSignUp({ ...formSignUp, password: e.target.value })}
+            value={formSignUp.password}
+          />
+          <Input
+            type="password"
+            id="confirmPassword"
+            className={passwordInvalid ? "input_error" : ""}
+            label={
+              {
+                text: "Confirm your password",
+                labelInvisible: true
+              }
+            }
+            required={true}
+            placeholder='Confirm Password'
+            onChange={(e) => setFormSignUp({ ...formSignUp, confirmPassword: e.target.value })}
+            value={formSignUp.confirmPassword}
           />
         </form>
       </Modal>
+      <Modal
+        isActive={isModalSignInActive}
+        title="Sign In"
+        onClose={handleClickCancelModalSignIn}
+        idForm="form-sign-in"
+      >
+        <form className="form form-sign-in"
+          onSubmit={handleSubmitFormSignIn}
+          id="form-sign-in"
+        >
+          <Input
+            type="email"
+            id="email"
+            label={
+              {
+                text: "Email",
+                labelInvisible: true
+              }
+            }
+            required={true}
+            placeholder="Email"
+            onChange={(e) => setFormSignIn({ ...formSignIn, email: e.target.value })}
+            value={formSignIn.email}
+          />
+          <Input
+            type="password"
+            id="password"
+            className={passwordInvalid ? "input_error" : ""}
+            label={
+              {
+                text: "Password",
+                labelInvisible: true
+              }
+            }
+            required={true}
+            placeholder='Password'
+            onChange={(e) => setFormSignIn({ ...formSignIn, password: e.target.value })}
+            value={formSignIn.password}
+          />
+          <Link to="#" className='form__link'>Forgot password?</Link>
+        </form>
+      </Modal>
     </div>
-
   )
 }

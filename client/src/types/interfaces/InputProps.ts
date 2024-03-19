@@ -8,7 +8,7 @@ export interface InputProps {
     labelInvisible: boolean
   }
   required: boolean
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void
   value?: string
   placeholder?: string
   className?: string
