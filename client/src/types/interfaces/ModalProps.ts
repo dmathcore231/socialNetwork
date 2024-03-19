@@ -5,9 +5,16 @@ export interface ModalProps {
   title: string
   children: ReactNode
   onClose: MouseEventHandler<HTMLButtonElement>
-  onSubmit?: MouseEventHandler<HTMLButtonElement>
+  cancelBtn: {
+    visible: boolean
+    onClick?: MouseEventHandler<HTMLButtonElement>
+    title?: string | null
+  }
+  submitBtn: {
+    visible: boolean
+    title?: string | null
+    onClick?: MouseEventHandler<HTMLButtonElement>
+  }
   modalClass?: string
-  titleBtnSubmit?: string
-  titleBtnCancel?: string
   idForm?: string
 }

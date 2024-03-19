@@ -7,8 +7,8 @@ import { Input } from '../../components/Input'
 import { FormSignUp } from '../../types/FormSignUp'
 
 export function Authorization(): JSX.Element {
-  const [isModalSignUpActive, setIsModalSignUpActive] = useState(false)
-  const [isModalSignInActive, setIsModalSignInActive] = useState(false)
+  const [modalSignUpIsActive, setModalSignUpIsActive] = useState(false)
+  const [modalSignInIsActive, setModalSignInIsActive] = useState(false)
   const [passwordInvalid, setPasswordInvalid] = useState(false)
 
   const defaultFormSignUp: FormSignUp = {
@@ -38,9 +38,11 @@ export function Authorization(): JSX.Element {
       formData.append('gender', formSignUp.gender)
       formData.append('password', formSignUp.password)
       formData.append('confirmPassword', formSignUp.confirmPassword)
-      setIsModalSignUpActive(false)
+      setModalSignUpIsActive(false)
+
       console.log(formSignUp)
       setFormSignUp(defaultFormSignUp)
+      setModalSignInIsActive(true)
     } else {
       setFormSignUp({ ...formSignUp, password: '', confirmPassword: '' })
       setPasswordInvalid(true)
@@ -48,7 +50,7 @@ export function Authorization(): JSX.Element {
   }
 
   function handleClickCancelModalSignUp() {
-    setIsModalSignUpActive(false)
+    setModalSignUpIsActive(false)
     setFormSignUp(defaultFormSignUp)
   }
 
@@ -59,12 +61,12 @@ export function Authorization(): JSX.Element {
     formData.append('password', formSignIn.password)
 
     console.log(formSignIn)
-    setIsModalSignInActive(false)
+    setModalSignInIsActive(false)
     setFormSignIn({ email: '', password: '' })
   }
 
   function handleClickCancelModalSignIn() {
-    setIsModalSignInActive(false)
+    setModalSignInIsActive(false)
     setFormSignIn({ email: '', password: '' })
   }
 
@@ -85,7 +87,7 @@ export function Authorization(): JSX.Element {
             <Btn
               type='button'
               className='btn_primary'
-              onClick={() => setIsModalSignUpActive(true)}
+              onClick={() => setModalSignUpIsActive(true)}
             >
               Create account
             </Btn>
@@ -99,7 +101,7 @@ export function Authorization(): JSX.Element {
             <Btn
               type='button'
               className='btn_primary btn_primary_outline'
-              onClick={() => setIsModalSignInActive(true)}
+              onClick={() => setModalSignInIsActive(true)}
             >
               Sign In
             </Btn>
@@ -107,9 +109,16 @@ export function Authorization(): JSX.Element {
         </div>
       </div>
       <Modal
-        isActive={isModalSignUpActive}
+        isActive={modalSignUpIsActive}
         title='Create your account'
         onClose={handleClickCancelModalSignUp}
+        cancelBtn={{
+          visible: true,
+          onClick: handleClickCancelModalSignUp,
+        }}
+        submitBtn={{
+          visible: true,
+        }}
         idForm="form-sign-up"
       >
         <form className="form form-sign-up"
@@ -192,10 +201,18 @@ export function Authorization(): JSX.Element {
         </form>
       </Modal>
       <Modal
-        isActive={isModalSignInActive}
+        isActive={modalSignInIsActive}
         title="Sign In"
         onClose={handleClickCancelModalSignIn}
         idForm="form-sign-in"
+        cancelBtn={{
+          visible: true,
+          onClick: handleClickCancelModalSignIn,
+
+        }}
+        submitBtn={{
+          visible: true,
+        }}
       >
         <form className="form form-sign-in"
           onSubmit={handleSubmitFormSignIn}

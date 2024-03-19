@@ -3,7 +3,7 @@ import { ModalProps } from '../../types/interfaces/ModalProps'
 import { Btn } from '../Btn'
 import { CloseIcon } from '../../assets/icons/CloseIcon'
 
-export function Modal({ isActive, title, children, onClose, onSubmit, modalClass, titleBtnSubmit, titleBtnCancel, idForm }: ModalProps): JSX.Element | null {
+export function Modal({ isActive, title, children, onClose, cancelBtn, submitBtn, modalClass, idForm }: ModalProps): JSX.Element | null {
 
   if (!isActive) return null
 
@@ -28,21 +28,31 @@ export function Modal({ isActive, title, children, onClose, onSubmit, modalClass
           {children}
         </div>
         <div className="modal-content__footer">
-          <Btn
-            type="submit"
-            className="btn_primary"
-            formId={idForm}
-            onClick={onSubmit}
-          >
-            {titleBtnSubmit ? titleBtnSubmit : "Submit"}
-          </Btn>
-          <Btn
-            type="button"
-            className="btn_primary btn_primary_outline"
-            onClick={onClose}
-          >
-            {titleBtnCancel ? titleBtnCancel : "Cancel"}
-          </Btn>
+          {submitBtn.visible
+            ? (
+              <Btn
+                type="submit"
+                className="btn_primary"
+                formId={idForm}
+                onClick={submitBtn.onSubmit}
+              >
+                {submitBtn.title ? submitBtn.title : "Submit"}
+              </Btn>
+            )
+            : (null)
+          }
+          {cancelBtn.visible
+            ? (
+              <Btn
+                type="button"
+                className="btn_primary btn_primary_outline"
+                onClick={cancelBtn.onClick ? cancelBtn.onClick : onClose}
+              >
+                {cancelBtn.title ? cancelBtn.title : "Cancel"}
+              </Btn>
+            )
+            : (null)
+          }
         </div>
       </div>
     </div>

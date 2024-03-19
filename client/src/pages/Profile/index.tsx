@@ -1,11 +1,15 @@
 import './styles.scss'
+import { useState } from 'react'
 import { LinkBack } from '../../components/LinkBack'
 import { AvatarContainer } from '../../components/AvatarContainer'
 import { AvatarDefaultIcon } from '../../assets/icons/AvatarDefaultIcon'
 import { Btn } from '../../components/Btn'
 import { Feed } from '../../components/Feed'
+import { Modal } from '../../components/Modal'
 
 export function Profile(): JSX.Element {
+  const [isModalActive, setIsModalActive] = useState(false)
+
   return (
     <div className="profile content-page">
       <div className="profile-header">
@@ -41,11 +45,20 @@ export function Profile(): JSX.Element {
           <Btn
             type="button"
             className="btn_primary btn_size_sm"
-            onClick={() => console.log("click")}
+            onClick={() => setIsModalActive(true)}
           >
             Settings Profile
           </Btn>
         </div>
+        <Modal
+          title="Settings Profile"
+          isActive={isModalActive}
+          onClose={() => setIsModalActive(false)}
+          cancelBtn={{ visible: false }}
+          submitBtn={{ visible: true, title: "Save" }}
+        >
+          Settings Profile Content
+        </Modal>
       </div>
       <div className="profile-footer">
         <div className="profile-footer__item">
