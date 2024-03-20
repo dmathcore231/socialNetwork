@@ -15,8 +15,6 @@ export function Authorization(): JSX.Element {
     firstName: '',
     lastName: '',
     email: '',
-    birthDay: '',
-    gender: '',
     password: '',
     confirmPassword: '',
   }
@@ -34,10 +32,7 @@ export function Authorization(): JSX.Element {
       formData.append('firstName', formSignUp.firstName)
       formData.append('lastName', formSignUp.lastName)
       formData.append('email', formSignUp.email)
-      formData.append('birthDay', formSignUp.birthDay)
-      formData.append('gender', formSignUp.gender)
       formData.append('password', formSignUp.password)
-      formData.append('confirmPassword', formSignUp.confirmPassword)
       setModalSignUpIsActive(false)
 
       console.log(formSignUp)

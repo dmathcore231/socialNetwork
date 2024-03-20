@@ -1,6 +1,5 @@
-import { UserData } from './UserData'
 
-export type PostData = {
+export interface Post {
   _id: string
   timeStamp: number
   text: string
