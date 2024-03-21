@@ -14,11 +14,11 @@ export function validFormSignUp(req: Request, res: Response, next: NextFunction)
             { field: password, label: 'Password' }
          ])
 
-         const existingEmail = await UserModel.findOne({ email })
-
+         const existingEmail = await UserModel.findOne({ 'userPersonalData.email': email })
          if (existingEmail) {
             res.locals.dataFromClient.error = {
                status: 409,
+               errorNumber: 1,
                message: 'User with this email already exists'
             }
             return next()
@@ -28,6 +28,7 @@ export function validFormSignUp(req: Request, res: Response, next: NextFunction)
       } catch (error: any) {
          res.locals.dataFromClient.error = {
             status: 400,
+            errorNumber: 2,
             message: error.message
          }
          return next()

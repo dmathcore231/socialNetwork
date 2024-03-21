@@ -8,6 +8,7 @@ export interface DataFromClient {
   }
   error: {
     status: number | null
+    errorNumber: number | null
     message: string | null
   }
 }

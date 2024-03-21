@@ -1,8 +1,8 @@
 import { UserData } from '../UserData'
-import { ResponseStatus } from '../ResponseStatus'
+import { ResponseState } from '../ResponseState'
 
 export interface UserState {
   accessToken: string | null
   user: UserData | null
-  responseStatus: ResponseStatus
+  ResponseState: ResponseState
 }

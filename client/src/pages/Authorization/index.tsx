@@ -5,8 +5,12 @@ import { Btn } from '../../components/Btn'
 import { Modal } from '../../components/Modal'
 import { Input } from '../../components/Input'
 import { FormSignUp } from '../../types/FormSignUp'
+import { fetchSignUp } from '../../redux/userSlice'
+import { useAppDispatch } from '../../hooks'
 
 export function Authorization(): JSX.Element {
+  const dispatch = useAppDispatch()
+
   const [modalSignUpIsActive, setModalSignUpIsActive] = useState(false)
   const [modalSignInIsActive, setModalSignInIsActive] = useState(false)
   const [passwordInvalid, setPasswordInvalid] = useState(false)
@@ -35,7 +39,7 @@ export function Authorization(): JSX.Element {
       formData.append('password', formSignUp.password)
       setModalSignUpIsActive(false)
 
-      console.log(formSignUp)
+      dispatch(fetchSignUp(formData))
       setFormSignUp(defaultFormSignUp)
       setModalSignInIsActive(true)
     } else {

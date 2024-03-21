@@ -11,6 +11,7 @@ export function setLocalData(req: Request, res: Response, next: NextFunction) {
     },
     error: {
       status: null,
+      errorNumber: null,
       message: null
     }
   }
