@@ -34,7 +34,7 @@ export function Modal({ isActive, title, children, onClose, cancelBtn, submitBtn
                 type="submit"
                 className="btn_primary"
                 formId={idForm}
-                onClick={submitBtn.onSubmit}
+                onClick={submitBtn.onClick}
               >
                 {submitBtn.title ? submitBtn.title : "Submit"}
               </Btn>

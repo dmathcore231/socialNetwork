@@ -1,4 +1,3 @@
-
 export type FormSignUp = {
   firstName: string
   lastName: string
@@ -6,3 +5,10 @@ export type FormSignUp = {
   password: string
   confirmPassword: string
 }
+
+export type FormSignIn = {
+  email: string
+  password: string
+}
+
+export type FormState = FormSignUp | FormSignIn

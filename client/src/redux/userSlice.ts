@@ -50,10 +50,11 @@ export const userSlice = createSlice({
 
       .addCase(fetchSignUp.rejected, (state, action) => {
         if (action.payload) {
-          state.ResponseState.loading = false
+          state.ResponseState.status = action.payload.status
           state.ResponseState.error = action.payload.error
           state.ResponseState.errorNumber = action.payload.errorNumber
           state.ResponseState.message = action.payload.message
+          state.ResponseState.loading = false
         }
       })
   }

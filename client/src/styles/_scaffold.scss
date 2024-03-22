@@ -54,3 +54,8 @@
     }
   }
 }
+
+.loading {
+  @include flex-center;
+  fill: var(--white-color);
+}

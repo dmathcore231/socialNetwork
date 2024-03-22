@@ -3,19 +3,23 @@ import { useRef, useState, useEffect } from 'react'
 import { InputProps } from '../../types/interfaces/InputProps'
 
 
-export function Input({ type, id, label, placeholder, className, required, value, name, onChange }: InputProps): JSX.Element {
+export function Input({ type, id, label, placeholder, className, required, value, name, onChange, error }: InputProps): JSX.Element {
   const inputRef = useRef<HTMLInputElement>(null)
   const labelRef = useRef<HTMLLabelElement>(null)
   const [isFocused, setIsFocused] = useState(false)
   const [isError, setIsError] = useState(false)
 
   useEffect(() => {
+    console.log(error)
     if (isFocused && !value?.trim()) {
       setIsError(true)
-    } else {
+    } else if (error) {
+      setIsError(true)
+    }
+    else {
       setIsError(false)
     }
-  }, [value])
+  }, [value, error])
 
   return (
     <div className="input-wrapper">
