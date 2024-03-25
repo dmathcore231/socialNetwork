@@ -34,13 +34,13 @@ export function Authorization(): JSX.Element {
   }
 
   const [modalActive, setModalActive] = useState(defaultModalState)
-  const [invalidField, setInvalidField] = useState<InvalidField | null>(null)
+  const [invalidField, setInvalidField] = useState<InvalidField[]>([])
   const [formSignUp, setFormSignUp] = useState(defaultFormSignUp)
   const [formSignIn, setFormSignIn] = useState(defaultFormSignIn)
   const [isSubmit, setIsSubmit] = useState(false)
 
   useEffect(() => {
-    if (isSubmit && invalidField === null) {
+    if (isSubmit && invalidField.length === 0) {
       const formData = new FormData()
       Object.entries(formSignUp).forEach(([key, value]) => {
         formData.append(key, value)
@@ -48,7 +48,7 @@ export function Authorization(): JSX.Element {
       dispatch(fetchSignUp(formData))
     }
 
-    if (status === 201 && invalidField === null) {
+    if (status === 201 && invalidField.length === 0) {
       setModalActive({
         isActive: true,
         modalContent: 'signIn',
@@ -59,13 +59,13 @@ export function Authorization(): JSX.Element {
 
   useEffect(() => {
     if (errorNumber === 1) {
-      setInvalidField({
+      setInvalidField((prev => [...prev, {
         nameField: 'email',
         message: message,
         value: formSignUp.email
-      })
+      }]))
     }
-  }, [errorNumber])
+  }, [errorNumber, isSubmit])
 
   function handleToggleModal(state: ModalState) {
     setModalActive({
@@ -78,26 +78,25 @@ export function Authorization(): JSX.Element {
     setModalActive(defaultModalState)
     setFormSignUp(defaultFormSignUp)
     setFormSignIn(defaultFormSignIn)
-    setInvalidField(null)
+    setInvalidField([])
   }
 
   function handleSubmitModal(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     if (formSignUp.password !== formSignUp.confirmPassword) {
-      setInvalidField({
+      setInvalidField(prev => [...prev, {
         nameField: 'password',
         message: 'Passwords do not match',
         value: formSignUp.password
-      })
-    } else if (invalidField?.nameField === 'password'
+      }])
+    } else if (invalidField.find((item) => item.nameField === 'password')
       && formSignUp.password === formSignUp.confirmPassword) {
-      setInvalidField(null)
+      setInvalidField([])
     }
-
-    if (invalidField?.nameField === 'email' && formSignUp.email !== invalidField.value) {
-      setInvalidField(null)
+    if (invalidField.find((item) => item.nameField === 'email'
+      && item.value !== formSignUp.email)) {
+      setInvalidField([])
     }
-
     setIsSubmit(true)
   }
 
@@ -140,9 +139,9 @@ export function Authorization(): JSX.Element {
           <Input
             type="email"
             id="email"
-            error={invalidField?.nameField === 'email' && formSignUp.email === invalidField.value}
-            label={invalidField?.nameField === 'email' && formSignUp.email === invalidField.value
-              ? { text: invalidField.message, labelInvisible: false }
+            error={invalidField.some((item) => item.nameField === 'email' && formSignUp.email === item.value)}
+            label={invalidField.some((item) => item.nameField === 'email' && formSignUp.email === item.value)
+              ? { text: invalidField.find((item) => item.nameField === 'email')!.message, labelInvisible: false }
               : { text: "Email", labelInvisible: true }}
             required={true}
             placeholder="Email"
@@ -152,11 +151,11 @@ export function Authorization(): JSX.Element {
           <Input
             type="password"
             id="password"
-            error={invalidField?.nameField === 'password'
-              && formSignUp.password !== formSignUp.confirmPassword}
-            label={invalidField?.nameField === 'password'
-              && formSignUp.password !== formSignUp.confirmPassword
-              ? { text: invalidField.message, labelInvisible: false }
+            error={invalidField.some((item) => item.nameField === 'password'
+              && formSignUp.password !== formSignUp.confirmPassword)}
+            label={invalidField.some((item) => item.nameField === 'password'
+              && formSignUp.password !== formSignUp.confirmPassword)
+              ? { text: invalidField.find((item) => item.nameField === 'password')!.message, labelInvisible: false }
               : { text: "Password", labelInvisible: true }}
             required={true}
             placeholder='Password'
@@ -166,12 +165,12 @@ export function Authorization(): JSX.Element {
           <Input
             type="password"
             id="confirmPassword"
-            error={invalidField?.nameField === 'password'
-              && formSignUp.password !== formSignUp.confirmPassword}
-            label={invalidField?.nameField === 'password'
-              && formSignUp.password !== formSignUp.confirmPassword
-              ? { text: invalidField.message, labelInvisible: false }
-              : { text: "Confirm password", labelInvisible: true }}
+            error={invalidField.some((item) => item.nameField === 'password'
+              && formSignUp.password !== formSignUp.confirmPassword)}
+            label={invalidField.some((item) => item.nameField === 'password'
+              && formSignUp.password !== formSignUp.confirmPassword)
+              ? { text: invalidField.find((item) => item.nameField === 'password')!.message, labelInvisible: false }
+              : { text: "Confirm Password", labelInvisible: true }}
             required={true}
             placeholder='Confirm Password'
             onChange={(e) => setFormSignUp({ ...formSignUp, confirmPassword: e.target.value })}

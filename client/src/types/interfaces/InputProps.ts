@@ -1,12 +1,10 @@
 import { ChangeEvent } from 'react'
+import { InputLabelState } from '../InputLabelState'
 
 export interface InputProps {
   type: string
   id: string
-  label: {
-    text: string | null
-    labelInvisible: boolean
-  }
+  label: InputLabelState
   required: boolean
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void
   value?: string
