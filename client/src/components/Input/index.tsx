@@ -10,7 +10,6 @@ export function Input({ type, id, label, placeholder, className, required, value
   const [isError, setIsError] = useState(false)
 
   useEffect(() => {
-    console.log(error)
     if (isFocused && !value?.trim()) {
       setIsError(true)
     } else if (error) {

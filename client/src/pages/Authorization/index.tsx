@@ -40,13 +40,21 @@ export function Authorization(): JSX.Element {
   const [isSubmit, setIsSubmit] = useState(false)
 
   useEffect(() => {
-    if (isSubmit) {
+    if (isSubmit && invalidField === null) {
       const formData = new FormData()
       Object.entries(formSignUp).forEach(([key, value]) => {
         formData.append(key, value)
       })
       dispatch(fetchSignUp(formData))
     }
+
+    if (status === 201 && invalidField === null) {
+      setModalActive({
+        isActive: true,
+        modalContent: 'signIn',
+      })
+    }
+    setIsSubmit(false)
   }, [isSubmit])
 
   useEffect(() => {
@@ -59,19 +67,10 @@ export function Authorization(): JSX.Element {
     }
   }, [errorNumber])
 
-  useEffect(() => {
-    if (status === 200) {
-      setModalActive({
-        isActive: true,
-        modalContent: 'signUp',
-      })
-    }
-  }, [status])
-
   function handleToggleModal(state: ModalState) {
     setModalActive({
-      isActive: state.isActive, //global modal
-      modalContent: state.modalContent, //toggle Modal content
+      isActive: state.isActive,
+      modalContent: state.modalContent,
     })
   }
 
@@ -85,10 +84,21 @@ export function Authorization(): JSX.Element {
   function handleSubmitModal(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     if (formSignUp.password !== formSignUp.confirmPassword) {
-      setInvalidField({ nameField: 'password', message: 'Passwords do not match' })
-    } else if (invalidField === null) { // need fix (added else if)
-      setIsSubmit(true)
+      setInvalidField({
+        nameField: 'password',
+        message: 'Passwords do not match',
+        value: formSignUp.password
+      })
+    } else if (invalidField?.nameField === 'password'
+      && formSignUp.password === formSignUp.confirmPassword) {
+      setInvalidField(null)
     }
+
+    if (invalidField?.nameField === 'email' && formSignUp.email !== invalidField.value) {
+      setInvalidField(null)
+    }
+
+    setIsSubmit(true)
   }
 
   function renderModalContent(content: string | null) {
@@ -131,12 +141,9 @@ export function Authorization(): JSX.Element {
             type="email"
             id="email"
             error={invalidField?.nameField === 'email' && formSignUp.email === invalidField.value}
-            label={
-              {
-                text: "What’s your email?",
-                labelInvisible: true
-              }
-            }
+            label={invalidField?.nameField === 'email' && formSignUp.email === invalidField.value
+              ? { text: invalidField.message, labelInvisible: false }
+              : { text: "Email", labelInvisible: true }}
             required={true}
             placeholder="Email"
             onChange={(e) => setFormSignUp({ ...formSignUp, email: e.target.value })}
