@@ -1,6 +1,6 @@
 import { Fields } from "../types/Fields"
 
-export function CreateResForMissingFields(fields: Fields[]) {
+export function createResForMissingFields(fields: Fields[]) {
   const fieldsMissing = fields
     .filter(item => !item.field)
     .map(item => item.label)

@@ -1,5 +1,5 @@
 
-export type UserData = {
+export type UserDataInResponse = {
   _role: 'user' | 'moderator' | 'admin'
   _id: string
   userName: {
@@ -14,6 +14,4 @@ export type UserData = {
   birthDayUser?: string
   genderUser?: string
   tagUser?: string
-  avatarUser?: string
 }
-

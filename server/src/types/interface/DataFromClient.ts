@@ -5,10 +5,13 @@ export interface DataFromClient {
   token: {
     accessToken: string | null
     validAccessToken: boolean | null
+    refreshToken: string | null
+    validRefreshToken: boolean | null
   }
   error: {
     status: number | null
     errorNumber: number | null
     message: string | null
   }
+  message: string | null
 }

@@ -1,3 +1,4 @@
+import { UserDataInResponse } from "../UserDataInResponse"
 
 export interface ResponseWithoutPayload {
   status: number
@@ -5,3 +6,10 @@ export interface ResponseWithoutPayload {
   errorNumber: number | null
   message: string
 }
+
+export interface ResponseWithUserDataPayload extends ResponseWithoutPayload {
+  token: string
+  user: UserDataInResponse
+}
+
+

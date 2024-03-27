@@ -1,18 +1,20 @@
 import './styles.scss'
 import { useState, FormEvent, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { fetchSignUp } from '../../redux/userSlice'
+import { Link, useNavigate } from 'react-router-dom'
+import { fetchSignUp, fetchSignIn } from '../../redux/userSlice'
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { FormSignUp, FormSignIn } from '../../types/FormState'
 import { InvalidField } from '../../types/InvalidField'
+import { ModalState } from '../../types/ModalState'
 import { Btn } from '../../components/Btn'
 import { Modal } from '../../components/Modal'
 import { Input } from '../../components/Input'
 import { Spinner } from '../../components/Spinner'
-import { ModalState } from '../../types/ModalState'
+
 
 export function Authorization(): JSX.Element {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const { ResponseState: { status, errorNumber, message, loading } } = useAppSelector((state) => state.user)
 
@@ -40,29 +42,54 @@ export function Authorization(): JSX.Element {
   const [isSubmit, setIsSubmit] = useState(false)
 
   useEffect(() => {
-    if (isSubmit && invalidField.length === 0) {
+    if (modalActive.modalContent === 'signUp' && isSubmit) {
       const formData = new FormData()
       Object.entries(formSignUp).forEach(([key, value]) => {
         formData.append(key, value)
       })
       dispatch(fetchSignUp(formData))
+    } else if (modalActive.modalContent === 'signIn' && isSubmit) {
+      const formData = new FormData()
+      Object.entries(formSignIn).forEach(([key, value]) => {
+        formData.append(key, value)
+      })
+      dispatch(fetchSignIn(formData))
     }
-
-    if (status === 201 && invalidField.length === 0) {
+    if (modalActive.modalContent === 'signUp' && status === 201) {
       setModalActive({
         isActive: true,
         modalContent: 'signIn',
       })
+      setInvalidField([])
+    } else if (modalActive.modalContent === 'signIn' && status === 200 && modalActive.isActive) {
+      setModalActive({
+        isActive: false,
+        modalContent: null,
+      })
+      navigate('/') // need add { replace: true }
     }
+
     setIsSubmit(false)
-  }, [isSubmit])
+  }, [isSubmit, status])
 
   useEffect(() => {
     if (errorNumber === 1) {
       setInvalidField((prev => [...prev, {
-        nameField: 'email',
+        name: 'email',
         message: message,
         value: formSignUp.email
+      }]))
+    } else if (errorNumber === 4) {
+      setInvalidField((prev => [...prev, {
+        name: 'email',
+        message: message,
+        value: formSignIn.email
+      }]))
+    } else if (errorNumber === 5) {
+      setInvalidField((prev => [...prev, {
+        name: 'passwordInvalid',
+        message: message,
+        value: formSignIn.password
       }]))
     }
   }, [errorNumber, isSubmit])
@@ -83,21 +110,63 @@ export function Authorization(): JSX.Element {
 
   function handleSubmitModal(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    let newInvalidFields = [...invalidField]
     if (formSignUp.password !== formSignUp.confirmPassword) {
-      setInvalidField(prev => [...prev, {
-        nameField: 'password',
+      const newItem: InvalidField = {
+        name: 'password',
         message: 'Passwords do not match',
         value: formSignUp.password
-      }])
-    } else if (invalidField.find((item) => item.nameField === 'password')
-      && formSignUp.password === formSignUp.confirmPassword) {
-      setInvalidField([])
+      }
+
+      const filter = invalidField.some(item => item.name === newItem.name)
+      if (!filter) {
+        newInvalidFields.push(newItem)
+      }
+
+    } else {
+      newInvalidFields = newInvalidFields.filter((item) => item.name !== 'password')
     }
-    if (invalidField.find((item) => item.nameField === 'email'
-      && item.value !== formSignUp.email)) {
-      setInvalidField([])
+
+    const emailSignUp = newInvalidFields.some(item => item.name === 'email'
+      && item.value !== formSignUp.email)
+    const emailSignIn = newInvalidFields.some(item => item.name === 'email'
+      && item.value !== formSignIn.email)
+
+    if (emailSignUp || emailSignIn) {
+      newInvalidFields = newInvalidFields.filter((item) => item.name !== 'email')
     }
-    setIsSubmit(true)
+
+    if (newInvalidFields.some((item) => item.name === 'passwordInvalid' && item.value !== formSignIn.password)) {
+      newInvalidFields = newInvalidFields.filter((item) => item.name !== 'passwordInvalid')
+    }
+
+    if (newInvalidFields.length === 0) {
+      setIsSubmit(true)
+    }
+
+    setInvalidField(newInvalidFields)
+  }
+
+  function renderLabel<InputLabelState>(nameField: string, form: FormSignUp | FormSignIn | null = null, defaultLabel: InputLabelState) {
+    const checkInvalidField = invalidField.find(item => item.name === nameField)
+    if (checkInvalidField && !form) {
+      return (
+        {
+          text: checkInvalidField.message,
+          labelInvisible: false
+        }
+      )
+    } else if (checkInvalidField && form && checkInvalidField.value === form.email) {
+      return (
+        {
+          text: checkInvalidField.message,
+          labelInvisible: false
+        }
+      )
+    }
+    else {
+      return defaultLabel
+    }
   }
 
   function renderModalContent(content: string | null) {
@@ -139,42 +208,33 @@ export function Authorization(): JSX.Element {
           <Input
             type="email"
             id="email"
-            error={invalidField.some((item) => item.nameField === 'email' && formSignUp.email === item.value)}
-            label={invalidField.some((item) => item.nameField === 'email' && formSignUp.email === item.value)
-              ? { text: invalidField.find((item) => item.nameField === 'email')!.message, labelInvisible: false }
-              : { text: "Email", labelInvisible: true }}
+            label={renderLabel('email', formSignUp,
+              { text: "Enter your email", labelInvisible: true })}
             required={true}
             placeholder="Email"
             onChange={(e) => setFormSignUp({ ...formSignUp, email: e.target.value })}
             value={formSignUp.email}
+            error={invalidField.find(item => item.name === 'email' && item.value === formSignUp.email) ? true : false}
           />
           <Input
             type="password"
             id="password"
-            error={invalidField.some((item) => item.nameField === 'password'
-              && formSignUp.password !== formSignUp.confirmPassword)}
-            label={invalidField.some((item) => item.nameField === 'password'
-              && formSignUp.password !== formSignUp.confirmPassword)
-              ? { text: invalidField.find((item) => item.nameField === 'password')!.message, labelInvisible: false }
-              : { text: "Password", labelInvisible: true }}
+            label={renderLabel('password', null, { text: "Enter your password", labelInvisible: true })}
             required={true}
             placeholder='Password'
             onChange={(e) => setFormSignUp({ ...formSignUp, password: e.target.value })}
             value={formSignUp.password}
+            error={invalidField.find(item => item.name === 'password') ? true : false}
           />
           <Input
             type="password"
             id="confirmPassword"
-            error={invalidField.some((item) => item.nameField === 'password'
-              && formSignUp.password !== formSignUp.confirmPassword)}
-            label={invalidField.some((item) => item.nameField === 'password'
-              && formSignUp.password !== formSignUp.confirmPassword)
-              ? { text: invalidField.find((item) => item.nameField === 'password')!.message, labelInvisible: false }
-              : { text: "Confirm Password", labelInvisible: true }}
+            label={renderLabel('password', null, { text: "Confirm Password", labelInvisible: true })}
             required={true}
             placeholder='Confirm Password'
             onChange={(e) => setFormSignUp({ ...formSignUp, confirmPassword: e.target.value })}
             value={formSignUp.confirmPassword}
+            error={invalidField.find(item => item.name === 'password') ? true : false}
           />
         </form>
       )
@@ -187,30 +247,22 @@ export function Authorization(): JSX.Element {
           <Input
             type="email"
             id="email"
-            label={
-              {
-                text: "Email",
-                labelInvisible: true
-              }
-            }
+            label={renderLabel('email', formSignIn, { text: "Enter your email", labelInvisible: true })}
             required={true}
             placeholder="Email"
             onChange={(e) => setFormSignIn({ ...formSignIn, email: e.target.value })}
             value={formSignIn.email}
+            error={invalidField.find(item => item.name === 'email' && item.value === formSignIn.email) ? true : false}
           />
           <Input
             type="password"
             id="password"
-            label={
-              {
-                text: "Password",
-                labelInvisible: true
-              }
-            }
+            label={renderLabel('passwordInvalid', null, { text: "Password", labelInvisible: true })}
             required={true}
             placeholder='Password'
             onChange={(e) => setFormSignIn({ ...formSignIn, password: e.target.value })}
             value={formSignIn.password}
+            error={invalidField.find(item => item.name === 'passwordInvalid') ? true : false}
           />
           <Link to="#" className='form__link'>Forgot password?</Link>
         </form>

@@ -1,6 +1,7 @@
 
 export type InvalidField = {
-  nameField: string
+  name: string
   message: string | null
-  value?: string | number
+  value: string | null
 }
+

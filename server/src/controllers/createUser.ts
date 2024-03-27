@@ -22,7 +22,7 @@ export async function createUser(req: Request, res: Response, next: NextFunction
     })
     await user.save()
     res.locals.dataFromClient.user = user
-    res.locals.dataFromClient.error.message = 'User successfully created'
+    res.locals.dataFromClient.message = 'User successfully created'
 
     return next()
   }

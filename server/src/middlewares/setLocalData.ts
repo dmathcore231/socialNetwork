@@ -7,15 +7,18 @@ export function setLocalData(req: Request, res: Response, next: NextFunction) {
     user: null,
     token: {
       accessToken: null,
-      validAccessToken: null
+      validAccessToken: null,
+      refreshToken: null,
+      validRefreshToken: null
     },
     error: {
       status: null,
       errorNumber: null,
       message: null
-    }
+    },
+    message: null
   }
   res.locals.dataFromClient = data
-  next()
+  return next()
 }
 
