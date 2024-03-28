@@ -12,7 +12,6 @@ import { NavBar } from '../NavBar'
 export function Layout(): JSX.Element {
   const dispatch = useAppDispatch()
   const token = getDataFromLocalStorage('token')
-  console.log(token)
 
   useEffect(() => {
     if (token) {

@@ -97,6 +97,7 @@ function setResponseGetUserByToken(req: Request, res: Response) {
         error: true,
         message
       }
+
       return res.status(status).send(response)
     }
 
@@ -109,6 +110,7 @@ function setResponseGetUserByToken(req: Request, res: Response) {
       user
     }
 
+    res.clearCookie('refreshToken')
     return res.status(response.status).send(response)
   } catch (error) {
     const response: ResponseWithoutPayload = {
