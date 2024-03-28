@@ -1,15 +1,21 @@
 import { Request, Response, NextFunction } from 'express'
 import { DataFromClient } from '../types/interface/DataFromClient'
 
-export function setLocalData(req: Request, res: Response, next: NextFunction) {
+export function setLocalDataMiddleware(req: Request, res: Response, next: NextFunction) {
 
   const data: DataFromClient = {
     user: null,
     token: {
-      accessToken: null,
-      validAccessToken: null,
-      refreshToken: null,
-      validRefreshToken: null
+      accessToken: {
+        validToken: null,
+        value: null,
+        expired: null
+      },
+      refreshToken: {
+        validToken: null,
+        value: null,
+        expired: null
+      }
     },
     error: {
       status: null,

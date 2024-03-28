@@ -8,17 +8,17 @@ export async function authenticateUser(req: Request, res: Response, next: NextFu
   const { email } = req.body
   const { status } = res.locals.dataFromClient.error
   const { dataFromClient } = res.locals
-  const { token } = dataFromClient
+  const { accessToken, refreshToken } = dataFromClient.token
 
   const user = await UserModel.findOne({ 'userPersonalData.email': email })
 
   if (!status && user) {
 
-    const accessToken = jwt.sign({ id: user._id },
+    const setAccessToken = jwt.sign({ id: user._id },
       SECRET_KEY,
       { expiresIn: EXP_IN_ACCESS_TOKEN }
     )
-    const refreshToken = jwt.sign({ id: user._id, fullName: user.userName.fullName, tagUser: user.tagUser, _role: user._role },
+    const setRefreshToken = jwt.sign({ id: user._id, fullName: user.userName.fullName, tagUser: user.tagUser, _role: user._role },
       SECRET_KEY,
       { expiresIn: EXP_IN_REFRESH_TOKEN }
     )
@@ -37,11 +37,9 @@ export async function authenticateUser(req: Request, res: Response, next: NextFu
     }
 
     dataFromClient.user = dataUser
-    token.accessToken = accessToken
-    token.validAccessToken = true
-    token.refreshToken = refreshToken
-    token.validRefreshToken = true
     dataFromClient.message = 'User successfully authenticated'
+    accessToken.value = setAccessToken
+    refreshToken.value = setRefreshToken
 
     return next()
   }

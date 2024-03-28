@@ -3,7 +3,7 @@ import { createResForMissingFields } from '../utils/createResForMissingFields'
 import { UserModel } from '../models/userSchema'
 import { compare } from 'bcrypt'
 
-export async function validFormSignIn(req: Request, res: Response, next: NextFunction) {
+export async function validateSignInFormMiddleware(req: Request, res: Response, next: NextFunction) {
   const { email, password } = req.body
 
   try {

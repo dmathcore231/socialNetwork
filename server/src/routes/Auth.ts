@@ -1,37 +1,94 @@
 import express, { Request, Response } from "express"
 import { createUser } from "../controllers/createUser"
 import { authenticateUser } from "../controllers/authenticateUser"
-import { validFormSignUp } from "../middlewares/validFormSignUp"
-import { validFormSignIn } from "../middlewares/validFormSignIn"
+import { getUserByToken } from "../controllers/getUserByToken"
+import { validateSignUpFormMiddleware } from "../middlewares/validateSignUpFormMiddleware"
+import { validateSignInFormMiddleware } from "../middlewares/validateSignInFormMiddleware"
+import { checkTokenMiddleware } from "../middlewares/checkTokenMiddleware"
 import { ResponseWithoutPayload, ResponseWithUserDataPayload } from "../types/interface/ResponseToClient"
 
 const authRouter = express.Router()
 
 function setResponseSignUp(req: Request, res: Response) {
   const { status, errorNumber, message } = res.locals.dataFromClient.error
-  if (status) {
-    const response: ResponseWithoutPayload = {
-      status,
-      errorNumber,
-      error: true,
-      message
-    }
-    return res.status(status).send(response)
-  }
+  try {
+    if (status) {
+      const response: ResponseWithoutPayload = {
+        status,
+        errorNumber,
+        error: true,
+        message
+      }
 
-  const response: ResponseWithoutPayload = {
-    status: 201,
-    errorNumber: null,
-    error: false,
-    message: res.locals.dataFromClient.message
+      return res.status(status).send(response)
+    }
+
+    const response: ResponseWithoutPayload = {
+      status: 201,
+      errorNumber: null,
+      error: false,
+      message: res.locals.dataFromClient.message
+    }
+
+    return res.status(201).send(response)
+  } catch (error) {
+    const response: ResponseWithoutPayload = {
+      status: 500,
+      errorNumber: 8,
+      error: true,
+      message: 'Internal Server Error'
+    }
+
+    return res.status(response.status).send(response)
   }
-  return res.status(201).send(response)
 }
 
 function setResponseSignIN(req: Request, res: Response) {
-  const { status, errorNumber, message } = res.locals.dataFromClient.error
-  const { token, user } = res.locals.dataFromClient
+  const { dataFromClient } = res.locals
+  const { status, errorNumber, message } = dataFromClient.error
+  const { user } = dataFromClient
+  const { accessToken, refreshToken } = dataFromClient.token
 
+  try {
+    if (status) {
+      const response: ResponseWithoutPayload = {
+        status,
+        errorNumber,
+        error: true,
+        message
+      }
+
+      return res.status(status).send(response)
+    }
+
+    const response: ResponseWithUserDataPayload = {
+      status: 200,
+      errorNumber: null,
+      error: false,
+      message: dataFromClient.message,
+      token: accessToken.value,
+      user
+    }
+
+    res.cookie('refreshToken', refreshToken.value, { maxAge: 30 * 24 * 60 * 60 * 1000, sameSite: 'strict', httpOnly: false, secure: true })
+    return res.status(response.status).send(response)
+  } catch (error) {
+    const response: ResponseWithoutPayload = {
+      status: 500,
+      errorNumber: 8,
+      error: true,
+      message: 'Internal Server Error'
+    }
+
+    return res.status(response.status).send(response)
+  }
+}
+
+function setResponseGetUserByToken(req: Request, res: Response) {
+  const { dataFromClient } = res.locals
+  const { status, errorNumber, message } = dataFromClient.error
+  const { user } = dataFromClient
+  const { accessToken } = dataFromClient.token
   try {
     if (status) {
       const response: ResponseWithoutPayload = {
@@ -47,20 +104,28 @@ function setResponseSignIN(req: Request, res: Response) {
       status: 200,
       errorNumber: null,
       error: false,
-      message: res.locals.dataFromClient.message,
-      token: token.accessToken,
+      message: dataFromClient.message,
+      token: accessToken.value,
       user
     }
 
-    res.cookie('refreshToken', token.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, sameSite: 'strict', httpOnly: false, secure: true })
     return res.status(response.status).send(response)
   } catch (error) {
+    const response: ResponseWithoutPayload = {
+      status: 500,
+      errorNumber: 8,
+      error: true,
+      message: 'Internal Server Error'
+    }
 
+    return res.status(response.status).send(response)
   }
+
 }
 
-authRouter.post("/auth/signup", validFormSignUp, createUser, setResponseSignUp)
-authRouter.post("/auth/signin", validFormSignIn, authenticateUser, setResponseSignIN)
+authRouter.post("/auth/signup", validateSignUpFormMiddleware, createUser, setResponseSignUp)
+authRouter.post("/auth/signin", validateSignInFormMiddleware, authenticateUser, setResponseSignIN)
+authRouter.get("/auth/user", checkTokenMiddleware, getUserByToken, setResponseGetUserByToken)
 
 export { authRouter }
 

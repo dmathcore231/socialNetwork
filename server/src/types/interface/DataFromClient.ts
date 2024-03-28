@@ -3,10 +3,16 @@ import { User } from "./User"
 export interface DataFromClient {
   user: User | null
   token: {
-    accessToken: string | null
-    validAccessToken: boolean | null
-    refreshToken: string | null
-    validRefreshToken: boolean | null
+    accessToken: {
+      validToken: boolean | null
+      value: string | null
+      expired: boolean | null
+    }
+    refreshToken: {
+      validToken: boolean | null
+      value: string | null
+      expired: boolean | null
+    }
   }
   error: {
     status: number | null

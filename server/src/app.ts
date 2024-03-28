@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express'
 import mongoose, { Mongoose, mongo } from 'mongoose'
 import cookieParser from 'cookie-parser'
-import { setLocalData } from './middlewares/setLocalData'
+import { setLocalDataMiddleware } from './middlewares/setLocalDataMiddleware'
 import { authRouter } from './routes/Auth'
 
 const app = express()
@@ -17,7 +17,7 @@ app.use((_: Request, res: Response, next: NextFunction) => {
 app.use(express.json())
 app.use(cookieParser())
 
-app.use(setLocalData)
+app.use(setLocalDataMiddleware)
 
 app.use(authRouter)
 
