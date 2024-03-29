@@ -19,8 +19,8 @@ export function checkTokenMiddleware(req: Request, res: Response, next: NextFunc
         const user = await UserModel.findById(decodeAccessToken.id)
         const currentTimestamp = Math.floor(Date.now() / 1000)
 
-        if (decodeAccessToken.exp! - currentTimestamp <= 300) {
-          accessToken.value.expired = true
+        if (decodeAccessToken.value && decodeAccessToken.exp! - currentTimestamp <= 300) {
+          decodeAccessToken.value.expired = true
         }
 
         accessToken.value = accessTokenInReq
@@ -33,9 +33,10 @@ export function checkTokenMiddleware(req: Request, res: Response, next: NextFunc
       }
     } catch (error: unknown) {
       const err: VerifyErrors = error as VerifyErrors
-      const decodeRefreshToken = jwt.decode(refreshToken.token) as JwtPayload
+      const decodeAccessToken = jwt.decode(accessTokenInReq!) as JwtPayload
+      const decodeRefreshToken = jwt.decode(refreshTokenInReq) as JwtPayload
       const currentTimestamp = Math.floor(Date.now() / 1000)
-      console.log(err)
+
       if (err.name === 'TokenExpiredError' && decodeRefreshToken.exp! - currentTimestamp <= 300) {
         dataFromClient.error = {
           status: 401,
@@ -45,7 +46,12 @@ export function checkTokenMiddleware(req: Request, res: Response, next: NextFunc
         refreshToken.expired = true
 
         return next()
+
       } else if (err.name === 'TokenExpiredError') {
+        const user = await UserModel.findById(decodeAccessToken.id)
+        dataFromClient.user = user
+        accessToken.value = decodeAccessToken
+        accessToken.validToken = true
         accessToken.expired = true
 
         return next()

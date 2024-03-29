@@ -13,7 +13,6 @@ export async function getUserByToken(req: Request, res: Response, next: NextFunc
     const user = await UserModel.findById(dataFromClient.user._id)
 
     if (user) {
-      console.log('++')
       const dataUser: UserDataInResponse = {
         _role: user._role,
         _id: user._id,
@@ -36,7 +35,6 @@ export async function getUserByToken(req: Request, res: Response, next: NextFunc
       accessToken.value = (accessToken.expired ? setAccessToken : accessToken.value)
       accessToken.validToken = true
       accessToken.expired = false
-      console.log(dataUser)
     }
 
     return next()

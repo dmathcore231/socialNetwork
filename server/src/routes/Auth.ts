@@ -115,6 +115,7 @@ function setResponseGetUserByToken(req: Request, res: Response) {
 
     return res.status(response.status).send(response)
   } catch (error) {
+    console.log(error)
     const response: ResponseWithoutPayload = {
       status: 500,
       errorNumber: 8,
