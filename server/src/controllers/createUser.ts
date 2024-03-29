@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { hash } from 'bcrypt'
 import { UserModel } from '../models/userSchema'
+import { formDefaultUserTag } from '../helpers/formDefaultUserTag'
 
 export async function createUser(req: Request, res: Response, next: NextFunction) {
   const { firstName, lastName, email, password } = req.body
@@ -12,6 +13,7 @@ export async function createUser(req: Request, res: Response, next: NextFunction
   }
   const formattedDate = new Intl.DateTimeFormat('en-US', options).format(currentDate)
 
+
   if (!status) {
     const hashedPassword = await hash(password, 10)
 
@@ -22,7 +24,7 @@ export async function createUser(req: Request, res: Response, next: NextFunction
           lastName,
           fullName: `${firstName} ${lastName}`
         },
-        userTag: `@${firstName}${lastName}`
+        userTag: formDefaultUserTag(firstName, lastName)
       },
 
       userPersonalData: {

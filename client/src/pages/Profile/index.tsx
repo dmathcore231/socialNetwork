@@ -1,5 +1,6 @@
 import './styles.scss'
 import { useState } from 'react'
+import { useAppSelector } from '../../hooks'
 import { LinkBack } from '../../components/LinkBack'
 import { AvatarContainer } from '../../components/AvatarContainer'
 import { AvatarDefaultIcon } from '../../assets/icons/AvatarDefaultIcon'
@@ -8,6 +9,8 @@ import { Feed } from '../../components/Feed'
 import { Modal } from '../../components/Modal'
 
 export function Profile(): JSX.Element {
+  const { user } = useAppSelector(state => state.user)
+
   const [isModalActive, setIsModalActive] = useState(false)
 
   return (
@@ -20,10 +23,10 @@ export function Profile(): JSX.Element {
         </div>
         <div className="profile-header__item">
           <div className="profile-header__title">
-            <h4>Your Name</h4>
+            <h4>{user?.userData.userName.fullName}</h4>
           </div>
           <div className="profile-header__counter-posts">
-            0 posts
+            {user?.userActivityData.posts?.length || '0'} posts
           </div>
         </div>
       </div>
@@ -62,16 +65,17 @@ export function Profile(): JSX.Element {
       </div>
       <div className="profile-footer">
         <div className="profile-footer__item">
-          <h3>Your Name</h3>
+          <h3>{user?.userData.userName.fullName}</h3>
           <span className="title title_size_lg title_color_gray-500">
-            @userTag
+            {user?.userData.userTag}
           </span>
         </div>
         <div className="profile-footer__item title">
-          Registration: August 2013
+          Registration: {user?.formattedRegistrationDate}
         </div>
         <div className="profile-footer__item title">
-          {`0 Subscriptions 0 Subscribers`}
+          {user?.userActivityData.subscriptions?.length || '0'} Subscriptions
+          0 Subscribers
         </div>
         <div className="profile-footer__item profile-footer__item_padding_top_lg">
           <Feed />
