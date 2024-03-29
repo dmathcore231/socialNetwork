@@ -18,7 +18,7 @@ export async function authenticateUser(req: Request, res: Response, next: NextFu
       SECRET_KEY,
       { expiresIn: EXP_IN_ACCESS_TOKEN }
     )
-    const setRefreshToken = jwt.sign({ id: user._id, fullName: user.userName.fullName, tagUser: user.tagUser, _role: user._role },
+    const setRefreshToken = jwt.sign({ id: user._id, fullName: user.userData.userName.fullName, tagUser: user.userData.userTag, _role: user._role },
       SECRET_KEY,
       { expiresIn: EXP_IN_REFRESH_TOKEN }
     )
@@ -26,14 +26,13 @@ export async function authenticateUser(req: Request, res: Response, next: NextFu
     const dataUser: UserDataInResponse = {
       _role: user._role,
       _id: user._id,
-      userName: { ...user.userName },
+      formattedRegistrationDate: user.formattedRegistrationDate,
+      userData: { ...user.userData },
       userPersonalData: {
         email: user.userPersonalData.email,
         phone: user.userPersonalData.phone
       },
-      birthDayUser: user.birthDayUser,
-      genderUser: user.genderUser,
-      tagUser: user.tagUser
+      userActivityData: { ...user.userActivityData },
     }
 
     dataFromClient.user = dataUser

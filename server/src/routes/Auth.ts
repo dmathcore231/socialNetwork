@@ -89,6 +89,7 @@ function setResponseGetUserByToken(req: Request, res: Response) {
   const { status, errorNumber, message } = dataFromClient.error
   const { user } = dataFromClient
   const { accessToken } = dataFromClient.token
+
   try {
     if (status) {
       const response: ResponseWithoutPayload = {
@@ -98,6 +99,8 @@ function setResponseGetUserByToken(req: Request, res: Response) {
         message
       }
 
+
+      res.clearCookie('refreshToken')
       return res.status(status).send(response)
     }
 
@@ -110,7 +113,6 @@ function setResponseGetUserByToken(req: Request, res: Response) {
       user
     }
 
-    res.clearCookie('refreshToken')
     return res.status(response.status).send(response)
   } catch (error) {
     const response: ResponseWithoutPayload = {

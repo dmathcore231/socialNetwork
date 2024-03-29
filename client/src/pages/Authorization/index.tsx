@@ -66,7 +66,7 @@ export function Authorization(): JSX.Element {
         isActive: false,
         modalContent: null,
       })
-      navigate('/') // need add { replace: true }
+      navigate('/', { replace: true })
     }
 
     setIsSubmit(false)
