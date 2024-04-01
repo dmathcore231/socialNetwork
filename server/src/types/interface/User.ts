@@ -1,4 +1,9 @@
 import { Document } from 'mongoose'
+import { CommentData } from '../CommentData'
+import { Post } from './Post'
+import { LikeData } from '../likeData'
+import { ReportData } from '../ReportData'
+import { RepostData } from '../RepostData'
 
 export interface User extends Document {
   userData: {
@@ -26,12 +31,12 @@ export interface User extends Document {
   }
 
   userActivityData: {
-    posts: string[] | null
-    comments: string[] | null
-    likes: string[] | null
-    reposts: string[] | null
+    posts: Post[] | null
+    comments: CommentData[] | null
+    likes: LikeData[] | null
+    reposts: RepostData[] | null
     subscriptions: string[] | null
-    reports: string[] | null
+    reports: ReportData[] | null
   }
 
   registrationDate: Date

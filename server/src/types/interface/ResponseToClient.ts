@@ -1,4 +1,4 @@
-import { UserDataInResponse } from "../UserDataInResponse"
+import { User } from '../interface/User'
 
 export interface ResponseWithoutPayload {
   status: number
@@ -9,7 +9,7 @@ export interface ResponseWithoutPayload {
 
 export interface ResponseWithUserDataPayload extends ResponseWithoutPayload {
   token: string
-  user: UserDataInResponse
+  user: Partial<User>
 }
 
 
