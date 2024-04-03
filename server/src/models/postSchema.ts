@@ -8,7 +8,7 @@ const postSchema: Schema<Post> = new Schema<Post>({
       default: Date.now
     },
     formattedCreationDate: String,
-    userIdCreated: String
+    userDataCreator: Object
   },
 
   postData: {

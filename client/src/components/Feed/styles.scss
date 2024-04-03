@@ -2,4 +2,8 @@
 
 .feed {
   width: 100%;
+
+  &__content {
+    padding-top: 1rem;
+  }
 }

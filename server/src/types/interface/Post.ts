@@ -1,12 +1,13 @@
 import { Document } from "mongoose"
 import { ReportData } from "../ReportData"
 import { ActivityData } from "./ActivityData"
+import { UserDataCreator } from "../UserDataCreator"
 
 export interface Post extends Document {
   creationData: {
     _timeStamp: number
     formattedCreationDate: string
-    userIdCreated: string
+    userDataCreator: UserDataCreator
   }
 
   postData: {

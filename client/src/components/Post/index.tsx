@@ -1,6 +1,7 @@
 import './styles.scss'
 import { PostProps } from '../../types/interfaces/PostProps'
 import { AvatarContainer } from '../AvatarContainer'
+import { AvatarDefaultIcon } from '../../assets/icons/AvatarDefaultIcon'
 import { CommentsIcon } from '../../assets/icons/CommentsIcon'
 import { RepostIcon } from '../../assets/icons/RepostIcon'
 import { LikeIcon } from '../../assets/icons/LikeIcon'
@@ -9,30 +10,33 @@ import { MoreIcon } from '../../assets/icons/MoreIcon'
 import { Btn } from '../Btn'
 
 export function Post({ data }: PostProps): JSX.Element {
+  const { fullName, tag, userAvatar } = data.creationData.userDataCreator
   return (
     <div className="post">
       <div className="post-header">
         <div className="post-header__user">
           <span className="post-header__item">
             <AvatarContainer
-              className='avatar_size_sm'
+              className='avatar_border_color_white avatar_size_sm avatar_bg_color_gray-200'
             >
-              {data.user.userAvatar.avatarSizeSm}
+              {userAvatar?.avatarSizeSm
+                ? userAvatar.avatarSizeSm
+                : <AvatarDefaultIcon width='24px' height='24px' />}
             </AvatarContainer>
           </span>
           <div className='post-header__wrapper-item'>
             <span className="post-header__item
           title title_size_lg"
             >
-              {data.user.userData.userName.fullName}
+              {fullName}
             </span>
             <span className="post-header__item
           title title_color_gray-500"
             >
-              {data.user.userData.userTag}
+              {tag}
             </span>
             <span className="post-header__item">
-              {data.timeStamp}
+              | {data.creationData.formattedCreationDate}
             </span>
           </div>
         </div>
@@ -47,7 +51,12 @@ export function Post({ data }: PostProps): JSX.Element {
         </div>
       </div>
       <div className="post-body">
-        {data.text}
+        <div className='post-body__title'>
+          {data.postData.title}
+        </div>
+        <div className='post-body__text'>
+          {data.postData.text}
+        </div>
       </div>
       <div className='post-footer'>
         <span className='post-footer__item'>
@@ -57,7 +66,7 @@ export function Post({ data }: PostProps): JSX.Element {
             onClick={() => console.log('click comments')}
           >
             <CommentsIcon width='24px' height='24px' />
-            {data.statPost.comments}
+            {data.postActivityData.comments?.length || 0}
           </Btn>
 
         </span>
@@ -68,7 +77,7 @@ export function Post({ data }: PostProps): JSX.Element {
             onClick={() => console.log('click reposts')}
           >
             <RepostIcon width='24px' height='24px' />
-            {data.statPost.reposts}
+            {data.postActivityData.reposts?.length || 0}
           </Btn>
         </span>
         <span className='post-footer__item'>
@@ -78,7 +87,7 @@ export function Post({ data }: PostProps): JSX.Element {
             onClick={() => console.log('click likes')}
           >
             <LikeIcon width='24px' height='24px' />
-            {data.statPost.likes}
+            {data.postActivityData.likes?.length || 0}
           </Btn>
         </span>
         <span className='post-footer__item'>
@@ -88,7 +97,7 @@ export function Post({ data }: PostProps): JSX.Element {
             onClick={() => console.log('click viewed')}
           >
             <ViewedIcon width='24px' height='24px' />
-            {data.statPost.viewed}
+            {data.postActivityData.views?.length || 0}
           </Btn>
         </span>
       </div>

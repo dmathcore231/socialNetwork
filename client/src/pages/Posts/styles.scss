@@ -1,0 +1,6 @@
+@import '../../styles/app.scss';
+
+.posts {
+  @include flex-column;
+  gap: 1rem;
+}

@@ -1,3 +1,8 @@
+import { PostData } from "./PostData"
+import { CommentData } from "./CommentData"
+import { LikeData } from "./likeData"
+import { RepostData } from "./RepostData"
+import { ReportData } from "./ReportData"
 
 export type UserData = {
   _role: 'user' | 'moderator' | 'admin'
@@ -27,12 +32,12 @@ export type UserData = {
   }
 
   userActivityData: {
-    posts: string[] | null
-    comments: string[] | null
-    likes: string[] | null
-    reposts: string[] | null
+    posts: PostData[] | null
+    comments: CommentData[] | null
+    likes: LikeData[] | null
+    reposts: RepostData[] | null
     subscriptions: string[] | null
-    reports: string[] | null
+    reports: ReportData[] | null
   }
 }
 

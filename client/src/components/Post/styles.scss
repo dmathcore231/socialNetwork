@@ -25,10 +25,15 @@
       align-items: flex-end;
       gap: 0.5rem;
     }
+
+    &__item {
+      @include flex-center;
+    }
   }
 
   &-body {
-    display: flex;
+    @include flex-column;
+    align-items: flex-start;
     justify-content: flex-start;
   }
 

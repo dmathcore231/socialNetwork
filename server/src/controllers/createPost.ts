@@ -14,7 +14,18 @@ export async function createPost(req: Request, res: Response, next: NextFunction
   const newPost = await PostModel.create({
     creationData: {
       formattedCreationDate: getFormattedDate(),
-      userIdCreated: user._id
+      userDataCreator: {
+        _id: user._id,
+        _role: user._role,
+        fullName: user.userData.userName.fullName,
+        tag: user.userData.userTag,
+        ...(user.userPersonalData.avatar && {
+          userAvatar: {
+            avatarSizeSm: user.userPersonalData.avatar.avatarSizeSm,
+            avatarSizeLg: user.userPersonalData.avatar.avatarSizeLg
+          }
+        })
+      }
     },
     postData: postData
   })
