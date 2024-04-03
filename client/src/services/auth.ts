@@ -7,7 +7,7 @@ export const requestSignUp = async (body: FormData): Promise<ResponseWithoutPayl
   try {
     const { data } = await client.post(authSignUpEndPoint, body, {
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'multipart/form-data'
       }
     })
     return data
@@ -21,7 +21,7 @@ export const requestSignIn = async (body: FormData): Promise<ResponseWithUserDat
   try {
     const { data } = await client.post(authSignInEndPoint, body, {
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'multipart/form-data'
       }
     })
     return data

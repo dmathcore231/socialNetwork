@@ -1,7 +1,7 @@
-import { CommentData } from "../commentData"
+import { CommentData } from "../CommentData"
 import { LikeData } from "../likeData"
 import { RepostData } from "../RepostData"
-import { ViewsData } from "../viewsData"
+import { ViewsData } from "../ViewsData"
 
 export interface ActivityData {
   comments: CommentData[] | null

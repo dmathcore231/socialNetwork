@@ -19,5 +19,13 @@ export interface DataFromClient {
     errorNumber: number | null
     message: string | null
   }
+
+  postData: {
+    title: string | null
+    text: string | null
+    document: string | null
+    postScope: 'global' | 'personal' | null
+  }
+
   message: string | null
 }

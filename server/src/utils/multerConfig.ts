@@ -10,5 +10,13 @@ const userAvatarsStorage = multer.diskStorage({
   }
 })
 
-export const uploadUserAvatars = multer({ storage: userAvatarsStorage })
+const documentInPostStorage = multer.diskStorage({
+  destination: 'public/documentInPost',
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname)) // need fix name file (id user + date now)
+  }
+})
+
+export const userAvatarsUpload = multer({ storage: userAvatarsStorage })
+export const documentInPostUpload = multer({ storage: documentInPostStorage })
 

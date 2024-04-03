@@ -2,17 +2,11 @@ import { Request, Response, NextFunction } from 'express'
 import { hash } from 'bcrypt'
 import { UserModel } from '../models/userSchema'
 import { formDefaultUserTag } from '../helpers/formDefaultUserTag'
+import { getFormattedDate } from '../helpers/getFormattedDate'
 
 export async function createUser(req: Request, res: Response, next: NextFunction) {
   const { firstName, lastName, email, password } = req.body
   const { status } = res.locals.dataFromClient.error
-  const currentDate = new Date()
-  const options: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'long'
-  }
-  const formattedDate = new Intl.DateTimeFormat('en-US', options).format(currentDate)
-
 
   if (!status) {
     const hashedPassword = await hash(password, 10)
@@ -41,7 +35,7 @@ export async function createUser(req: Request, res: Response, next: NextFunction
         reports: null
       },
 
-      formattedRegistrationDate: formattedDate,
+      formattedRegistrationDate: getFormattedDate(),
     })
 
     await user.save()

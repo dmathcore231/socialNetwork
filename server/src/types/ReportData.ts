@@ -1,7 +1,7 @@
-import { User } from "./interface/User"
+import { UserDataInResponse } from "./UserDataInResponse"
 
 export type ReportData = {
   _timestamp: number
-  user: Partial<User>
+  user: UserDataInResponse
   issue: string
 }

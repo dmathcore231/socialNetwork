@@ -1,5 +1,10 @@
 import mongoose, { Schema } from 'mongoose'
 import { User } from '../types/interface/User'
+import { Post } from '../types/interface/Post'
+import { CommentData } from '../types/CommentData'
+import { LikeData } from '../types/likeData'
+import { RepostData } from '../types/RepostData'
+import { ReportData } from '../types/ReportData'
 
 const userSchema: Schema<User> = new Schema<User>({
   userData: {
@@ -27,12 +32,12 @@ const userSchema: Schema<User> = new Schema<User>({
   },
 
   userActivityData: {
-    posts: [String],
-    comments: [String],
-    likes: [String],
-    reposts: [String],
-    subscriptions: [String],
-    reports: [String]
+    posts: Array<Post> || null,
+    comments: Array<CommentData> || null,
+    likes: Array<LikeData> || null,
+    reposts: Array<RepostData> || null,
+    subscriptions: Array || null,
+    reports: Array<ReportData> || null
   },
 
   registrationDate: {

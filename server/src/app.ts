@@ -3,6 +3,7 @@ import mongoose, { Mongoose, mongo } from 'mongoose'
 import cookieParser from 'cookie-parser'
 import { setLocalDataMiddleware } from './middlewares/setLocalDataMiddleware'
 import { authRouter } from './routes/Auth'
+import { postRouter } from './routes/Post'
 
 const app = express()
 
@@ -20,6 +21,7 @@ app.use(cookieParser())
 app.use(setLocalDataMiddleware)
 
 app.use(authRouter)
+app.use(postRouter)
 
 async function main() {
   try {
