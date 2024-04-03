@@ -28,6 +28,8 @@
   --btn-fill-hover: var(--black-color);
   --btn-fill-active: var(--black-color);
 
+  --btn-focus-visibility: 0px 0px 8px 3px rgba(0, 0, 0, 0.6);
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -58,6 +60,11 @@
     border-color: var(--btn-border-color-active);
     fill: var(--btn-fill-active);
     transition: border-color var(--btn-transition-time);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--btn-focus-visibility);
   }
 
   &_size {

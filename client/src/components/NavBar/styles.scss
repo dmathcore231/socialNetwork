@@ -6,6 +6,7 @@
   border-right: 1px solid var(--gray-300);
   @include flex-column;
   gap: 3rem;
+  overflow-y: auto;
 
   &__list {
     @include flex-column;

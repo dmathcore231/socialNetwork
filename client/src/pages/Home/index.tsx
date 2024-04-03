@@ -5,7 +5,7 @@ export function Main(): JSX.Element {
   return (
     <div className='home content-page'>
       main
-      <Post
+      {/* <Post
         data={{
           _id: '1post',
           timeStamp: 100,
@@ -23,7 +23,7 @@ export function Main(): JSX.Element {
             viewed: 500
           }
         }}
-      />
+      /> */}
     </div>
   )
 }

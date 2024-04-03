@@ -12,4 +12,10 @@ export type FormSignIn = {
   password: string
 }
 
+export type FormCreatePost = {
+  title: string
+  text: string
+  postScope: 'global' | 'personal'
+}
+
 export type FormState = FormSignUp | FormSignIn

@@ -1,5 +1,4 @@
 import { Document } from "mongoose"
-import { UserDataInResponse } from "../UserDataInResponse"
 import { ReportData } from "../ReportData"
 import { ActivityData } from "./ActivityData"
 
@@ -7,7 +6,7 @@ export interface Post extends Document {
   creationData: {
     _timeStamp: number
     formattedCreationDate: string
-    user: UserDataInResponse
+    userIdCreated: string
   }
 
   postData: {

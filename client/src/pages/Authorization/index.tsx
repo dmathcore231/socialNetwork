@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks'
 import { FormSignUp, FormSignIn } from '../../types/FormState'
 import { InvalidField } from '../../types/InvalidField'
 import { ModalState } from '../../types/ModalState'
+import { defaultFormSignUp, defaultFormSignIn, defaultModalState } from '../../helpers/defaultState'
 import { Btn } from '../../components/Btn'
 import { Modal } from '../../components/Modal'
 import { Input } from '../../components/Input'
@@ -17,23 +18,6 @@ export function Authorization(): JSX.Element {
   const navigate = useNavigate()
 
   const { ResponseState: { status, errorNumber, message, loading } } = useAppSelector((state) => state.user)
-
-  const defaultFormSignUp: FormSignUp = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  }
-  const defaultFormSignIn: FormSignIn = {
-    email: '',
-    password: '',
-  }
-
-  const defaultModalState: ModalState = {
-    isActive: false,
-    modalContent: null,
-  }
 
   const [modalActive, setModalActive] = useState(defaultModalState)
   const [invalidField, setInvalidField] = useState<InvalidField[]>([])

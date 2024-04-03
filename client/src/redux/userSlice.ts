@@ -70,11 +70,12 @@ export const userSlice = createSlice({
         state.ResponseState.loading = false
       })
       .addCase(fetchSignUp.rejected, (state, action) => {
-        if (action.payload) {
-          state.ResponseState.status = action.payload.status
-          state.ResponseState.error = action.payload.error
-          state.ResponseState.errorNumber = action.payload.errorNumber
-          state.ResponseState.message = action.payload.message
+        const payload = action.payload as ResponseWithoutPayload
+        if (payload) {
+          state.ResponseState.status = payload.status
+          state.ResponseState.error = payload.error
+          state.ResponseState.errorNumber = payload.errorNumber
+          state.ResponseState.message = payload.message
           state.ResponseState.loading = false
         }
       })
@@ -96,11 +97,12 @@ export const userSlice = createSlice({
         setDataInLocalStorage('token', action.payload.token)
       })
       .addCase(fetchSignIn.rejected, (state, action) => {
-        if (action.payload) {
-          state.ResponseState.status = action.payload.status
-          state.ResponseState.error = action.payload.error
-          state.ResponseState.errorNumber = action.payload.errorNumber
-          state.ResponseState.message = action.payload.message
+        const payload = action.payload as ResponseWithoutPayload
+        if (payload) {
+          state.ResponseState.status = payload.status
+          state.ResponseState.error = payload.error
+          state.ResponseState.errorNumber = payload.errorNumber
+          state.ResponseState.message = payload.message
           state.ResponseState.loading = false
           state.accessToken = null
           state.user = null
@@ -123,11 +125,12 @@ export const userSlice = createSlice({
         setDataInLocalStorage('token', action.payload.token)
       })
       .addCase(fetchGetUserDataByToken.rejected, (state, action) => {
-        if (action.payload) {
-          state.ResponseState.status = action.payload.status
-          state.ResponseState.error = action.payload.error
-          state.ResponseState.errorNumber = action.payload.errorNumber
-          state.ResponseState.message = action.payload.message
+        const payload = action.payload as ResponseWithoutPayload
+        if (payload) {
+          state.ResponseState.status = payload.status
+          state.ResponseState.error = payload.error
+          state.ResponseState.errorNumber = payload.errorNumber
+          state.ResponseState.message = payload.message
           state.ResponseState.loading = false
           state.user = null
           setDataInLocalStorage('token', null)

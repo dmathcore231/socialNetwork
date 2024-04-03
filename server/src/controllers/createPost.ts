@@ -1,8 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import { UserModel } from '../models/userSchema'
 import { getFormattedDate } from '../helpers/getFormattedDate'
-import { Post } from '../types/interface/Post'
-import { getFormattedUserData } from '../helpers/getFormattedUserData'
 import { PostModel } from '../models/postSchema'
 
 export async function createPost(req: Request, res: Response, next: NextFunction) {
@@ -16,17 +14,28 @@ export async function createPost(req: Request, res: Response, next: NextFunction
   const newPost = await PostModel.create({
     creationData: {
       formattedCreationDate: getFormattedDate(),
-      user: getFormattedUserData(user)
+      userIdCreated: user._id
     },
     postData: postData
   })
 
-  const updateUser = await UserModel.findOneAndUpdate(
-    { _id: user._id },
-    { $push: { userActivityData: { posts: newPost } } }
-  )
+  if (user.userActivityData.posts === null) {
+    const updateUser = await UserModel.findOneAndUpdate(
+      { _id: user._id },
+      { $set: { "userActivityData.posts": [newPost] } }
+    )
 
-  await updateUser!.save()
+    await updateUser!.save()
 
-  return next()
+    return next()
+  } else {
+    const updateUser = await UserModel.findOneAndUpdate(
+      { _id: user._id },
+      { $push: { "userActivityData.posts": newPost } }
+    )
+
+    await updateUser!.save()
+
+    return next()
+  }
 }

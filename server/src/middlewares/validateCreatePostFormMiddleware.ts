@@ -6,13 +6,11 @@ export function validateCreatePostFormMiddleware(req: Request, res: Response, ne
   documentInPostUpload.single('file')(req, res, async (err) => {
     const { dataFromClient } = res.locals
     const { status } = dataFromClient.error
-    const { creationData, postData, postActivityData } = req.body
-
+    const { title, text, postScope } = req.body
 
     if (status) return next()
 
     try {
-
       if (err) {
         dataFromClient.error = {
           status: 422,
@@ -24,24 +22,24 @@ export function validateCreatePostFormMiddleware(req: Request, res: Response, ne
       }
 
       createResForMissingFields([
-        { field: creationData, label: 'Creation data' },
-        { field: postData, label: 'Post data' },
-        { field: postActivityData, label: 'Post activity data' }
+        { field: title, label: 'Title' },
+        { field: text, label: 'Text' },
+        { field: postScope, label: 'Post scope' }
       ])
 
       dataFromClient.postData = {
-        title: postData.title,
-        text: postData.text,
+        title: title,
+        text: text,
         document: req.file ? req.file.path : null,
-        postScope: postData.postScope
+        postScope: postScope
       }
 
       return next()
-    } catch (error) {
+    } catch (error: any) {
       dataFromClient.error = {
         status: 400,
         errorNumber: 3,
-        message: error
+        message: error.message
       }
 
       return next()

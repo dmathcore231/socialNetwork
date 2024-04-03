@@ -17,19 +17,19 @@ export function Post({ data }: PostProps): JSX.Element {
             <AvatarContainer
               className='avatar_size_sm'
             >
-              {data.user.userAvatar}
+              {data.user.userAvatar.avatarSizeSm}
             </AvatarContainer>
           </span>
           <div className='post-header__wrapper-item'>
             <span className="post-header__item
           title title_size_lg"
             >
-              {data.user.userName}
+              {data.user.userData.userName.fullName}
             </span>
             <span className="post-header__item
           title title_color_gray-500"
             >
-              {data.user.userTag}
+              {data.user.userData.userTag}
             </span>
             <span className="post-header__item">
               {data.timeStamp}
