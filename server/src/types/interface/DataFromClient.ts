@@ -1,4 +1,5 @@
 import { User } from "./User"
+import { Post } from "./Post"
 
 export interface DataFromClient {
   user: User | null
@@ -26,6 +27,8 @@ export interface DataFromClient {
     document: string | null
     postScope: 'global' | 'personal' | null
   }
+
+  allPosts: Post[] | null
 
   message: string | null
 }

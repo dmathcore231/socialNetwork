@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser'
 import { setLocalDataMiddleware } from './middlewares/setLocalDataMiddleware'
 import { authRouter } from './routes/Auth'
 import { postRouter } from './routes/Post'
+import { homeRouter } from './routes/Home'
 
 const app = express()
 
@@ -22,6 +23,7 @@ app.use(setLocalDataMiddleware)
 
 app.use(authRouter)
 app.use(postRouter)
+app.use(homeRouter)
 
 async function main() {
   try {

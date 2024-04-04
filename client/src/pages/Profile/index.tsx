@@ -1,6 +1,7 @@
 import './styles.scss'
-import { useState } from 'react'
-import { useAppSelector } from '../../hooks'
+import { useState, useEffect } from 'react'
+import { useAppDispatch, useAppSelector } from '../../hooks'
+import { fetchGetUserDataByToken } from '../../redux/userSlice'
 import { LinkBack } from '../../components/LinkBack'
 import { AvatarContainer } from '../../components/AvatarContainer'
 import { AvatarDefaultIcon } from '../../assets/icons/AvatarDefaultIcon'
@@ -9,9 +10,17 @@ import { Feed } from '../../components/Feed'
 import { Modal } from '../../components/Modal'
 
 export function Profile(): JSX.Element {
+  const dispatch = useAppDispatch()
+
   const { user } = useAppSelector(state => state.user)
 
   const [isModalActive, setIsModalActive] = useState(false)
+
+  useEffect(() => {
+    if (user) {
+      dispatch(fetchGetUserDataByToken())
+    }
+  }, [])
 
   return (
     <div className="profile content-page">

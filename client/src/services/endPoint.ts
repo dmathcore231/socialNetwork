@@ -4,3 +4,4 @@ export const authSignInEndPoint = `${authEndPoint}/signin`
 export const authUserEndPoint = `${authEndPoint}/user`
 export const postEndPoint = "/post"
 export const postCreateEndPoint = `${postEndPoint}/create`
+export const homeEndPoint = "/home"

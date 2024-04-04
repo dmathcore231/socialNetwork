@@ -1,4 +1,5 @@
 import { User } from '../interface/User'
+import { Post } from '../interface/Post'
 
 export interface ResponseWithoutPayload {
   status: number
@@ -10,6 +11,11 @@ export interface ResponseWithoutPayload {
 export interface ResponseWithUserDataPayload extends ResponseWithoutPayload {
   token: string
   user: Partial<User>
+}
+
+export interface ResponseWithAllPostsDataPayload extends ResponseWithoutPayload {
+  token: string
+  posts: Post[]
 }
 
 

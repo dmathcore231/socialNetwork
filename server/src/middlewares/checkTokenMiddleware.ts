@@ -30,6 +30,8 @@ export function checkTokenMiddleware(req: Request, res: Response, next: NextFunc
         dataFromClient.user = user
 
         return next()
+      } else {
+        return next()
       }
     } catch (error: unknown) {
       const err: VerifyErrors = error as VerifyErrors

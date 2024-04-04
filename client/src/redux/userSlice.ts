@@ -53,7 +53,12 @@ export const fetchGetUserDataByToken = createAsyncThunk<ResponseWithUserDataPayl
 export const userSlice = createSlice({
   name: 'user',
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    setToken: (state, action: PayloadAction<string>) => {
+      state.accessToken = action.payload
+      setDataInLocalStorage('token', action.payload)
+    }
+  },
 
   extraReducers: (builder) => {
     builder
@@ -140,4 +145,4 @@ export const userSlice = createSlice({
 })
 
 export const userReducer = userSlice.reducer
-
+export const { setToken } = userSlice.actions

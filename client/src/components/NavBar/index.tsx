@@ -41,6 +41,11 @@ export function NavBar(): JSX.Element {
     setIsSubmit(true)
   }
 
+  function handleClickBtnCancel(): void {
+    setModalActive(defaultModalState)
+    setFormCreatePost(defaultFormCreatePost)
+  }
+
   return (
     <nav className="nav-bar">
       <div className="nav-bar__logo">
@@ -95,10 +100,10 @@ export function NavBar(): JSX.Element {
       <Modal
         isActive={modalActive.isActive}
         title={"Create New Post"}
-        onClose={() => setModalActive(defaultModalState)}
+        onClose={handleClickBtnCancel}
         cancelBtn={{
           visible: true,
-          onClick: () => setModalActive(defaultModalState),
+          onClick: handleClickBtnCancel,
         }}
         submitBtn={{
           visible: true,

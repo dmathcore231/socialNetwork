@@ -5,7 +5,7 @@ import { UserDataCreator } from "../UserDataCreator"
 
 export interface Post extends Document {
   creationData: {
-    _timeStamp: number
+    _timeStamp: Date
     formattedCreationDate: string
     userDataCreator: UserDataCreator
   }

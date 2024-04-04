@@ -1,14 +1,17 @@
 import express, { Request, Response } from "express"
 import { checkTokenMiddleware } from "../middlewares/checkTokenMiddleware"
-import { validateCreatePostFormMiddleware } from "../middlewares/validateCreatePostFormMiddleware"
-import { createPost } from "../controllers/createPost"
-import { ResponseWithoutPayload } from "../types/interface/ResponseToClient"
+import { getAllPosts } from "../controllers/getAllPosts"
+import {
+  ResponseWithoutPayload,
+  ResponseWithAllPostsDataPayload
+} from "../types/interface/ResponseToClient"
 
-const postRouter = express.Router()
+const homeRouter = express.Router()
 
-function setResponseCreatePost(req: Request, res: Response) {
+export function setResponseHome(req: Request, res: Response) {
   const { dataFromClient } = res.locals
   const { status, errorNumber, message } = dataFromClient.error
+  const { accessToken } = dataFromClient.token
 
   try {
     if (status) {
@@ -22,11 +25,13 @@ function setResponseCreatePost(req: Request, res: Response) {
       return res.status(status).send(response)
     }
 
-    const response: ResponseWithoutPayload = {
-      status: 201,
+    const response: ResponseWithAllPostsDataPayload = {
+      status: 200,
       errorNumber: null,
       error: false,
-      message: dataFromClient.message
+      message: dataFromClient.message,
+      token: accessToken.value,
+      posts: dataFromClient.allPosts
     }
 
     return res.status(response.status).send(response)
@@ -35,13 +40,15 @@ function setResponseCreatePost(req: Request, res: Response) {
       status: 500,
       errorNumber: 8,
       error: true,
-      message: "Internal Server Error"
+      message: 'Internal Server Error'
     }
-
+    console.log(error)
     return res.status(response.status).send(response)
   }
 }
 
-postRouter.post("/post/create", checkTokenMiddleware, validateCreatePostFormMiddleware, createPost, setResponseCreatePost)
 
-export { postRouter }
+homeRouter.get("/home", checkTokenMiddleware, getAllPosts, setResponseHome)
+
+
+export { homeRouter }
