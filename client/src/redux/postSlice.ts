@@ -4,8 +4,8 @@ import { ResponseWithoutPayload } from "../types/interfaces/ResponseFromServer"
 import { PostState } from "../types/interfaces/Post"
 import { requestCreatePost } from "../services/post"
 
-
 const initialState: PostState = {
+  post: null,
   ResponseState: {
     status: null,
     error: false,

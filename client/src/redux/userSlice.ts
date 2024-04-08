@@ -54,9 +54,8 @@ export const userSlice = createSlice({
   name: 'user',
   initialState: initialState,
   reducers: {
-    setToken: (state, action: PayloadAction<string>) => {
+    setToken: (state, action: PayloadAction<string | null>) => {
       state.accessToken = action.payload
-      setDataInLocalStorage('token', action.payload)
     }
   },
 

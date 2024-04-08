@@ -4,7 +4,6 @@ import { MainProps } from '../../types/interfaces/MainProps'
 import { Btn } from '../Btn'
 
 export function Main({ children }: MainProps): JSX.Element {
-
   return (
     <main className="main">
       {children}

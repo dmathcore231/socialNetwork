@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit"
 import { AxiosError } from "axios"
 import { requestGetAllPosts } from "../services/home"
-import { setToken } from "./userSlice"
 import { ResponseWithAllPostsDataPayload } from "../types/interfaces/ResponseFromServer"
 import { HomeState } from "../types/interfaces/Home"
+import { setDataInLocalStorage } from "../helpers"
 
 const initialState: HomeState = {
   token: null,
@@ -43,9 +43,10 @@ export const homeSlice = createSlice({
         state.ResponseState.status = action.payload.status
         state.ResponseState.error = action.payload.error
         state.ResponseState.errorNumber = action.payload.errorNumber
+        state.ResponseState.loading = false
         state.ResponseState.message = action.payload.message
         state.posts = action.payload.posts
-        setToken(action.payload.token)
+        setDataInLocalStorage('token', action.payload.token)
       })
       .addCase(fetchGetAllPosts.rejected, (state, action) => {
         const payload = action.payload as ResponseWithAllPostsDataPayload

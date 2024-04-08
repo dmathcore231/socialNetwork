@@ -1,7 +1,7 @@
 import './styles.scss'
 import { useState, FormEvent, useEffect } from 'react'
-import { NavLink } from 'react-router-dom'
-import { useAppDispatch } from '../../hooks'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from '../../hooks'
 import { fetchCreatePost } from '../../redux/postSlice'
 import { Btn } from '../Btn'
 import { Modal } from '../Modal'
@@ -18,6 +18,9 @@ import { CommunitiesIcon } from '../../assets/icons/CommunitiesIcon'
 
 export function NavBar(): JSX.Element {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+
+  const { status } = useAppSelector(state => state.post.ResponseState)
 
   const [modalActive, setModalActive] = useState(defaultModalState)
   const [formCreatePost, setFormCreatePost] = useState(defaultFormCreatePost)
@@ -35,9 +38,16 @@ export function NavBar(): JSX.Element {
     }
   }, [isSubmit, dispatch])
 
+  useEffect(() => {
+    if (status === 201 && modalActive.isActive) {
+      setModalActive(defaultModalState)
+      setFormCreatePost(defaultFormCreatePost)
+      navigate('/profile')
+    }
+  }, [status, navigate])
+
   function handleSubmitModal(e: FormEvent<HTMLFormElement>): void {
     e.preventDefault()
-    setModalActive(defaultModalState)
     setIsSubmit(true)
   }
 
