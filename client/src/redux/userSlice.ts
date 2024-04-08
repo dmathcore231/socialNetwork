@@ -136,6 +136,7 @@ export const userSlice = createSlice({
           state.ResponseState.errorNumber = payload.errorNumber
           state.ResponseState.message = payload.message
           state.ResponseState.loading = false
+          state.accessToken = null
           state.user = null
           setDataInLocalStorage('token', null)
         }

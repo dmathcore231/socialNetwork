@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom'
+import { PrivateRouter } from './PrivateRouter'
 import { Layout } from '../components/Layout'
 import { Main } from '../pages/Home'
 import { Notifications } from '../pages/Notifications'
@@ -15,7 +16,9 @@ import { Authorization } from '../pages/Authorization'
 
 export const router = createBrowserRouter([
   {
-    element: <Layout />,
+    element: <PrivateRouter redirectTo="/authorization">
+      <Layout />
+    </PrivateRouter>,
     children: [
       {
         path: "/",
