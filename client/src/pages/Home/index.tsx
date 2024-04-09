@@ -12,7 +12,7 @@ export function Main(): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchGetAllPosts())
-    dispatch(setToken(getDataFromLocalStorage('token'))) // need test (update token) + need added new useEffect (setToken + state token)
+    dispatch(setToken(getDataFromLocalStorage('token')))
   }, [dispatch])
 
   return (

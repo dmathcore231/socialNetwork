@@ -1,0 +1,48 @@
+@import '../../styles/app.scss';
+
+.dropdown {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: none;
+
+  &_active {
+    display: inline-block;
+    border-radius: 0.5rem;
+    border: 2px solid var(--black-color);
+    box-shadow: 0px 0px 8px 3px rgba(0, 0, 0, 0.6);
+    background-color: var(--white-color);
+  }
+
+  &-list {
+    @include flex-column;
+    gap: 0.5rem;
+
+    &__item {
+
+      &:first-child {
+        border-radius: 0.5rem 0.5rem 0 0;
+      }
+
+      &:last-child {
+        border-radius: 0 0 0.5rem 0.5rem;
+      }
+
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      padding: 0.5rem 2rem 0.5rem 0.5rem;
+      display: flex;
+      justify-content: flex-start;
+      gap: 0.5rem;
+
+      &:hover {
+        background-color: var(--gray-100);
+      }
+
+      &:active {
+        background-color: var(--gray-200);
+      }
+    }
+  }
+}

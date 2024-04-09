@@ -1,4 +1,5 @@
 import './styles.scss'
+import { useState } from 'react'
 import { PostProps } from '../../types/interfaces/PostProps'
 import { AvatarContainer } from '../AvatarContainer'
 import { AvatarDefaultIcon } from '../../assets/icons/AvatarDefaultIcon'
@@ -8,9 +9,20 @@ import { LikeIcon } from '../../assets/icons/LikeIcon'
 import { ViewedIcon } from '../../assets/icons/ViewedIcon'
 import { MoreIcon } from '../../assets/icons/MoreIcon'
 import { Btn } from '../Btn'
+import { DropDown } from '../DropDown'
+import { ReportIcon } from '../../assets/icons/ReportIcon'
+import { BookmarkIcon } from '../../assets/icons/BookmarkIcon'
+import { IgnoreIcon } from '../../assets/icons/IgnoreIcon'
 
 export function Post({ data }: PostProps): JSX.Element {
   const { fullName, tag, userAvatar } = data.creationData.userDataCreator
+
+  const [isDropDownActive, setIsDropDownActive] = useState(false)
+
+  function handleDropDownClick() {
+    setIsDropDownActive(prev => !prev)
+  }
+
   return (
     <div className="post">
       <div className="post-header">
@@ -44,10 +56,29 @@ export function Post({ data }: PostProps): JSX.Element {
           <Btn
             type='button'
             className='btn_transparent'
-            onClick={() => console.log('click more')}
+            onClick={() => handleDropDownClick()}
           >
             <MoreIcon width='24px' height='24px' />
           </Btn>
+          <DropDown
+            isActive={isDropDownActive}
+            setIsActive={setIsDropDownActive}
+          >
+            <ul className="dropdown-list">
+              <li className="dropdown-list__item">
+                <ReportIcon width='24px' height='24px' />
+                Report this post
+              </li>
+              <li className="dropdown-list__item">
+                <BookmarkIcon width='24px' height='24px' />
+                Add to bookmarks
+              </li>
+              <li className='dropdown-list__item'>
+                <IgnoreIcon width='24px' height='24px' />
+                {`Ignore ${data.creationData.userDataCreator.tag}`}
+              </li>
+            </ul>
+          </DropDown>
         </div>
       </div>
       <div className="post-body">
