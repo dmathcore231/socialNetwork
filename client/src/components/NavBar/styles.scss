@@ -3,10 +3,8 @@
 .nav-bar {
   height: 100%;
   padding: 1rem;
-  border-right: 1px solid var(--gray-300);
   @include flex-column;
   gap: 3rem;
-  overflow-y: auto;
 
   &__list {
     @include flex-column;
@@ -28,6 +26,28 @@
     &:active {
       color: var(--gray-500);
       fill: var(--gray-500);
+    }
+  }
+
+  &__btn {
+    width: 100%;
+  }
+
+  @media (max-height: 500px) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    overflow-y: visible;
+    border-right: none;
+    border-bottom: 1px solid var(--gray-300);
+
+    &__list {
+      display: none;
+    }
+
+    &__btn {
+      display: none;
     }
   }
 }

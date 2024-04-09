@@ -1,8 +1,12 @@
-.layout {
-  height: calc(100vh - 2rem);
+@import '../../styles/app.scss';
 
-  &__wrapper {
+.layout {
+  display: flex;
+  height: 100%;
+
+  @media (max-height: 500px) {
     display: flex;
+    flex-direction: column;
     height: 100%;
   }
 }

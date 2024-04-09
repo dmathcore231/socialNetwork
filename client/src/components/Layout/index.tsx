@@ -8,6 +8,7 @@ import { Header } from '../Header'
 import { Main } from '../Main'
 import { Footer } from '../Footer'
 import { NavBar } from '../NavBar'
+import { Aside } from '../Aside'
 
 export function Layout(): JSX.Element {
   const dispatch = useAppDispatch()
@@ -21,14 +22,13 @@ export function Layout(): JSX.Element {
 
   return (
     <div className="layout container">
-      <div className='layout__wrapper'>
-        <Header >
-          <NavBar />
-        </Header>
-        <Main>
-          <Outlet />
-        </Main>
-      </div>
+      <Header >
+        <NavBar />
+      </Header>
+      <Main>
+        <Outlet />
+      </Main>
+      <Aside />
       <Footer />
     </div>
   )

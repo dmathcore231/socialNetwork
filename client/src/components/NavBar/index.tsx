@@ -7,6 +7,7 @@ import { Btn } from '../Btn'
 import { Modal } from '../Modal'
 import { TextArea } from '../TextArea'
 import { Input } from '../Input'
+// import { BurgerMenu } from '../BurgerMenu'
 import { defaultFormCreatePost } from '../../helpers/defaultState'
 import { defaultModalState } from '../../helpers/defaultState'
 import { HomeIcon } from '../../assets/icons/HomeIcon'
@@ -15,6 +16,7 @@ import { MessagesIcon } from '../../assets/icons/MessagesIcon'
 import { BookmarkIcon } from '../../assets/icons/BookmarkIcon'
 import { ProfileIcon } from '../../assets/icons/ProfileIcon'
 import { CommunitiesIcon } from '../../assets/icons/CommunitiesIcon'
+import { BurgerMenuIcon } from '../../assets/icons/BurgerMenuIcon'
 
 export function NavBar(): JSX.Element {
   const dispatch = useAppDispatch()
@@ -46,6 +48,10 @@ export function NavBar(): JSX.Element {
     }
   }, [status, navigate])
 
+  useEffect(() => {
+
+  })
+
   function handleSubmitModal(e: FormEvent<HTMLFormElement>): void {
     e.preventDefault()
     setIsSubmit(true)
@@ -58,6 +64,17 @@ export function NavBar(): JSX.Element {
 
   return (
     <nav className="nav-bar">
+
+      <div className="nav-bar__burger-menu">
+        <Btn
+          type="button"
+          className="btn_transparent"
+          onClick={() => console.log('click')}
+        >
+          <BurgerMenuIcon width='24px' height='24px' />
+        </Btn>
+      </div>
+
       <div className="nav-bar__logo">
         <h1>Logo</h1>
       </div>
@@ -99,16 +116,18 @@ export function NavBar(): JSX.Element {
           </NavLink>
         </li>
       </ul>
-      <Btn
-        type="button"
-        className="btn_primary"
-        onClick={() => setModalActive({ isActive: true, modalContent: 'createPost' })}
-      >
-        Create Post
-      </Btn>
+      <div className="nav-bar__btn">
+        <Btn
+          type="button"
+          className="btn_primary"
+          onClick={() => setModalActive({ isActive: true, modalContent: 'createPost' })}
+        >
+          Create Post
+        </Btn>
+      </div>
 
       <Modal
-        isActive={modalActive.isActive}
+        isActive={modalActive.isActive && modalActive.modalContent === 'createPost'}
         title={"Create New Post"}
         onClose={handleClickBtnCancel}
         cancelBtn={{
