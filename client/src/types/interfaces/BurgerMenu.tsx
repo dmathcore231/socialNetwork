@@ -1,7 +1,8 @@
-import { ReactNode, Dispatch } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 
 export interface BurgerMenuProps {
   isActive: boolean
-  setIsActive: Dispatch<React.SetStateAction<boolean>>
-  children: ReactNode
+  setIsActive: Dispatch<SetStateAction<boolean>>
+  btnBurger: boolean
+  shadowUnderMenu: boolean
 }

@@ -1,0 +1,11 @@
+@import '../../styles/app.scss';
+
+.mini-profile {
+  @include flex-column;
+  align-items: flex-start;
+
+  &__item {
+    display: flex;
+    gap: 1rem;
+  }
+}

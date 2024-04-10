@@ -7,7 +7,6 @@ import { Btn } from '../Btn'
 import { Modal } from '../Modal'
 import { TextArea } from '../TextArea'
 import { Input } from '../Input'
-// import { BurgerMenu } from '../BurgerMenu'
 import { defaultFormCreatePost } from '../../helpers/defaultState'
 import { defaultModalState } from '../../helpers/defaultState'
 import { HomeIcon } from '../../assets/icons/HomeIcon'
@@ -18,7 +17,12 @@ import { ProfileIcon } from '../../assets/icons/ProfileIcon'
 import { CommunitiesIcon } from '../../assets/icons/CommunitiesIcon'
 import { BurgerMenuIcon } from '../../assets/icons/BurgerMenuIcon'
 
-export function NavBar(): JSX.Element {
+export interface NavBarProps {
+  isActiveBurgerMenu: boolean
+  setIsActiveBurgerMenu: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export function NavBar({ isActiveBurgerMenu, setIsActiveBurgerMenu }: NavBarProps): JSX.Element {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -48,10 +52,6 @@ export function NavBar(): JSX.Element {
     }
   }, [status, navigate])
 
-  useEffect(() => {
-
-  })
-
   function handleSubmitModal(e: FormEvent<HTMLFormElement>): void {
     e.preventDefault()
     setIsSubmit(true)
@@ -69,7 +69,7 @@ export function NavBar(): JSX.Element {
         <Btn
           type="button"
           className="btn_transparent"
-          onClick={() => console.log('click')}
+          onClick={() => setIsActiveBurgerMenu(!isActiveBurgerMenu)}
         >
           <BurgerMenuIcon width='24px' height='24px' />
         </Btn>

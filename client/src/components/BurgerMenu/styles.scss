@@ -2,31 +2,64 @@
 
 .burger-menu {
   display: none;
-
-  @media (max-height:500px) {
-    display: inline-flex;
-  }
+  position: relative;
 
   &-nav {
     display: none;
 
     &_active {
-      position: absolute;
-      display: inline-block;
-      box-shadow: 0px 0px 8px 3px rgba(0, 0, 0, 0.6);
-      border-radius: 0 0.5rem 0.5rem 0;
+      @include flex-column;
+      gap: 2rem;
+      position: fixed;
       top: 0;
-      left: 0;
-      padding: 1rem;
-      background-color: var(--white-color);
+      left: 0%;
       z-index: 10;
       height: 100%;
-      min-width: 20%;
+      min-width: 23rem;
+      overflow-y: auto;
+      box-shadow: 0px 0px 8px 3px rgba(0, 0, 0, 0.6);
+      border-radius: 0 0.5rem 0.5rem 0;
+      padding: 1rem;
+      background-color: var(--white-color);
+      animation: fadeInLeft 0.1s forwards;
     }
 
     &__list {
       @include flex-column;
       gap: 1rem;
     }
+
+    &__link {
+      display: flex;
+      justify-content: start;
+      gap: 1rem;
+      color: var(--black-color);
+      fill: var(--black-color);
+
+      &:hover {
+        color: var(--gray-400);
+        fill: var(--gray-400);
+      }
+
+      &:active {
+        color: var(--gray-500);
+        fill: var(--gray-500);
+      }
+    }
+  }
+
+  &_shadow::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9;
+  }
+
+  @media (max-height: 31.25rem) {
+    display: inline-flex;
   }
 }

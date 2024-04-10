@@ -1,5 +1,5 @@
 import './styles.scss'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import { useAppDispatch } from '../../hooks'
 import { fetchGetUserDataByToken } from '../../redux/userSlice'
@@ -9,10 +9,12 @@ import { Main } from '../Main'
 import { Footer } from '../Footer'
 import { NavBar } from '../NavBar'
 import { Aside } from '../Aside'
+import { BurgerMenu } from '../BurgerMenu'
 
 export function Layout(): JSX.Element {
   const dispatch = useAppDispatch()
   const token = getDataFromLocalStorage('token')
+  const [isActiveBurgerMenu, setIsActiveBurgerMenu] = useState(false)
 
   useEffect(() => {
     if (token) {
@@ -22,8 +24,16 @@ export function Layout(): JSX.Element {
 
   return (
     <div className="layout container">
+      <BurgerMenu
+        isActive={isActiveBurgerMenu}
+        setIsActive={setIsActiveBurgerMenu}
+        btnBurger={false}
+        shadowUnderMenu={true}
+      />
       <Header >
-        <NavBar />
+        <NavBar
+          isActiveBurgerMenu={isActiveBurgerMenu}
+          setIsActiveBurgerMenu={setIsActiveBurgerMenu} />
       </Header>
       <Main>
         <Outlet />
@@ -33,3 +43,13 @@ export function Layout(): JSX.Element {
     </div>
   )
 }
+
+<div className='layout'>
+  <header className='header'>
+    <nav className='burger-menu'>
+      <div className='burger'></div>
+    </nav>
+  </header>
+  <main className='main'></main>
+  <footer className='footer'></footer>
+</div>

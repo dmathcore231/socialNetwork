@@ -8,7 +8,7 @@
   --input-border-color-focus: var(--gray-200);
   --input-border-color-focus-visible: var(--gray-400);
   --input-border-size: 2px;
-  --input-border-radius: 0.5rem;
+  --input-border-radius: var(--main-border-radius);
 
   --input-padding: 1.5rem 0.875rem 0.313rem 0.875rem;
 

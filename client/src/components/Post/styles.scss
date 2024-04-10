@@ -6,7 +6,7 @@
   width: 100%;
   padding: 1rem;
   border: 0.063rem solid black;
-  border-radius: 0.5rem;
+  border-radius: var(--main-border-radius);
   position: relative;
 
   &-header {

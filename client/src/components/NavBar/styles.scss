@@ -2,9 +2,11 @@
 
 .nav-bar {
   height: 100%;
+  width: 100%;
   padding: 1rem;
   @include flex-column;
   gap: 3rem;
+
 
   &__list {
     @include flex-column;
@@ -33,7 +35,11 @@
     width: 100%;
   }
 
-  @media (max-height: 500px) {
+  &__burger-menu {
+    display: none;
+  }
+
+  @media (max-height: 31.25rem) {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -42,12 +48,17 @@
     border-right: none;
     border-bottom: 1px solid var(--gray-300);
 
+
     &__list {
       display: none;
     }
 
     &__btn {
       display: none;
+    }
+
+    &__burger-menu {
+      display: inline-flex;
     }
   }
 }

@@ -1,3 +1,5 @@
+@import '../../styles/app.scss';
+
 .text-area {
   --text-area-width: 100%;
   --text-area-height: 7.188rem;
@@ -5,7 +7,7 @@
   --text-area-padding: 1rem;
 
   --text-area-border-color: var(--black-color);
-  --text-area-border-radius: 0.5rem;
+  --text-area-border-radius: var(--main-border-radius);
   --text-area-border-size: 1px;
 
   --text-area-text-align: start;
