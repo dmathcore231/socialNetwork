@@ -13,6 +13,7 @@ import { Articles } from '../pages/Articles'
 import { Media } from '../pages/Media'
 import { Like } from '../pages/Like'
 import { Authorization } from '../pages/Authorization'
+import { Search } from '../pages/Search'
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
       {
         path: "/bookmarks",
         element: <Bookmarks />,
+      },
+      {
+        path: "/search",
+        element: <Search />,
       },
       {
         element: <Profile />,

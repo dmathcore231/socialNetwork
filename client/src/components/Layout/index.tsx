@@ -43,13 +43,3 @@ export function Layout(): JSX.Element {
     </div>
   )
 }
-
-<div className='layout'>
-  <header className='header'>
-    <nav className='burger-menu'>
-      <div className='burger'></div>
-    </nav>
-  </header>
-  <main className='main'></main>
-  <footer className='footer'></footer>
-</div>

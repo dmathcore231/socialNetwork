@@ -4,8 +4,25 @@
   display: none;
   border-top: 1px solid var(--gray-300);
 
+  &__link {
+    @include flex-center;
+    border-radius: 2rem;
+    padding: 0.5rem;
+
+    &:hover {
+      background-color: var(--gray-100);
+    }
+
+    &:active {
+      background-color: var(--gray-200);
+    }
+  }
+
   @media (max-height: 31.25rem) {
-    display: inline-block;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 5rem;
     position: sticky;
     bottom: 0;
     width: 100%;

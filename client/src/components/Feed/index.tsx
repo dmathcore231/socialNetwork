@@ -3,8 +3,6 @@ import { Outlet } from 'react-router-dom'
 import { Tabs } from '../Tabs'
 
 export function Feed(): JSX.Element {
-
-
   return (
     <div className="feed">
       <div className="feed-nav-bar">

@@ -90,6 +90,14 @@
 
       --btn-bg-color-hover: var(--gray-100);
     }
+
+    &_hover_color {
+      --btn-color-hover: var(--white-color);
+      --btn-bg-color-hover: var(--black-light-color);
+
+      --btn-bg-color-active: var(--gray-600);
+      --btn-color-active: var(--white-color);
+    }
   }
 
   &_transparent {
@@ -104,5 +112,20 @@
     --btn-fill-active: var(--gray-500);
 
     gap: 0.3rem;
+  }
+
+  @media only screen and (max-width: 600px) {
+
+    // стили для мобильных устройств
+    &:hover {
+      // пустой блок, чтобы отменить стили для hover на мобильных устройствах
+    }
+
+    &:active {
+      color: var(--btn-color-hover);
+      background-color: var(--btn-bg-color-hover);
+      border-color: var(--btn-border-color-hover);
+      fill: var(--btn-fill-hover);
+    }
   }
 }
