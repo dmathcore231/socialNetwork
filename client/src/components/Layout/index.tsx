@@ -8,7 +8,6 @@ import { Header } from '../Header'
 import { Main } from '../Main'
 import { Footer } from '../Footer'
 import { NavBar } from '../NavBar'
-import { Aside } from '../Aside'
 import { BurgerMenu } from '../BurgerMenu'
 
 export function Layout(): JSX.Element {
@@ -38,7 +37,6 @@ export function Layout(): JSX.Element {
       <Main>
         <Outlet />
       </Main>
-      <Aside />
       <Footer />
     </div>
   )

@@ -3,7 +3,7 @@ import { useRef, useEffect } from 'react'
 import { DropDownProps } from '../../types/interfaces/DropDownProps'
 
 
-export function DropDown({ isActive, setIsActive, children }: DropDownProps): JSX.Element {
+export function DropDown({ isActive, setIsActive, children, defaultPosition }: DropDownProps): JSX.Element {
   const dropdownRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
@@ -20,7 +20,10 @@ export function DropDown({ isActive, setIsActive, children }: DropDownProps): JS
   }, [isActive, setIsActive])
 
   return (
-    <div ref={dropdownRef} className={"dropdown" + (isActive ? " dropdown_active" : "")}>
+    <div ref={dropdownRef} className={"dropdown"
+      + (isActive ? " dropdown_active" : "")
+      + (defaultPosition ? " dropdown_position_1rem" : "")
+    }>
       {children}
     </div>
   )

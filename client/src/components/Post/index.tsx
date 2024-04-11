@@ -63,6 +63,7 @@ export function Post({ data }: PostProps): JSX.Element {
           <DropDown
             isActive={isDropDownActive}
             setIsActive={setIsDropDownActive}
+            defaultPosition={true}
           >
             <ul className="dropdown-list">
               <li className="dropdown-list__item">

@@ -31,15 +31,12 @@
     }
   }
 
-  &__btn {
-    width: 100%;
-  }
-
   &__burger-menu {
     display: none;
   }
 
-  @media (max-height: 31.25rem) {
+  @media (max-height: 31.25rem),
+  (max-width: 75rem) {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -48,17 +45,13 @@
     border-right: none;
     border-bottom: 1px solid var(--gray-300);
 
-
-    &__list {
-      display: none;
-    }
-
-    &__btn {
-      display: none;
-    }
-
     &__burger-menu {
       display: inline-flex;
     }
+
+    &__item_display_none {
+      display: none;
+    }
+
   }
 }

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit"
 import { AxiosError } from "axios"
 import { UserState } from '../types/interfaces/User'
-import { requestSignUp, requestSignIn, requestGetUserDataByToken } from "../services/auth"
+import { requestSignUp, requestSignIn, requestGetUserDataByToken, requestLogout } from "../services/auth"
 import { ResponseWithoutPayload, ResponseWithUserDataPayload } from "../types/interfaces/ResponseFromServer"
 import { setDataInLocalStorage } from "../helpers"
 
@@ -50,13 +50,30 @@ export const fetchGetUserDataByToken = createAsyncThunk<ResponseWithUserDataPayl
     }
   })
 
+export const fetchLogout = createAsyncThunk<ResponseWithoutPayload, void, { rejectValue: ResponseWithoutPayload }>('user/fetchLogout',
+  async (_, { rejectWithValue }) => {
+    try {
+      return await requestLogout()
+    } catch (error) {
+      const err = error as AxiosError
+      const errResponse = err.response?.data as ResponseWithoutPayload
+      return rejectWithValue(errResponse)
+    }
+  })
+
 export const userSlice = createSlice({
   name: 'user',
   initialState: initialState,
   reducers: {
     setToken: (state, action: PayloadAction<string | null>) => {
       state.accessToken = action.payload
+    },
+
+    logout: (state) => {
+      state.accessToken = null
+      state.user = null
     }
+
   },
 
   extraReducers: (builder) => {
@@ -97,7 +114,6 @@ export const userSlice = createSlice({
         state.ResponseState.loading = false
         state.accessToken = action.payload.token
         state.user = action.payload.user
-        console.log(action.payload.token)
         setDataInLocalStorage('token', action.payload.token)
       })
       .addCase(fetchSignIn.rejected, (state, action) => {
@@ -129,6 +145,35 @@ export const userSlice = createSlice({
         setDataInLocalStorage('token', action.payload.token)
       })
       .addCase(fetchGetUserDataByToken.rejected, (state, action) => {
+        const payload = action.payload as ResponseWithoutPayload
+        if (payload) {
+          state.ResponseState.status = payload.status
+          state.ResponseState.error = payload.error
+          state.ResponseState.errorNumber = payload.errorNumber
+          state.ResponseState.message = payload.message
+          state.ResponseState.loading = false
+          state.accessToken = null
+          state.user = null
+          setDataInLocalStorage('token', null)
+        }
+      })
+
+      //Logout
+      .addCase(fetchLogout.pending, (state) => {
+        state.ResponseState.loading = true
+        state.ResponseState.error = false
+      })
+      .addCase(fetchLogout.fulfilled, (state, action: PayloadAction<ResponseWithoutPayload>) => {
+        state.ResponseState.status = action.payload.status
+        state.ResponseState.error = action.payload.error
+        state.ResponseState.errorNumber = action.payload.errorNumber
+        state.ResponseState.message = action.payload.message
+        state.ResponseState.loading = false
+        state.accessToken = null
+        state.user = null
+        setDataInLocalStorage('token', null)
+      })
+      .addCase(fetchLogout.rejected, (state, action) => {
         const payload = action.payload as ResponseWithoutPayload
         if (payload) {
           state.ResponseState.status = payload.status

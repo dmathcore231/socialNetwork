@@ -65,7 +65,7 @@ export function BurgerMenu({ isActive, setIsActive, btnBurger, shadowUnderMenu }
           + (isActive && !isAnimated ? " burger-menu-nav_active" : "")
           + (isAnimated ? " burger-menu-nav_animation_fadeIn" : "")
         }>
-        <MiniProfile />
+        <MiniProfile size="md" />
         <ul className="burger-menu-nav__list">
           <li className="burger-menu-nav__item">
             <NavLink to='/' className="burger-menu-nav__link">

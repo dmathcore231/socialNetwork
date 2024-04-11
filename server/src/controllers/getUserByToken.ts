@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 import { SECRET_KEY, EXP_IN_ACCESS_TOKEN } from '../utils/constants'
-import { UserDataInResponse } from '../types/UserDataInResponse'
 import { UserModel } from '../models/userSchema'
 import { getFormattedUserData } from '../helpers/getFormattedUserData'
 

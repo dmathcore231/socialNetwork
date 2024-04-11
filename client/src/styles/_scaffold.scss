@@ -91,7 +91,8 @@
   max-width: var(--break-point-xxl);
   margin: 0 auto;
 
-  @media (max-height: 31.25rem) {
+  @media (max-height: 31.25rem),
+  (max-width: 75rem) {
     max-width: var(--break-point-xl);
   }
 }

@@ -2,8 +2,8 @@
 
 .dropdown {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 0;
+  right: 0;
   display: none;
 
   &_active {
@@ -25,7 +25,11 @@
       }
 
       &:last-child {
-        border-radius: 0 0 0.5rem 0.5rem;
+        border-radius: 0 0 var(--main-border-radius) var(--main-border-radius);
+      }
+
+      &:only-child {
+        border-radius: var(--main-border-radius);
       }
 
       width: 100%;
@@ -43,6 +47,13 @@
       &:active {
         background-color: var(--gray-200);
       }
+    }
+  }
+
+  &_position {
+    &_1rem {
+      right: 1rem;
+      top: 1rem;
     }
   }
 }

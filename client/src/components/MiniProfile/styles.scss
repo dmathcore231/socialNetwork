@@ -3,9 +3,39 @@
 .mini-profile {
   @include flex-column;
   align-items: flex-start;
+  position: relative;
+
+  &_flex_row {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 
   &__item {
     display: flex;
+    align-items: center;
     gap: 1rem;
+
+    &_jc_sb {
+      justify-content: space-between;
+    }
+
+    &_flex {
+      &_column {
+        flex-direction: column;
+      }
+    }
+
+    &_gap {
+      &_none {
+        gap: 0;
+      }
+    }
+
+    &_width {
+      &_100 {
+        width: 100%;
+      }
+    }
   }
 }

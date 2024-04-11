@@ -113,19 +113,4 @@
 
     gap: 0.3rem;
   }
-
-  @media only screen and (max-width: 600px) {
-
-    // стили для мобильных устройств
-    &:hover {
-      // пустой блок, чтобы отменить стили для hover на мобильных устройствах
-    }
-
-    &:active {
-      color: var(--btn-color-hover);
-      background-color: var(--btn-bg-color-hover);
-      border-color: var(--btn-border-color-hover);
-      fill: var(--btn-fill-hover);
-    }
-  }
 }
