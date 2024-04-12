@@ -2,9 +2,8 @@
 
 .main {
   display: flex;
+  position: relative;
   width: 100%;
-  min-width: 600px;
-  max-height: 100vh;
-  overflow-y: inherit;
+  overflow-y: auto;
   align-items: flex-start;
 }

@@ -9,7 +9,7 @@ export function FloatingActionButton(): JSX.Element {
         className="btn_primary btn_primary_hover_color"
         onClick={() => console.log('click')}
       >
-        Button
+        Post
       </Btn>
     </div>
   )

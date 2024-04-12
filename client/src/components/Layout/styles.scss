@@ -1,15 +1,37 @@
 @import '../../styles/app.scss';
 
 .layout {
-  display: flex;
+  display: grid;
+  grid-template-areas:
+    'header main aside'
+    'header main aside'
+    'footer footer footer';
+  height: 100%;
+  width: 100%;
   position: relative;
-  overflow-y: auto;
+
+  &>header {
+    grid-area: header;
+  }
+
+  &>main {
+    grid-area: main;
+  }
+
+  &>aside {
+    grid-area: aside;
+  }
+
+  &>footer {
+    grid-area: footer;
+  }
 
   @media (max-height:31.25rem),
   (max-width:75rem) {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+    grid-template-areas:
+      'header header header'
+      'main main aside'
+      'footer footer footer';
     height: 100%;
   }
 }

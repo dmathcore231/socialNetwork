@@ -11,7 +11,7 @@ export function Aside(): JSX.Element {
         className="btn_primary"
         onClick={() => console.log('click')}
       >
-        Button
+        Subscribe
       </Btn>
       <Link to="authorization">Authorization</Link>
     </aside>

@@ -1,8 +1,16 @@
+@import '../../styles/app.scss';
+
 .aside {
-  min-width: 300px;
-  width: 300px;
-  height: 100%;
-  padding: 1rem;
   position: sticky;
   top: 0;
+  left: 0;
+  min-width: 300px;
+  width: 300px;
+  height: 100vh;
+  padding: 1rem;
+
+  @media (max-height:31.25rem),
+  (max-width:75rem) {
+    top: 111px
+  }
 }

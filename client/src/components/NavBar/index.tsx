@@ -126,7 +126,7 @@ export function NavBar({ isActiveBurgerMenu, setIsActiveBurgerMenu }: NavBarProp
           className="btn_primary"
           onClick={() => setModalActive({ isActive: true, modalContent: 'createPost' })}
         >
-          Create Post
+          Post
         </Btn>
       </div>
       <div className="nav-bar__item
