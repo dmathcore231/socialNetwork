@@ -9,8 +9,7 @@
   height: 100vh;
   padding: 1rem;
 
-  @media (max-height:31.25rem),
-  (max-width:75rem) {
+  @media(max-width:48rem) {
     top: 111px
   }
 }

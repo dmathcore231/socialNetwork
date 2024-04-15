@@ -11,8 +11,11 @@
   overflow-y: auto;
   z-index: 3;
 
-  @media (max-height: 31.25rem),
-  (max-width: 75rem) {
+  @media (max-width:75rem) {
+    min-width: 5rem;
+  }
+
+  @media(max-width:48rem) {
     max-width: 100%;
     height: auto;
     backdrop-filter: blur(10px);

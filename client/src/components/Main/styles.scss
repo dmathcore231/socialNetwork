@@ -4,6 +4,11 @@
   display: flex;
   position: relative;
   width: 100%;
+  min-width: 600px;
   overflow-y: auto;
   align-items: flex-start;
+
+ @media(max-width:48rem) {
+    min-width: 520px;
+  }
 }

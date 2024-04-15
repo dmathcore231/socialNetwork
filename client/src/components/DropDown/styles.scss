@@ -47,6 +47,12 @@
       &:active {
         background-color: var(--gray-200);
       }
+
+      &_padding {
+        &_05 {
+          padding: 0.5rem;
+        }
+      }
     }
   }
 

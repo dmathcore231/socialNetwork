@@ -1,4 +1,4 @@
 
 export interface MiniProfileProps {
-  size: 'sm' | 'md'
+  size: 'xs' | 'sm' | 'md' | 'lg';
 }

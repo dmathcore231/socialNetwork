@@ -87,10 +87,51 @@ export function MiniProfile({ size }: MiniProfileProps): JSX.Element {
         </div>
       </div>
     )
-  } else {
+  } else if (size === 'xs') {
     return (
       <div className="mini-profile
-       mini-profile_flex_row">
+      mini-profile_flex_direction_row">
+        <div className="mini-profile__item">
+          <Btn
+            type="button"
+            className="btn_transparent"
+            onClick={() => setIsModalActive(prev => !prev)}
+          >
+            <AvatarContainer
+              className="avatar_border_color_white
+            avatar_size_sm
+            avatar_bg_color_gray-200"
+            >
+              {user?.userData.userAvatar?.avatarSizeSm
+                ? user.userData.userAvatar.avatarSizeSm
+                : <ProfileIcon width="40px" height="40px" />}
+            </AvatarContainer>
+          </Btn>
+
+          <DropDown
+            isActive={isModalActive}
+            setIsActive={setIsModalActive}
+          >
+            <ul className="dropdown-list">
+              <li className="dropdown-list__item dropdown-list__item_padding_05">
+                <Btn
+                  type="button"
+                  className="btn_transparent"
+                  onClick={() => setIsSubmitLogout(prev => !prev)}
+                >
+                  <LogoutIcon width="24px" height="24px" />
+                </Btn>
+              </li>
+            </ul>
+          </DropDown>
+        </div>
+      </div>
+    )
+  }
+  else {
+    return (
+      <div className="mini-profile
+       mini-profile_flex_direction_row">
         <div className="mini-profile__item">
           <AvatarContainer
             className="avatar_border_color_white

@@ -59,8 +59,7 @@
     z-index: 9;
   }
 
-  @media (max-height: 31.25rem),
-  (max-width: 75rem) {
+ @media(max-width:48rem) {
     display: inline-flex;
   }
 }

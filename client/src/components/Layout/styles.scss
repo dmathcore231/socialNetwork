@@ -26,8 +26,7 @@
     grid-area: footer;
   }
 
-  @media (max-height:31.25rem),
-  (max-width:75rem) {
+  @media(max-width:48rem) {
     grid-template-areas:
       'header header header'
       'main main aside'

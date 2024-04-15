@@ -5,10 +5,14 @@
   align-items: flex-start;
   position: relative;
 
-  &_flex_row {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  &_flex {
+    &_direction {
+      &_row {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
   }
 
   &__item {

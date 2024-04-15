@@ -67,15 +67,6 @@
     box-shadow: var(--btn-focus-visibility);
   }
 
-  &_size {
-    &_sm {
-      --btn-font-size: 1rem;
-      --btn-line-height: 1.5rem;
-
-      --btn-padding: 0.5rem 0.75rem;
-    }
-  }
-
   &_primary {
     --btn-bg-color: var(--black-color);
     --btn-border-size: 2px;
@@ -113,4 +104,27 @@
 
     gap: 0.3rem;
   }
+
+  &_size {
+    &_sm {
+      --btn-font-size: 1rem;
+      --btn-line-height: 1.5rem;
+
+      --btn-padding: 0.5rem 0.75rem;
+    }
+  }
+
+  &_rounded {
+    --btn-radius: 50%;
+
+    --btn-padding: 0.5rem;
+  }
+
+  &_color {
+    &_white {
+      --btn-color: var(--white-color);
+      --btn-fill: var(--white-color);
+    }
+  }
+
 }

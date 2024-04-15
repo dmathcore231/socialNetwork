@@ -18,8 +18,7 @@
     }
   }
 
-  @media (max-height: 31.25rem),
-  (max-width: 75rem) {
+ @media(max-width:48rem) {
     display: flex;
     justify-content: space-around;
     align-items: center;
