@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 import { Btn } from '../Btn'
 import { MiniProfile } from '../MiniProfile'
 import { BurgerMenuProps } from '../../types/interfaces/BurgerMenu'
+import { defaultSizeIcon } from '../../helpers'
 import { BurgerMenuIcon } from '../../assets/icons/BurgerMenuIcon'
 import { HomeIcon } from '../../assets/icons/HomeIcon'
 import { NotificationsIcon } from '../../assets/icons/NotificationsIcon'
@@ -56,7 +57,7 @@ export function BurgerMenu({ isActive, setIsActive, btnBurger, shadowUnderMenu }
           className="btn_transparent"
           onClick={() => setIsActive(prev => !prev)}
         >
-          <BurgerMenuIcon width="24px" height="24px" />
+          <BurgerMenuIcon width={defaultSizeIcon} height={defaultSizeIcon} />
         </Btn>)
         : null}
       <div
@@ -69,37 +70,37 @@ export function BurgerMenu({ isActive, setIsActive, btnBurger, shadowUnderMenu }
         <ul className="burger-menu-nav__list">
           <li className="burger-menu-nav__item">
             <NavLink to='/' className="burger-menu-nav__link">
-              <HomeIcon width='24px' height='24px' />
+              <HomeIcon width={defaultSizeIcon} height={defaultSizeIcon} />
               <h4>Home</h4>
             </NavLink>
           </li>
           <li className="burger-menu-nav__item">
             <NavLink to="/notifications" className="burger-menu-nav__link">
-              <NotificationsIcon width='24px' height='24px' />
+              <NotificationsIcon width={defaultSizeIcon} height={defaultSizeIcon} />
               <h4>Notifications</h4>
             </NavLink>
           </li>
           <li className="burger-menu-nav__item">
             <NavLink to="/messages" className="burger-menu-nav__link">
-              <MessagesIcon width='24px' height='24px' />
+              <MessagesIcon width={defaultSizeIcon} height={defaultSizeIcon} />
               <h4>Messages</h4>
             </NavLink>
           </li>
           <li className="burger-menu-nav__item">
             <NavLink to="/bookmarks" className="burger-menu-nav__link">
-              <BookmarkIcon width='24px' height='24px' />
+              <BookmarkIcon width={defaultSizeIcon} height={defaultSizeIcon} />
               <h4>Bookmarks</h4>
             </NavLink>
           </li>
           <li className="burger-menu-nav__item">
             <NavLink to="/profile" className="burger-menu-nav__link">
-              <ProfileIcon width='24px' height='24px' />
+              <ProfileIcon width={defaultSizeIcon} height={defaultSizeIcon} />
               <h4>Profile</h4>
             </NavLink>
           </li>
           <li className="burger-menu-nav__item">
             <NavLink to="/communities" className="burger-menu-nav__link">
-              <CommunitiesIcon width='24px' height='24px' />
+              <CommunitiesIcon width={defaultSizeIcon} height={defaultSizeIcon} />
               <h4>Communities</h4>
             </NavLink>
           </li>

@@ -13,35 +13,35 @@
   --modal-content-border-size: 3px;
   --modal-content-border-color: var(--black-color);
 
-  @include flex-center;
   position: fixed;
-  overflow: auto;
   z-index: 2;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  @include flex-center;
+  overflow: auto;
   background-color: var(--modal-color-shadow);
 
   &-content {
+    width: var(--modal-content-width);
+    height: var(--modal-content-height);
     @include flex-column;
+    gap: var(--modal-content-gap);
     background-color: var(--modal-content-bg-color);
     border-radius: var(--modal-content-border-radius);
     border: var(--modal-content-border-size) solid var(--modal-content-border-color);
     padding: var(--modal-content-padding);
-    width: var(--modal-content-width);
-    height: var(--modal-content-height);
-    gap: var(--modal-content-gap);
 
     &__title {
-      display: flex;
       width: 100%;
+      display: flex;
     }
 
     &__close {
-      @include flex-center;
       width: 34px;
       height: 34px;
+      @include flex-center;
     }
 
     &__header {

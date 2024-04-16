@@ -19,6 +19,13 @@
     gap: 0.5rem;
 
     &__item {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      gap: 0.5rem;
+      text-align: left;
+      cursor: pointer;
+      padding: 0.5rem 2rem 0.5rem 0.5rem;
 
       &:first-child {
         border-radius: var(--main-border-radius) var(--main-border-radius) 0 0;
@@ -31,14 +38,6 @@
       &:only-child {
         border-radius: var(--main-border-radius);
       }
-
-      width: 100%;
-      text-align: left;
-      cursor: pointer;
-      padding: 0.5rem 2rem 0.5rem 0.5rem;
-      display: flex;
-      justify-content: flex-start;
-      gap: 0.5rem;
 
       &:hover {
         background-color: var(--gray-100);

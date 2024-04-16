@@ -1,9 +1,9 @@
 @import '../../styles/app.scss';
 
 .mini-profile {
+  position: relative;
   @include flex-column;
   align-items: flex-start;
-  position: relative;
 
   &_flex {
     &_direction {

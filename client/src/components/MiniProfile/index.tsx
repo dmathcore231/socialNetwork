@@ -7,6 +7,7 @@ import { AvatarContainer } from '../AvatarContainer'
 import { Btn } from '../Btn'
 import { DropDown } from '../DropDown'
 import { MiniProfileProps } from '../../types/interfaces/MiniProfileProps'
+import { defaultSizeIcon } from '../../helpers'
 import { ProfileIcon } from '../../assets/icons/ProfileIcon'
 import { MoreIcon } from '../../assets/icons/MoreIcon'
 import { LogoutIcon } from '../../assets/icons/LogoutIcon'
@@ -41,7 +42,7 @@ export function MiniProfile({ size }: MiniProfileProps): JSX.Element {
           >
             {user?.userData.userAvatar?.avatarSizeSm
               ? user.userData.userAvatar.avatarSizeSm
-              : <ProfileIcon width="24px" height="24px" />}
+              : <ProfileIcon width={defaultSizeIcon} height={defaultSizeIcon} />}
           </AvatarContainer>
           <div className="mini-profile__item-wrapper">
             <Btn
@@ -49,7 +50,7 @@ export function MiniProfile({ size }: MiniProfileProps): JSX.Element {
               className="btn_transparent"
               onClick={() => setIsModalActive(prev => !prev)}
             >
-              <MoreIcon width="24px" height="24px" />
+              <MoreIcon width={defaultSizeIcon} height={defaultSizeIcon} />
             </Btn>
 
             <DropDown
@@ -63,7 +64,7 @@ export function MiniProfile({ size }: MiniProfileProps): JSX.Element {
                     className="btn_transparent"
                     onClick={() => setIsSubmitLogout(prev => !prev)}
                   >
-                    <LogoutIcon width="24px" height="24px" />
+                    <LogoutIcon width={defaultSizeIcon} height={defaultSizeIcon} />
                     Sign out
                   </Btn>
                 </li>
@@ -119,7 +120,7 @@ export function MiniProfile({ size }: MiniProfileProps): JSX.Element {
                   className="btn_transparent"
                   onClick={() => setIsSubmitLogout(prev => !prev)}
                 >
-                  <LogoutIcon width="24px" height="24px" />
+                  <LogoutIcon width={defaultSizeIcon} height={defaultSizeIcon} />
                 </Btn>
               </li>
             </ul>
@@ -140,7 +141,7 @@ export function MiniProfile({ size }: MiniProfileProps): JSX.Element {
           >
             {user?.userData.userAvatar?.avatarSizeSm
               ? user.userData.userAvatar.avatarSizeSm
-              : <ProfileIcon width="24px" height="24px" />}
+              : <ProfileIcon width={defaultSizeIcon} height={defaultSizeIcon} />}
           </AvatarContainer>
         </div>
         <div className="mini-profile__item
@@ -156,7 +157,7 @@ export function MiniProfile({ size }: MiniProfileProps): JSX.Element {
             className="btn_transparent"
             onClick={() => setIsModalActive(prev => !prev)}
           >
-            <MoreIcon width="24px" height="24px" />
+            <MoreIcon width={defaultSizeIcon} height={defaultSizeIcon} />
           </Btn>
 
           <DropDown
@@ -170,7 +171,7 @@ export function MiniProfile({ size }: MiniProfileProps): JSX.Element {
                   className="btn_transparent"
                   onClick={() => setIsSubmitLogout(prev => !prev)}
                 >
-                  <LogoutIcon width="24px" height="24px" />
+                  <LogoutIcon width={defaultSizeIcon} height={defaultSizeIcon} />
                   Sign out
                 </Btn>
               </li>

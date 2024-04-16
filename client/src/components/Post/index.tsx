@@ -1,7 +1,9 @@
 import './styles.scss'
 import { useState } from 'react'
+import { useMediaQuery } from 'react-responsive'
 import { PostProps } from '../../types/interfaces/PostProps'
 import { AvatarContainer } from '../AvatarContainer'
+import { defaultSizeIcon } from '../../helpers'
 import { AvatarDefaultIcon } from '../../assets/icons/AvatarDefaultIcon'
 import { CommentsIcon } from '../../assets/icons/CommentsIcon'
 import { RepostIcon } from '../../assets/icons/RepostIcon'
@@ -15,6 +17,8 @@ import { BookmarkIcon } from '../../assets/icons/BookmarkIcon'
 import { IgnoreIcon } from '../../assets/icons/IgnoreIcon'
 
 export function Post({ data }: PostProps): JSX.Element {
+  const breakPointMd = useMediaQuery({ query: '(max-width: 48rem)' })
+
   const { fullName, tag, userAvatar } = data.creationData.userDataCreator
 
   const [isDropDownActive, setIsDropDownActive] = useState(false)
@@ -32,7 +36,7 @@ export function Post({ data }: PostProps): JSX.Element {
           >
             {userAvatar?.avatarSizeSm
               ? userAvatar.avatarSizeSm
-              : <AvatarDefaultIcon width='24px' height='24px' />}
+              : <AvatarDefaultIcon width={defaultSizeIcon} height={defaultSizeIcon} />}
           </AvatarContainer>
           <div className="post-creator-data">
             <div className="post-creator-data__item">
@@ -58,7 +62,7 @@ export function Post({ data }: PostProps): JSX.Element {
             className='btn_transparent'
             onClick={() => handleDropDownClick()}
           >
-            <MoreIcon width='24px' height='24px' />
+            <MoreIcon width={defaultSizeIcon} height={defaultSizeIcon} />
           </Btn>
           <DropDown
             isActive={isDropDownActive}
@@ -67,15 +71,15 @@ export function Post({ data }: PostProps): JSX.Element {
           >
             <ul className="dropdown-list">
               <li className="dropdown-list__item">
-                <ReportIcon width='24px' height='24px' />
+                <ReportIcon width={defaultSizeIcon} height={defaultSizeIcon} />
                 Report this post
               </li>
               <li className="dropdown-list__item">
-                <BookmarkIcon width='24px' height='24px' />
+                <BookmarkIcon width={defaultSizeIcon} height={defaultSizeIcon} />
                 Add to bookmarks
               </li>
               <li className='dropdown-list__item'>
-                <IgnoreIcon width='24px' height='24px' />
+                <IgnoreIcon width={defaultSizeIcon} height={defaultSizeIcon} />
                 {`Ignore ${data.creationData.userDataCreator.tag}`}
               </li>
             </ul>
@@ -97,7 +101,7 @@ export function Post({ data }: PostProps): JSX.Element {
             className='btn_transparent title'
             onClick={() => console.log('click comments')}
           >
-            <CommentsIcon width='24px' height='24px' />
+            <CommentsIcon width={defaultSizeIcon} height={defaultSizeIcon} />
             {data.postActivityData.comments?.length || 0}
           </Btn>
 
@@ -108,7 +112,7 @@ export function Post({ data }: PostProps): JSX.Element {
             className='btn_transparent title'
             onClick={() => console.log('click reposts')}
           >
-            <RepostIcon width='24px' height='24px' />
+            <RepostIcon width={defaultSizeIcon} height={defaultSizeIcon} />
             {data.postActivityData.reposts?.length || 0}
           </Btn>
         </span>
@@ -118,7 +122,7 @@ export function Post({ data }: PostProps): JSX.Element {
             className='btn_transparent title'
             onClick={() => console.log('click likes')}
           >
-            <LikeIcon width='24px' height='24px' />
+            <LikeIcon width={defaultSizeIcon} height={defaultSizeIcon} />
             {data.postActivityData.likes?.length || 0}
           </Btn>
         </span>
@@ -128,7 +132,7 @@ export function Post({ data }: PostProps): JSX.Element {
             className='btn_transparent title'
             onClick={() => console.log('click viewed')}
           >
-            <ViewedIcon width='24px' height='24px' />
+            <ViewedIcon width={defaultSizeIcon} height={defaultSizeIcon} />
             {data.postActivityData.views?.length || 0}
           </Btn>
         </span>

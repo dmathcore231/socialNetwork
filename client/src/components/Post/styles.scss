@@ -63,8 +63,6 @@
 
   @media(max-width: 36rem) {
     &-creator-data {
-      // flex-direction: column;
-
 
       &__item {
         @include flex-column;
@@ -77,6 +75,13 @@
       &__item {
         align-items: center;
       }
+    }
+  }
+
+  @media (max-width:22rem) {
+    &-creator-data {
+      flex-direction: column;
+      align-items: flex-start;
     }
   }
 }

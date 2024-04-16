@@ -1,12 +1,12 @@
 @import '../../styles/app.scss';
 
 .main {
-  display: flex;
   position: relative;
   width: 100%;
   min-width: 600px;
-  overflow-y: auto;
+  display: flex;
   align-items: flex-start;
+  overflow-y: auto;
 
   @media(max-width:48rem) {
     min-width: 520px;
