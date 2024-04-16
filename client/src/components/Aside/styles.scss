@@ -5,11 +5,10 @@
   top: 0;
   left: 0;
   min-width: 300px;
-  width: 300px;
   height: 100vh;
   padding: 1rem;
 
-  @media(max-width:48rem) {
-    top: 111px
+  @media(max-width:62rem) {
+    display: none;
   }
 }

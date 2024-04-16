@@ -54,7 +54,6 @@
     background: var(--gray-400);
     border-radius: var(--main-border-radius);
   }
-
 }
 
 
@@ -91,7 +90,7 @@
   max-width: var(--break-point-xxl);
   margin: 0 auto;
 
- @media(max-width:48rem) {
+  @media(max-width:48rem) {
     max-width: var(--break-point-xl);
   }
 }

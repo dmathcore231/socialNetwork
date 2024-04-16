@@ -1,6 +1,13 @@
 @import '../../styles/app.scss';
 
 .footer {
+
+  --footer-display: none;
+
+  --footer-border-size: 1px;
+  --footer-border-color: var(--gray-300);
+  --footer-border-radius: var(--main-border-radius);
+
   display: none;
   border-top: 1px solid var(--gray-300);
 
@@ -18,11 +25,10 @@
     }
   }
 
- @media(max-width:48rem) {
+  @media(max-width:48rem) {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    gap: 5rem;
     position: sticky;
     bottom: 0;
     width: 100%;

@@ -26,33 +26,33 @@ export function Post({ data }: PostProps): JSX.Element {
   return (
     <div className="post">
       <div className="post-header">
-        <div className="post-header__user">
-          <span className="post-header__item">
-            <AvatarContainer
-              className='avatar_border_color_white avatar_size_sm avatar_bg_color_gray-200'
-            >
-              {userAvatar?.avatarSizeSm
-                ? userAvatar.avatarSizeSm
-                : <AvatarDefaultIcon width='24px' height='24px' />}
-            </AvatarContainer>
-          </span>
-          <div className='post-header__wrapper-item'>
-            <span className="post-header__item
-          title title_size_lg"
-            >
-              {fullName}
-            </span>
-            <span className="post-header__item
-          title title_color_gray-500"
-            >
-              {tag}
-            </span>
-            <span className="post-header__item">
+        <div className="post-header__item">
+          <AvatarContainer
+            className='avatar_border_color_white avatar_size_sm avatar_bg_color_gray-200'
+          >
+            {userAvatar?.avatarSizeSm
+              ? userAvatar.avatarSizeSm
+              : <AvatarDefaultIcon width='24px' height='24px' />}
+          </AvatarContainer>
+          <div className="post-creator-data">
+            <div className="post-creator-data__item">
+              <span className="post-creator-data__text"
+              >
+                {fullName}
+              </span>
+              <span className="post-creator-data__text
+              post-creator-data__text_color_gray"
+              >
+                {tag}
+              </span>
+            </div>
+
+            <span className="post-creator-data__date-creation">
               | {data.creationData.formattedCreationDate}
             </span>
           </div>
         </div>
-        <div className='post-header__more'>
+        <div className="post-header__item">
           <Btn
             type='button'
             className='btn_transparent'

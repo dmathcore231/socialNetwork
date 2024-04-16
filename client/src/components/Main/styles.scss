@@ -8,7 +8,11 @@
   overflow-y: auto;
   align-items: flex-start;
 
- @media(max-width:48rem) {
+  @media(max-width:48rem) {
     min-width: 520px;
+  }
+
+  @media(max-width:36rem) {
+    min-width: 100%;
   }
 }

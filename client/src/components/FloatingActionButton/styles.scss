@@ -3,6 +3,10 @@
 .floating-action-button {
   position: absolute;
   bottom: 3.5rem;
-  right: 1rem;
+  right: 0.5rem;
   width: 255px;
+
+  @media (max-width:36rem) {
+    width: 160px;
+  }
 }

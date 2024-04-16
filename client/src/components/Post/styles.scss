@@ -9,6 +9,28 @@
   border-radius: var(--main-border-radius);
   position: relative;
 
+  &-creator-data {
+    display: flex;
+    justify-content: start;
+    align-items: flex-end;
+    gap: 0.5rem;
+
+    &__item {
+      @include flex-center;
+      gap: 0.5rem;
+    }
+
+    &__text {
+      text-align: left;
+
+      &_color {
+        &_gray {
+          color: var(--gray-500);
+        }
+      }
+    }
+  }
+
   &-header {
     display: flex;
     justify-content: space-between;
@@ -20,15 +42,10 @@
       gap: 0.5rem;
     }
 
-    &__wrapper-item {
-      display: flex;
-      justify-content: start;
-      align-items: flex-end;
-      gap: 0.5rem;
-    }
-
     &__item {
-      @include flex-center;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem
     }
   }
 
@@ -42,5 +59,24 @@
   &-footer {
     display: flex;
     justify-content: space-between;
+  }
+
+  @media(max-width: 36rem) {
+    &-creator-data {
+      // flex-direction: column;
+
+
+      &__item {
+        @include flex-column;
+        align-items: flex-start;
+        gap: 0;
+      }
+    }
+
+    &-header {
+      &__item {
+        align-items: center;
+      }
+    }
   }
 }
