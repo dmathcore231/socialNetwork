@@ -1,7 +1,7 @@
 import "./styles.scss"
 import { NavLink } from "react-router-dom"
 import { FloatingActionButton } from "../FloatingActionButton"
-import { defaultSizeIcon } from "../../helpers"
+import { SIZE_ICON_MD } from "../../helpers"
 import { HomeIcon } from "../../assets/icons/HomeIcon"
 import { NotificationsIcon } from "../../assets/icons/NotificationsIcon"
 import { MessagesIcon } from "../../assets/icons/MessagesIcon"
@@ -12,22 +12,22 @@ export function Footer(): JSX.Element {
     <footer className="footer">
       <div className="footer__item">
         <NavLink to='/' className="footer__link">
-          <HomeIcon width={defaultSizeIcon} height={defaultSizeIcon} />
+          <HomeIcon width={SIZE_ICON_MD} height={SIZE_ICON_MD} />
         </NavLink>
       </div>
       <div className="footer__item">
         <NavLink to='/search' className="footer__link">
-          <SearchIcon width={defaultSizeIcon} height={defaultSizeIcon} />
+          <SearchIcon width={SIZE_ICON_MD} height={SIZE_ICON_MD} />
         </NavLink>
       </div>
       <div className="footer__item">
         <NavLink to='/notifications' className="footer__link">
-          <NotificationsIcon width={defaultSizeIcon} height={defaultSizeIcon} />
+          <NotificationsIcon width={SIZE_ICON_MD} height={SIZE_ICON_MD} />
         </NavLink>
       </div>
       <div className="footer__item">
         <NavLink to="/messages" className="footer__link">
-          <MessagesIcon width={defaultSizeIcon} height={defaultSizeIcon} />
+          <MessagesIcon width={SIZE_ICON_MD} height={SIZE_ICON_MD} />
         </NavLink>
       </div>
       <FloatingActionButton />

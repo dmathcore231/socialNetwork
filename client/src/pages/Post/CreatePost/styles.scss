@@ -1,0 +1,17 @@
+@import '../../../styles/app.scss';
+
+.create-post {
+  @include flex-column;
+  gap: 1rem;
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__btn-group {
+      @include flex-center;
+      gap: 1rem;
+    }
+  }
+}

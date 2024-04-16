@@ -74,20 +74,14 @@
     --btn-color-hover: var(--black-color);
     --btn-border-color-hover: var(--black-color);
 
-    &_outline {
-      --btn-color: var(--black-color);
-      --btn-bg-color: transparent;
-      --btn-border-color: var(--black-color);
-
-      --btn-bg-color-hover: var(--gray-100);
-    }
-
     &_hover_color {
       --btn-color-hover: var(--white-color);
+      --btn-fill-hover: var(--white-color);
       --btn-bg-color-hover: var(--black-light-color);
 
       --btn-bg-color-active: var(--gray-600);
       --btn-color-active: var(--white-color);
+      --btn-fill-active: var(--white-color);
     }
   }
 
@@ -127,4 +121,19 @@
     }
   }
 
+  &_flat {
+    --btn-radius: 1rem;
+
+    --btn-padding: 0 1rem;
+  }
+
+  &_outline {
+    --btn-color: var(--black-color);
+    --btn-bg-color: transparent;
+  }
+
+  &_disabled {
+    pointer-events: none;
+    opacity: 0.7;
+  }
 }

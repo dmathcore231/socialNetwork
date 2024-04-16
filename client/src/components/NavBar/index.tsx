@@ -9,6 +9,7 @@ import { Modal } from '../Modal'
 import { TextArea } from '../TextArea'
 import { Input } from '../Input'
 import { MiniProfile } from '../MiniProfile'
+import { Logo } from '../Logo'
 import { defaultFormCreatePost } from '../../helpers/defaultState'
 import { defaultModalState } from '../../helpers/defaultState'
 import { HomeIcon } from '../../assets/icons/HomeIcon'
@@ -19,7 +20,6 @@ import { ProfileIcon } from '../../assets/icons/ProfileIcon'
 import { CommunitiesIcon } from '../../assets/icons/CommunitiesIcon'
 import { BurgerMenuIcon } from '../../assets/icons/BurgerMenuIcon'
 import { PostCreateIcon } from '../../assets/icons/PostCreateIcon'
-import { Logo } from '../../assets/icons/Logo'
 
 export interface NavBarProps {
   isActiveBurgerMenu: boolean
@@ -76,13 +76,13 @@ export function NavBar({ isActiveBurgerMenu, setIsActiveBurgerMenu }: NavBarProp
           className="btn_transparent"
           onClick={() => setIsActiveBurgerMenu(!isActiveBurgerMenu)}
         >
-          <BurgerMenuIcon width='26px' height='26px' />
+          <BurgerMenuIcon width="26px" height="26px" />
         </Btn>
       </div>
       <div className="nav-bar__item">
         {breakPointXl
-          ? <Logo width='40px' height='40px' />
-          : <Logo width='50px' height='50px' />
+          ? <Logo size='sm' />
+          : <Logo size='md' />
         }
       </div>
       {breakPointMd
@@ -93,37 +93,37 @@ export function NavBar({ isActiveBurgerMenu, setIsActiveBurgerMenu }: NavBarProp
               <ul className="nav-bar__list">
                 <li className="nav-bar__item">
                   <NavLink to='/' className="nav-bar__link">
-                    <HomeIcon width='26px' height='26px' />
+                    <HomeIcon width="26px" height="26px" />
                     <h4 className="nav-bar__title-link">Home</h4>
                   </NavLink>
                 </li>
                 <li className="nav-bar__item">
                   <NavLink to="/notifications" className="nav-bar__link">
-                    <NotificationsIcon width='26px' height='26px' />
+                    <NotificationsIcon width="26px" height="26px" />
                     <h4 className="nav-bar__title-link">Notifications</h4>
                   </NavLink>
                 </li>
                 <li className="nav-bar__item">
                   <NavLink to="/messages" className="nav-bar__link">
-                    <MessagesIcon width='26px' height='26px' />
+                    <MessagesIcon width="26px" height="26px" />
                     <h4 className="nav-bar__title-link">Messages</h4>
                   </NavLink>
                 </li>
                 <li className="nav-bar__item">
                   <NavLink to="/bookmarks" className="nav-bar__link">
-                    <BookmarkIcon width='26px' height='26px' />
+                    <BookmarkIcon width="26px" height="26px" />
                     <h4 className="nav-bar__title-link">Bookmarks</h4>
                   </NavLink>
                 </li>
                 <li className="nav-bar__item">
                   <NavLink to="/profile" className="nav-bar__link">
-                    <ProfileIcon width='26px' height='26px' />
+                    <ProfileIcon width="26px" height="26px" />
                     <h4 className="nav-bar__title-link">Profile</h4>
                   </NavLink>
                 </li>
                 <li className="nav-bar__item">
                   <NavLink to="/communities" className="nav-bar__link">
-                    <CommunitiesIcon width='26px' height='26px' />
+                    <CommunitiesIcon width="26px" height="26px" />
                     <h4 className="nav-bar__title-link">Communities</h4>
                   </NavLink>
                 </li>

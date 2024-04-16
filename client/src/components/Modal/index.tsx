@@ -3,12 +3,12 @@ import { ModalProps } from '../../types/interfaces/ModalProps'
 import { Btn } from '../Btn'
 import { CloseIcon } from '../../assets/icons/CloseIcon'
 
-export function Modal({ isActive, title, children, onClose, cancelBtn, submitBtn, modalClass, idForm }: ModalProps): JSX.Element | null {
+export function Modal({ isActive, title, children, onClose, cancelBtn, submitBtn, className, idForm }: ModalProps): JSX.Element | null {
 
   if (!isActive) return null
 
   return (
-    <div className={"modal" + (modalClass ? ` ${modalClass}` : "")}>
+    <div className={"modal" + (className ? ` ${className}` : "")}>
       <div className="modal-content">
         <div className="modal-content__header">
           <div className='modal-content__close'>
@@ -45,7 +45,7 @@ export function Modal({ isActive, title, children, onClose, cancelBtn, submitBtn
             ? (
               <Btn
                 type="button"
-                className="btn_primary btn_primary_outline"
+                className="btn_primary btn_outline"
                 onClick={cancelBtn.onClick ? cancelBtn.onClick : onClose}
               >
                 {cancelBtn.title ? cancelBtn.title : "Cancel"}

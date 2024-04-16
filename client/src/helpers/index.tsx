@@ -16,4 +16,5 @@ export function getDataFromLocalStorage(key: string): string | null {
   return null
 }
 
-export const defaultSizeIcon = "24px"
+export const SIZE_ICON_MD = "24px"
+export const SIZE_ICON_SM = "20px"

@@ -295,7 +295,7 @@ export function Authorization(): JSX.Element {
           <div className='authorization-form__item'>
             <Btn
               type='button'
-              className='btn_primary btn_primary_outline'
+              className='btn_primary btn_outline'
               onClick={() => handleToggleModal({
                 isActive: !modalActive.isActive,
                 modalContent: 'signIn'

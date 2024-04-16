@@ -14,6 +14,8 @@ import { Media } from '../pages/Media'
 import { Like } from '../pages/Like'
 import { Authorization } from '../pages/Authorization'
 import { Search } from '../pages/Search'
+import { Post } from '../pages/Post'
+import { CreatePost } from '../pages/Post/CreatePost'
 
 export const router = createBrowserRouter([
   {
@@ -69,11 +71,20 @@ export const router = createBrowserRouter([
       {
         path: "/communities",
         element: <Communities />,
-      }
+      },
     ]
   },
   {
     path: "/authorization",
     element: <Authorization />,
+  },
+  {
+    element: <Post />,
+    children: [
+      {
+        path: "/post/create",
+        element: <CreatePost />
+      }
+    ]
   }
 ])

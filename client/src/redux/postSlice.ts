@@ -28,7 +28,17 @@ export const fetchCreatePost = createAsyncThunk('post/fetchCreatePost', async (b
 export const postSlice = createSlice({
   name: 'post',
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    resetResponseState: (state) => {
+      state.ResponseState = {
+        status: null,
+        error: false,
+        errorNumber: null,
+        loading: false,
+        message: null,
+      }
+    }
+  },
 
   extraReducers: (builder) => {
     builder
@@ -55,3 +65,4 @@ export const postSlice = createSlice({
 })
 
 export const postReducer = postSlice.reducer
+export const { resetResponseState } = postSlice.actions
