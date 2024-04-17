@@ -18,4 +18,9 @@ export interface ResponseWithAllPostsDataPayload extends ResponseWithoutPayload 
   posts: Post[]
 }
 
+export interface ResponseWithPostDataPayload extends ResponseWithoutPayload {
+  token: string
+  post: Post
+}
+
 

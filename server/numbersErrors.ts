@@ -9,4 +9,5 @@ const numbersErrors = {
   7: "Unauthorized",
   8: "Internal Server Error",
   9: "Error uploading file",
+  10: "Post not found",
 }

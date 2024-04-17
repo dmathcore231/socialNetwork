@@ -29,6 +29,7 @@ export function setLocalDataMiddleware(req: Request, res: Response, next: NextFu
       postScope: null
     },
     allPosts: null,
+    postById: null,
     message: null
   }
   res.locals.dataFromClient = data

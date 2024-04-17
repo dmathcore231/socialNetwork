@@ -29,6 +29,7 @@
   --btn-fill-active: var(--black-color);
 
   --btn-focus-visibility: 0px 0px 8px 3px rgba(0, 0, 0, 0.6);
+  --btn-hover-box-shadow: none;
 
   display: inline-flex;
   align-items: center;
@@ -52,6 +53,7 @@
     background-color: var(--btn-bg-color-hover);
     border-color: var(--btn-border-color-hover);
     fill: var(--btn-fill-hover);
+    box-shadow: var(--btn-hover-box-shadow);
   }
 
   &:active {
@@ -70,9 +72,11 @@
   &_primary {
     --btn-bg-color: var(--black-color);
     --btn-border-size: 2px;
+    --btn-border-color: var(--black-color);
 
     --btn-color-hover: var(--black-color);
     --btn-border-color-hover: var(--black-color);
+    --btn-hover-box-shadow: 0px 0px 8px 3px rgba(0, 0, 0, 0.6);
 
     &_hover_color {
       --btn-color-hover: var(--white-color);
@@ -96,7 +100,21 @@
     --btn-fill-hover: var(--gray-400);
     --btn-fill-active: var(--gray-500);
 
-    gap: 0.3rem;
+    &_shadow {
+      &_enabled {
+        --btn-color: var(--black-color);
+        --btn-color-active: var(--gray-500);
+
+        --btn-fill: var(--black-color);
+        --btn-fill-active: var(--gray-500);
+
+        --btn-radius: 50%;
+        --btn-padding: 2px;
+        --btn-hover-box-shadow: 0px 0px 8px 3px rgba(0, 0, 0, 0.6);
+      }
+    }
+
+
   }
 
   &_size {

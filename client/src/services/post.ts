@@ -1,7 +1,7 @@
 import { AxiosError } from "axios"
 import { client } from "../utils/client"
-import { postCreateEndPoint } from "./endPoint"
-import { ResponseWithoutPayload } from "../types/interfaces/ResponseFromServer"
+import { postCreateEndPoint, postEndPoint } from "./endPoint"
+import { ResponseWithoutPayload, ResponseWithPostDataPayload } from "../types/interfaces/ResponseFromServer"
 
 export const requestCreatePost = async (body: FormData): Promise<ResponseWithoutPayload> => {
   try {
@@ -10,6 +10,16 @@ export const requestCreatePost = async (body: FormData): Promise<ResponseWithout
         'Content-Type': 'multipart/form-data'
       }
     })
+    return data
+  } catch (error) {
+    const err = error as AxiosError
+    throw err
+  }
+}
+
+export const requestGetPostById = async (id: string): Promise<ResponseWithPostDataPayload> => {
+  try {
+    const { data } = await client.get(`${postEndPoint}/${id}`)
     return data
   } catch (error) {
     const err = error as AxiosError

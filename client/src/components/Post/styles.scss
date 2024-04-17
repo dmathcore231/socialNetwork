@@ -59,6 +59,10 @@
   &-footer {
     display: flex;
     justify-content: space-between;
+
+    &__item {
+      @include flex-center;
+    }
   }
 
   @media(max-width: 36rem) {

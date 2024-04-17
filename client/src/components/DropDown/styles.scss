@@ -53,6 +53,16 @@
         }
       }
     }
+
+    &__link {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      gap: 0.5rem;
+      text-align: left;
+      cursor: pointer;
+      color: var(--black-color);
+    }
   }
 
   &_position {

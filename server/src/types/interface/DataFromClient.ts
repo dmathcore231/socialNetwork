@@ -15,6 +15,7 @@ export interface DataFromClient {
       expired: boolean | null
     }
   }
+
   error: {
     status: number | null
     errorNumber: number | null
@@ -29,6 +30,6 @@ export interface DataFromClient {
   }
 
   allPosts: Post[] | null
-
+  postById: Post | null
   message: string | null
 }

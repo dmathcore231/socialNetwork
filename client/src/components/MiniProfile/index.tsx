@@ -47,7 +47,7 @@ export function MiniProfile({ size }: MiniProfileProps): JSX.Element {
           <div className="mini-profile__item-wrapper">
             <Btn
               type="button"
-              className="btn_transparent"
+              className="btn_transparent_shadow_enabled"
               onClick={() => setIsModalActive(prev => !prev)}
             >
               <MoreIcon width={SIZE_ICON_MD} height={SIZE_ICON_MD} />
@@ -154,7 +154,7 @@ export function MiniProfile({ size }: MiniProfileProps): JSX.Element {
         <div className="mini-profile__item">
           <Btn
             type="button"
-            className="btn_transparent"
+            className="btn_transparent_shadow_enabled"
             onClick={() => setIsModalActive(prev => !prev)}
           >
             <MoreIcon width={SIZE_ICON_MD} height={SIZE_ICON_MD} />

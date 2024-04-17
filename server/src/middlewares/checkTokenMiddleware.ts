@@ -15,7 +15,6 @@ export function checkTokenMiddleware(req: Request, res: Response, next: NextFunc
       if (refreshTokenInReq && accessTokenInReq) {
         const decodeAccessToken = jwt.verify(accessTokenInReq, SECRET_KEY) as JwtPayload
         const decodeRefreshToken = jwt.verify(refreshTokenInReq, SECRET_KEY) as JwtPayload
-
         const user = await UserModel.findById(decodeAccessToken.id)
         const currentTimestamp = Math.floor(Date.now() / 1000)
 
@@ -31,6 +30,13 @@ export function checkTokenMiddleware(req: Request, res: Response, next: NextFunc
 
         return next()
       } else {
+        dataFromClient.error = {
+          status: 401,
+          errorNumber: 7,
+          message: 'Unauthorized'
+        }
+        accessToken.validToken = false
+        refreshToken.validToken = false
         return next()
       }
     } catch (error: unknown) {
