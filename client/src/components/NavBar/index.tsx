@@ -12,6 +12,7 @@ import { MiniProfile } from '../MiniProfile'
 import { Logo } from '../Logo'
 import { defaultFormCreatePost } from '../../helpers/defaultState'
 import { defaultModalState } from '../../helpers/defaultState'
+import { ToolBar } from '../ToolBar'
 import { HomeIcon } from '../../assets/icons/HomeIcon'
 import { NotificationsIcon } from '../../assets/icons/NotificationsIcon'
 import { MessagesIcon } from '../../assets/icons/MessagesIcon'
@@ -43,7 +44,13 @@ export function NavBar({ isActiveBurgerMenu, setIsActiveBurgerMenu }: NavBarProp
       const formData = new FormData()
       Object.entries(formCreatePost).forEach(([key, value]) => {
         if (value !== null) {
-          formData.append(key, value)
+          if (value instanceof FileList) {
+            Array.from(value).forEach((file) => {
+              formData.append(key, file, file.name)
+            })
+          } else {
+            formData.append(key, value)
+          }
         }
       })
 
@@ -62,6 +69,13 @@ export function NavBar({ isActiveBurgerMenu, setIsActiveBurgerMenu }: NavBarProp
   function handleSubmitModal(e: FormEvent<HTMLFormElement>): void {
     e.preventDefault()
     setIsSubmit(true)
+  }
+
+  function handleGetDataDocument(document: FileList | null): void {
+    setFormCreatePost({
+      ...formCreatePost,
+      document
+    })
   }
 
   function handleClickBtnCancel(): void {
@@ -190,10 +204,7 @@ export function NavBar({ isActiveBurgerMenu, setIsActiveBurgerMenu }: NavBarProp
             placeholder="What's happening?"
             className="text-area_primary"
           />
-
-          <div className="form-create-post__footer">
-            footer
-          </div>
+          <ToolBar getDataDocument={handleGetDataDocument} />
         </form>
       </Modal>
     </nav>

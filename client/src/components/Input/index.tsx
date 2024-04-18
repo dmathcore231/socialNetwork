@@ -3,7 +3,7 @@ import { useRef, useState, useEffect } from 'react'
 import { InputProps } from '../../types/interfaces/InputProps'
 
 
-export function Input({ type, id, label, placeholder, className, required, value, name, onChange, error }: InputProps): JSX.Element {
+export function Input({ type, id, label, placeholder, className, required, value, name, onChange, error, multiple }: InputProps): JSX.Element {
   const inputRef = useRef<HTMLInputElement>(null)
   const labelRef = useRef<HTMLLabelElement>(null)
   const [isFocused, setIsFocused] = useState(false)
@@ -34,6 +34,7 @@ export function Input({ type, id, label, placeholder, className, required, value
           onChange={onChange}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
+          multiple={multiple}
         />
         <span className={(isError
           ? "input__placeholder input__placeholder_error"

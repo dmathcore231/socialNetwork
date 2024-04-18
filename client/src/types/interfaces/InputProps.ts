@@ -12,4 +12,5 @@ export interface InputProps {
   className?: string
   name?: string
   error?: boolean
+  multiple?: boolean
 }

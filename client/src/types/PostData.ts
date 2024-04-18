@@ -13,7 +13,7 @@ export type PostData = {
   postData: {
     title: string
     text: string
-    document: string
+    document: string[]
     postScope: 'global' | 'personal'
   }
 
