@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit"
 import { AxiosError } from "axios"
 import { ResponseWithoutPayload, ResponseWithPostDataPayload } from "../types/interfaces/ResponseFromServer"
 import { PostState } from "../types/interfaces/Post"
-import { requestCreatePost, requestGetPostById } from "../services/post"
+import { requestCreatePost, requestGetPostById, requestEditPost } from "../services/post"
 import { setDataInLocalStorage } from "../helpers"
 
 const initialState: PostState = {
@@ -32,6 +32,16 @@ export const fetchGetPostById = createAsyncThunk('post/fetchGetPostById', async 
   } catch (error) {
     const err = error as AxiosError
     const errResponse = err.response?.data as ResponseWithoutPayload
+    return rejectWithValue(errResponse)
+  }
+})
+
+export const fetchEditPost = createAsyncThunk<ResponseWithPostDataPayload, { id: string, body: FormData }, { rejectValue: ResponseWithPostDataPayload }>('post/fetchEditPost', async ({ id, body }, { rejectWithValue }) => {
+  try {
+    return await requestEditPost(id, body)
+  } catch (error) {
+    const err = error as AxiosError
+    const errResponse = err.response?.data as ResponseWithPostDataPayload
     return rejectWithValue(errResponse)
   }
 })
@@ -70,6 +80,7 @@ export const postSlice = createSlice({
           state.ResponseState.error = payload.error
           state.ResponseState.errorNumber = payload.errorNumber
           state.ResponseState.message = payload.message
+          state.ResponseState.loading = false
         }
       })
 
@@ -94,6 +105,32 @@ export const postSlice = createSlice({
           state.ResponseState.error = payload.error
           state.ResponseState.errorNumber = payload.errorNumber
           state.ResponseState.message = payload.message
+          state.ResponseState.loading = false
+        }
+      })
+
+      //EditPost
+      .addCase(fetchEditPost.pending, (state) => {
+        state.ResponseState.loading = true
+        state.ResponseState.error = false
+      })
+      .addCase(fetchEditPost.fulfilled, (state, action: PayloadAction<ResponseWithPostDataPayload>) => {
+        state.ResponseState.status = action.payload.status
+        state.ResponseState.error = action.payload.error
+        state.ResponseState.errorNumber = action.payload.errorNumber
+        state.ResponseState.message = action.payload.message
+        state.ResponseState.loading = false
+        state.post = action.payload.post
+        setDataInLocalStorage('token', action.payload.token)
+      })
+      .addCase(fetchEditPost.rejected, (state, action) => {
+        const payload = action.payload as ResponseWithoutPayload
+        if (payload) {
+          state.ResponseState.status = payload.status
+          state.ResponseState.error = payload.error
+          state.ResponseState.errorNumber = payload.errorNumber
+          state.ResponseState.message = payload.message
+          state.ResponseState.loading = false
         }
       })
   }

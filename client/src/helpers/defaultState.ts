@@ -22,5 +22,6 @@ export const defaultModalState: ModalState = {
 export const defaultFormCreatePost: FormCreatePost = {
   title: '',
   text: '',
+  document: null,
   postScope: 'global',
 }

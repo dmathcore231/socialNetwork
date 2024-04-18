@@ -51,7 +51,7 @@ export function CreatePost(): JSX.Element {
   }
 
   return (
-    <div className="create-post">
+    <div className="create-post container">
       <div className="create-post-header">
         <div className="create-post-header__item">
           <LinkBack BackToHome={false} />

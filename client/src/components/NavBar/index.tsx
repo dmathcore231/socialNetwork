@@ -42,7 +42,9 @@ export function NavBar({ isActiveBurgerMenu, setIsActiveBurgerMenu }: NavBarProp
       setIsSubmit(false)
       const formData = new FormData()
       Object.entries(formCreatePost).forEach(([key, value]) => {
-        formData.append(key, value)
+        if (value !== null) {
+          formData.append(key, value)
+        }
       })
 
       dispatch(fetchCreatePost(formData))
@@ -188,6 +190,10 @@ export function NavBar({ isActiveBurgerMenu, setIsActiveBurgerMenu }: NavBarProp
             placeholder="What's happening?"
             className="text-area_primary"
           />
+
+          <div className="form-create-post__footer">
+            footer
+          </div>
         </form>
       </Modal>
     </nav>

@@ -1,8 +1,8 @@
 import "./styles.scss"
 import { useState, FormEvent, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "../../../hooks"
-import { fetchCreatePost, fetchGetPostById } from "../../../redux/postSlice"
+import { fetchGetPostById, fetchEditPost, resetResponseState } from "../../../redux/postSlice"
 import { LinkBack } from "../../../components/LinkBack"
 import { Btn } from "../../../components/Btn"
 import { Input } from "../../../components/Input"
@@ -12,12 +12,13 @@ import { defaultFormCreatePost } from "../../../helpers/defaultState"
 
 export function EditPost(): JSX.Element {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const postId = useParams().id
 
-  const { post, ResponseState: { loading } } = useAppSelector(state => state.post)
+  const { post, ResponseState: { loading, status } } = useAppSelector(state => state.post)
 
   const [isSubmit, setIsSubmit] = useState(false)
-  const [formCreatePost, setFormCreatePost] = useState(defaultFormCreatePost)
+  const [formUpdatePost, setFormUpdatePost] = useState(defaultFormCreatePost)
 
   useEffect(() => {
     if (postId) {
@@ -27,9 +28,10 @@ export function EditPost(): JSX.Element {
 
   useEffect(() => {
     if (post) {
-      setFormCreatePost({
+      setFormUpdatePost({
         title: post.postData.title,
         text: post.postData.text,
+        document: post.postData.document,
         postScope: post.postData.postScope
       })
     }
@@ -37,15 +39,23 @@ export function EditPost(): JSX.Element {
 
   useEffect(() => {
     if (isSubmit) {
-      setIsSubmit(false)
       const formData = new FormData()
-      Object.entries(formCreatePost).forEach(([key, value]) => {
-        formData.append(key, value)
+      Object.entries(formUpdatePost).forEach(([key, value]) => {
+        if (value !== null) {
+          formData.append(key, value)
+        }
       })
-
-      dispatch(fetchCreatePost(formData))
+      dispatch(fetchEditPost({ id: postId!, body: formData }))
     }
-  }, [isSubmit, dispatch])
+  }, [isSubmit, dispatch, postId])
+
+  useEffect(() => {
+    if (status === 200 && isSubmit) {
+      navigate(-1)
+      dispatch(resetResponseState())
+    }
+  }, [status, isSubmit, dispatch, navigate])
+
 
   function handleSubmitModal(e: FormEvent<HTMLFormElement>): void {
     e.preventDefault()
@@ -53,9 +63,10 @@ export function EditPost(): JSX.Element {
   }
 
   function handleClickBtnCancel() {
-    setFormCreatePost({
+    setFormUpdatePost({
       title: post!.postData.title,
       text: post!.postData.text,
+      document: post!.postData.document,
       postScope: post!.postData.postScope
     })
   }
@@ -85,12 +96,12 @@ export function EditPost(): JSX.Element {
             <Btn
               type="submit"
               className={"btn_primary btn_flat"
-                + (formCreatePost.title && formCreatePost.text ? "" : " btn_disabled")
+                + (formUpdatePost.title && formUpdatePost.text ? "" : " btn_disabled")
               }
-              disabled={!formCreatePost.title || !formCreatePost.text}
+              disabled={!formUpdatePost.title || !formUpdatePost.text}
               formId="form-edit-post"
             >
-              Post
+              Update
             </Btn>
           </div>
         </div>
@@ -116,8 +127,8 @@ export function EditPost(): JSX.Element {
                   labelInvisible: true
                 }}
                 required={true}
-                onChange={(e) => setFormCreatePost({ ...formCreatePost, title: e.target.value })}
-                value={formCreatePost.title}
+                onChange={(e) => setFormUpdatePost({ ...formUpdatePost, title: e.target.value })}
+                value={formUpdatePost.title}
                 placeholder="Title Post"
                 className="input_primary"
               />
@@ -127,8 +138,8 @@ export function EditPost(): JSX.Element {
                 maxLength={200}
                 minLength={1}
                 required={true}
-                onChange={(e) => setFormCreatePost({ ...formCreatePost, text: e.target.value })}
-                value={formCreatePost.text}
+                onChange={(e) => setFormUpdatePost({ ...formUpdatePost, text: e.target.value })}
+                value={formUpdatePost.text}
                 placeholder="What's happening?"
                 className="text-area_primary"
               />

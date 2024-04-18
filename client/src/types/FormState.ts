@@ -15,6 +15,7 @@ export type FormSignIn = {
 export type FormCreatePost = {
   title: string
   text: string
+  document: string | null | File
   postScope: 'global' | 'personal'
 }
 

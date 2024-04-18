@@ -80,7 +80,9 @@ export const router = createBrowserRouter([
     element: <Authorization />,
   },
   {
-    element: <Post />,
+    element: <PrivateRouter redirectTo="/authorization">
+      <Post />
+    </PrivateRouter>,
     children: [
       {
         path: "/post/create",

@@ -26,3 +26,17 @@ export const requestGetPostById = async (id: string): Promise<ResponseWithPostDa
     throw err
   }
 }
+
+export const requestEditPost = async (id: string, body: FormData): Promise<ResponseWithPostDataPayload> => {
+  try {
+    const { data } = await client.patch(`${postEndPoint}/${id}`, body, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+    return data
+  } catch (error) {
+    const err = error as AxiosError
+    throw err
+  }
+}
