@@ -1,15 +1,22 @@
 @import "../../styles/app.scss";
 
 .authorization {
+  height: 100vh;
   @include flex-center;
   gap: 5rem;
-  height: 100vh;
+  padding: 1rem;
 
   &__item {
     @include flex-column;
     align-items: flex-start;
     gap: 2rem;
     width: 50%;
+
+    &_ai {
+      &_center {
+        align-items: center;
+      }
+    }
   }
 
   &-form {
@@ -23,6 +30,25 @@
 
     &__subtitle {
       padding-top: 1rem;
+    }
+  }
+
+  @media (max-width: 48rem) {
+    height: 100%;
+    @include flex-column;
+    gap: 2rem;
+    padding: 1rem;
+
+    &__item {
+      width: 100%;
+      align-items: center;
+    }
+  }
+
+  @media (max-width:36rem) {
+
+    &-form {
+      width: 80%;
     }
   }
 }

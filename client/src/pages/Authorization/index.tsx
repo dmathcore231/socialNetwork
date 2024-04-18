@@ -1,6 +1,7 @@
 import './styles.scss'
 import { useState, FormEvent, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useMediaQuery } from 'react-responsive'
 import { fetchSignUp, fetchSignIn } from '../../redux/userSlice'
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { FormSignUp, FormSignIn } from '../../types/FormState'
@@ -11,11 +12,13 @@ import { Btn } from '../../components/Btn'
 import { Modal } from '../../components/Modal'
 import { Input } from '../../components/Input'
 import { Spinner } from '../../components/Spinner'
+import { Logo } from '../../components/Logo'
 
 
 export function Authorization(): JSX.Element {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const breakPointMd = useMediaQuery({ query: '(max-width: 48rem)' })
 
   const { ResponseState: { status, errorNumber, message, loading } } = useAppSelector((state) => state.user)
 
@@ -264,8 +267,14 @@ export function Authorization(): JSX.Element {
 
   return (
     <div className="authorization container">
-      <div className="authorization__item">
-        <h1>Logo</h1>
+      <div className="authorization__item authorization__item_ai_center ">
+        {breakPointMd
+          ? (
+            <Logo size='md' />
+          )
+          : (
+            <Logo size='lg' />
+          )}
       </div>
       <div className="authorization__item">
         <div className='authorization__title'>
