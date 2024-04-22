@@ -14,7 +14,7 @@ export async function updatePostData(req: Request, res: Response, next: NextFunc
   post!.postData = {
     title: title,
     text: text,
-    document: req.file ? req.file.path : null,
+    document: req.file ? [req.file.path] : null,
     postScope: postScope
   }
 

@@ -83,6 +83,24 @@ export function NavBar({ isActiveBurgerMenu, setIsActiveBurgerMenu }: NavBarProp
     setFormCreatePost(defaultFormCreatePost)
   }
 
+  function renderPreview(): JSX.Element | null {
+    if (formCreatePost.document && formCreatePost.document instanceof FileList) {
+      return (
+        <div className="preview">
+          <div className="preview-list">
+            {Array.from(formCreatePost.document).map((file) => (
+              <div key={file.name} className="preview-list__item">
+                <img src={URL.createObjectURL(file)} alt={file.name} className="preview-list__img" />
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+    } else {
+      return null
+    }
+  }
+
   return (
     <nav className="nav-bar">
       <div className="nav-bar__item
@@ -204,6 +222,7 @@ export function NavBar({ isActiveBurgerMenu, setIsActiveBurgerMenu }: NavBarProp
             placeholder="What's happening?"
             className="text-area_primary"
           />
+          {renderPreview()}
           <ToolBar getDataDocument={handleGetDataDocument} />
         </form>
       </Modal>

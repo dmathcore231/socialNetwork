@@ -14,7 +14,7 @@ const postSchema: Schema<Post> = new Schema<Post>({
   postData: {
     title: String,
     text: String,
-    document: String,
+    document: Array || null,
     postScope: {
       type: String,
       enum: ['global', 'personal'],

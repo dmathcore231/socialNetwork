@@ -45,7 +45,6 @@ function setResponseCreatePost(req: Request, res: Response) {
       error: true,
       message: "Internal Server Error"
     }
-
     return res.status(response.status).send(response)
   }
 }

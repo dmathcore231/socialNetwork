@@ -25,7 +25,7 @@ export interface DataFromClient {
   postData: {
     title: string | null
     text: string | null
-    document: string | null
+    document: string[] | null
     postScope: 'global' | 'personal' | null
   }
 

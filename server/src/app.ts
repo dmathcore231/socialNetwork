@@ -1,4 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express'
+import path from 'path'
 import mongoose, { Mongoose, mongo } from 'mongoose'
 import cookieParser from 'cookie-parser'
 import { setLocalDataMiddleware } from './middlewares/setLocalDataMiddleware'
@@ -16,6 +17,9 @@ app.use((_: Request, res: Response, next: NextFunction) => {
   res.setHeader('Vary', 'Origin')
   next()
 })
+
+app.use('/public', express.static(path.join(__dirname, '..', 'public')))
+
 
 app.use(express.json())
 app.use(cookieParser())

@@ -13,7 +13,7 @@ export interface Post extends Document {
   postData: {
     title: string
     text: string
-    document: string | null
+    document: string[] | null
     postScope: 'global' | 'personal'
   }
 

@@ -28,7 +28,7 @@ export function Post({ data }: PostProps): JSX.Element {
   const { fullName, tag, userAvatar } = data.creationData.userDataCreator
 
   const [isDropDownActive, setIsDropDownActive] = useState(false)
-
+  console.log(data.postData.document)
   function handleDropDownClick() {
     setIsDropDownActive(prev => !prev)
   }
@@ -126,6 +126,7 @@ export function Post({ data }: PostProps): JSX.Element {
         <div className="post-body__text">
           {data.postData.text}
         </div>
+        {/* <img src="http://localhost:3000/public/documentInPost/1713796367314.jpg" alt="Image" /> need fix */}
       </div>
       <div className="post-footer">
         <span className="post-footer__item">
