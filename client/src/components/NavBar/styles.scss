@@ -88,31 +88,16 @@
   @include flex-center;
   gap: 1rem;
 
-  &-list {
+  &__item {
+    height: 340px;
+    flex: 0 0 calc(50% - 0.5rem);
+  }
+
+  &__img {
     width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    overflow-x: auto;
-
-
-    &__item {
-      height: 300px;
-
-      &:only-child {
-        height: 100%;
-        flex: 0 0 100%;
-      }
-
-      flex: 0 0 50%;
-    }
-
-    &__img {
-      width: 100%;
-      height: 100%;
-      max-width: 100%;
-      object-fit: cover;
-      border-radius: var(--main-border-radius);
-    }
+    height: 100%;
+    max-width: 100%;
+    object-fit: cover;
+    border-radius: var(--main-border-radius);
   }
 }

@@ -6,7 +6,7 @@ import { CarouselProps } from '../../types/interfaces/CarouselProps'
 import { ArrowLeftIcon } from '../../assets/icons/ArrowLeftIcon'
 import { ArrowRightIcon } from '../../assets/icons/ArrowRightIcon'
 
-export function Carousel({ data }: CarouselProps): JSX.Element {
+export function Carousel({ data, blob }: CarouselProps): JSX.Element {
   const carouselListElement: RefObject<HTMLDivElement> = useRef(null)
   const itemElement: RefObject<HTMLDivElement> = useRef(null)
 
@@ -52,7 +52,9 @@ export function Carousel({ data }: CarouselProps): JSX.Element {
         return (
           <div className="carousel__item" key={index} ref={itemElement}>
             <img
-              src={`http://localhost:3000/${item}`}
+              src={blob
+                ? item
+                : `http://localhost:3000/${item}`}
               alt="post-img"
               className="carousel__image"
             />

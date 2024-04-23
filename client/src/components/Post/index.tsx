@@ -98,7 +98,6 @@ export function Post({ data }: PostProps): JSX.Element {
     }
   }
 
-
   return (
     <div className="post">
       <div className="post-header">

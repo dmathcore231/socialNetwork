@@ -10,6 +10,7 @@ import { TextArea } from '../TextArea'
 import { Input } from '../Input'
 import { MiniProfile } from '../MiniProfile'
 import { Logo } from '../Logo'
+import { Carousel } from '../Carousel'
 import { defaultFormCreatePost } from '../../helpers/defaultState'
 import { defaultModalState } from '../../helpers/defaultState'
 import { ToolBar } from '../ToolBar'
@@ -85,17 +86,40 @@ export function NavBar({ isActiveBurgerMenu, setIsActiveBurgerMenu }: NavBarProp
 
   function renderPreview(): JSX.Element | null {
     if (formCreatePost.document && formCreatePost.document instanceof FileList) {
-      return (
-        <div className="preview">
-          <div className="preview-list">
-            {Array.from(formCreatePost.document).map((file) => (
-              <div key={file.name} className="preview-list__item">
-                <img src={URL.createObjectURL(file)} alt={file.name} className="preview-list__img" />
-              </div>
-            ))}
+      const arrFiles = Array.from(formCreatePost.document)
+      const UrlsDocument = arrFiles.map(file => URL.createObjectURL(file))
+
+      if (UrlsDocument.length > 2) {
+        return (
+          <Carousel
+            data={UrlsDocument}
+            blob={true}
+          />
+        )
+      } else if (UrlsDocument.length === 2) {
+        return (
+          <div className="preview">
+            <div className="preview__item">
+              <img src={UrlsDocument[0]}
+                alt="post document"
+                className="preview__img" />
+            </div>
+            <div className="preview__item">
+              <img src={UrlsDocument[1]}
+                alt="post document"
+                className="preview__img" />
+            </div>
           </div>
-        </div>
-      )
+        )
+      } else {
+        return (
+          <div className="preview__item">
+            <img src={UrlsDocument[0]}
+              alt="post document"
+              className="preview__img" />
+          </div>
+        )
+      }
     } else {
       return null
     }

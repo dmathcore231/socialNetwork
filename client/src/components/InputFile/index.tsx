@@ -26,7 +26,7 @@ export function InputFile({ getDataDocument }: InputFileProps): JSX.Element {
           <MediaIcon width="20px" height="20px" />
         </div>
       </label>
-      {value && <p>Выбрано файлов: {value.length}</p>}
+      {value && <p>Selected files: {value.length}</p>}
     </div>
   )
 }
