@@ -3,7 +3,7 @@ import { documentInPostUpload } from '../utils/multerConfig'
 import { createResForMissingFields } from '../utils/createResForMissingFields'
 
 export function validateCreatePostFormMiddleware(req: Request, res: Response, next: NextFunction) {
-  documentInPostUpload.single('document')(req, res, async (err) => {
+  documentInPostUpload.array('document', 5)(req, res, async (err) => {
     const { dataFromClient } = res.locals
     const { status } = dataFromClient.error
     const { title, text, postScope } = req.body
@@ -30,7 +30,7 @@ export function validateCreatePostFormMiddleware(req: Request, res: Response, ne
       dataFromClient.postData = {
         title: title,
         text: text,
-        document: req.file ? [req.file.path] : null,
+        document: req.files ? (req.files as Express.Multer.File[]).map((file) => file.path) : null,
         postScope: postScope
       }
 

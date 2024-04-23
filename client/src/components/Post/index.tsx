@@ -6,14 +6,15 @@ import { useAppSelector } from '../../hooks'
 import { PostProps } from '../../types/interfaces/PostProps'
 import { AvatarContainer } from '../AvatarContainer'
 import { SIZE_ICON_MD, SIZE_ICON_SM } from '../../helpers'
+import { Btn } from '../Btn'
+import { DropDown } from '../DropDown'
+import { Carousel } from '../Carousel'
 import { AvatarDefaultIcon } from '../../assets/icons/AvatarDefaultIcon'
 import { CommentsIcon } from '../../assets/icons/CommentsIcon'
 import { RepostIcon } from '../../assets/icons/RepostIcon'
 import { LikeIcon } from '../../assets/icons/LikeIcon'
 import { ViewedIcon } from '../../assets/icons/ViewedIcon'
 import { MoreIcon } from '../../assets/icons/MoreIcon'
-import { Btn } from '../Btn'
-import { DropDown } from '../DropDown'
 import { ReportIcon } from '../../assets/icons/ReportIcon'
 import { BookmarkIcon } from '../../assets/icons/BookmarkIcon'
 import { IgnoreIcon } from '../../assets/icons/IgnoreIcon'
@@ -28,7 +29,7 @@ export function Post({ data }: PostProps): JSX.Element {
   const { fullName, tag, userAvatar } = data.creationData.userDataCreator
 
   const [isDropDownActive, setIsDropDownActive] = useState(false)
-  console.log(data.postData.document)
+
   function handleDropDownClick() {
     setIsDropDownActive(prev => !prev)
   }
@@ -72,6 +73,31 @@ export function Post({ data }: PostProps): JSX.Element {
       )
     }
   }
+
+  function renderDocumentInPost(): JSX.Element | null {
+    if (data.postData.document && data.postData.document.length > 2) {
+      return (
+        <Carousel
+          data={data.postData.document}
+        />
+      )
+    } else if (data.postData.document && data.postData.document.length === 2) {
+      return (
+        <>
+          <img src={`http://localhost:3000/${data.postData.document[0]}`} alt="post document" className='post-body__img' />
+          <img src={`http://localhost:3000/${data.postData.document[1]}`} alt="post document" className='post-body__img' />
+        </>
+      )
+    } else if (data.postData.document && data.postData.document.length === 1) {
+      return (
+        <img src={`http://localhost:3000/${data.postData.document[0]}`} alt="post document" className='post-body__img' />
+      )
+    }
+    else {
+      return null
+    }
+  }
+
 
   return (
     <div className="post">
@@ -126,7 +152,9 @@ export function Post({ data }: PostProps): JSX.Element {
         <div className="post-body__text">
           {data.postData.text}
         </div>
-        {/* <img src="http://localhost:3000/public/documentInPost/1713796367314.jpg" alt="Image" /> need fix */}
+        <div className="post-body__image">
+          {renderDocumentInPost()}
+        </div>
       </div>
       <div className="post-footer">
         <span className="post-footer__item">

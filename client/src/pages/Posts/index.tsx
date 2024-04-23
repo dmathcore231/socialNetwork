@@ -9,13 +9,18 @@ export function Posts(): JSX.Element {
 
   return (
     <div className="posts">
-
-      {usersPosts?.map((post) => (
-        <Post
-          key={post._id}
-          data={post}
-        />
-      ))}
+      {usersPosts
+        ? (
+          usersPosts.map((post) => (
+            <Post
+              key={post._id}
+              data={post}
+            />
+          ))
+        )
+        : (
+          null
+        )}
     </div>
   )
 }

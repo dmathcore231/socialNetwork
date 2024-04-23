@@ -4,7 +4,7 @@ import { PostModel } from '../models/postSchema'
 import { createResForMissingFields } from '../utils/createResForMissingFields'
 
 export async function editPostMiddleware(req: Request, res: Response, next: NextFunction) {
-  documentInPostUpload.single('file')(req, res, async (err) => {
+  documentInPostUpload.array('document', 5)(req, res, async (err) => {
     const { dataFromClient } = res.locals
     const { status } = dataFromClient.error
     const { title, text, postScope } = req.body
@@ -42,7 +42,7 @@ export async function editPostMiddleware(req: Request, res: Response, next: Next
       dataFromClient.postData = {
         title: title,
         text: text,
-        document: req.file ? req.file.path : null,
+        document: req.file ? (req.files as Express.Multer.File[]).map((file) => file.path) : null,
         postScope: postScope
       }
 
