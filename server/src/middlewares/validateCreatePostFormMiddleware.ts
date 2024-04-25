@@ -1,8 +1,11 @@
+import sharp from 'sharp'
+import path from 'path'
 import { Request, Response, NextFunction } from 'express'
 import { documentInPostUpload } from '../utils/multerConfig'
 import { createResForMissingFields } from '../utils/createResForMissingFields'
+import { UserModel } from '../models/userSchema'
 
-export function validateCreatePostFormMiddleware(req: Request, res: Response, next: NextFunction) {
+export async function validateCreatePostFormMiddleware(req: Request, res: Response, next: NextFunction) {
   documentInPostUpload.array('document', 5)(req, res, async (err) => {
     const { dataFromClient } = res.locals
     const { status } = dataFromClient.error
@@ -27,11 +30,31 @@ export function validateCreatePostFormMiddleware(req: Request, res: Response, ne
         { field: postScope, label: 'Post scope' }
       ])
 
-      dataFromClient.postData = {
-        title: title,
-        text: text,
-        document: req.files ? (req.files as Express.Multer.File[]).map((file) => file.path) : null,
-        postScope: postScope
+      if (req.files) {
+        const files = req.files as Express.Multer.File[]
+        const resizedFiles = []
+        const userId = dataFromClient.user._id
+        const timeStamp = Date.now()
+
+
+        for (const file of files) {
+          const { buffer } = file
+          const originalFileName = path.basename(`${userId}_${timeStamp}`, path.extname(file.originalname));
+          const resizedImagePath = `public/documentInPost/${originalFileName}${path.extname(file.originalname)}`
+
+          await sharp(buffer)
+            .resize({ width: 1200 })
+            .toFile(resizedImagePath)
+
+          resizedFiles.push(resizedImagePath)
+        }
+
+        dataFromClient.postData = {
+          title: title,
+          text: text,
+          document: resizedFiles,
+          postScope: postScope
+        }
       }
 
       return next()
@@ -41,7 +64,7 @@ export function validateCreatePostFormMiddleware(req: Request, res: Response, ne
         errorNumber: 3,
         message: error.message
       }
-
+      console.log(error)
       return next()
     }
   })

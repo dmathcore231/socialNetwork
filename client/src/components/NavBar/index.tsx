@@ -41,7 +41,6 @@ export function NavBar({ isActiveBurgerMenu, setIsActiveBurgerMenu }: NavBarProp
 
   useEffect(() => {
     if (isSubmit) {
-      setIsSubmit(false)
       const formData = new FormData()
       Object.entries(formCreatePost).forEach(([key, value]) => {
         if (value !== null) {
@@ -60,7 +59,8 @@ export function NavBar({ isActiveBurgerMenu, setIsActiveBurgerMenu }: NavBarProp
   }, [isSubmit, dispatch])
 
   useEffect(() => {
-    if (status === 201 && modalActive.isActive) {
+    if (status === 201 && modalActive.isActive && isSubmit) {
+      setIsSubmit(false)
       setModalActive(defaultModalState)
       setFormCreatePost(defaultFormCreatePost)
       navigate('/profile')
