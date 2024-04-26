@@ -8,7 +8,8 @@ import { Btn } from "../../../components/Btn"
 import { Input } from "../../../components/Input"
 import { TextArea } from "../../../components/TextArea"
 import { Spinner } from "../../../components/Spinner"
-import { defaultFormCreatePost } from "../../../helpers/defaultState"
+import { Carousel } from "../../../components/Carousel"
+import { defaultFormUpdatePost } from "../../../helpers/defaultState"
 
 export function EditPost(): JSX.Element {
   const dispatch = useAppDispatch()
@@ -18,7 +19,7 @@ export function EditPost(): JSX.Element {
   const { post, ResponseState: { loading, status } } = useAppSelector(state => state.post)
 
   const [isSubmit, setIsSubmit] = useState(false)
-  const [formUpdatePost, setFormUpdatePost] = useState(defaultFormCreatePost)
+  const [formUpdatePost, setFormUpdatePost] = useState(defaultFormUpdatePost)
 
   useEffect(() => {
     if (postId) {
@@ -31,7 +32,8 @@ export function EditPost(): JSX.Element {
       setFormUpdatePost({
         title: post.postData.title,
         text: post.postData.text,
-        document: post.postData.document,
+        defaultValue: post.postData.document,
+        updateValue: null,
         postScope: post.postData.postScope
       })
     }
@@ -42,9 +44,20 @@ export function EditPost(): JSX.Element {
       const formData = new FormData()
       Object.entries(formUpdatePost).forEach(([key, value]) => {
         if (value !== null) {
-          formData.append(key, value)
+          if (value instanceof FileList) {
+            Array.from(value).forEach((file) => {
+              formData.append(key, file, file.name)
+            })
+          } else if (Array.isArray(value)) {
+            value.forEach((item) => {
+              formData.append(key, item)
+            })
+          } else {
+            formData.append(key, value)
+          }
         }
       })
+
       dispatch(fetchEditPost({ id: postId!, body: formData }))
     }
   }, [isSubmit, dispatch, postId])
@@ -66,9 +79,52 @@ export function EditPost(): JSX.Element {
     setFormUpdatePost({
       title: post!.postData.title,
       text: post!.postData.text,
-      document: post!.postData.document,
+      defaultValue: post!.postData.document,
+      updateValue: null,
       postScope: post!.postData.postScope
     })
+  }
+
+  function renderPreview(): JSX.Element | null {
+    if (formUpdatePost.defaultValue
+      && formUpdatePost.defaultValue.length === 2) {
+      return (
+        <div className="preview">
+          <div className="preview__item">
+            <img src={`http://localhost:3000/${formUpdatePost.defaultValue[0]}`}
+              alt="post document"
+              className="preview__img" />
+          </div>
+          <div className="preview__item">
+            <img src={`http://localhost:3000/${formUpdatePost.defaultValue[1]}`}
+              alt="post document"
+              className="preview__img" />
+          </div>
+        </div>
+      )
+    } else if (formUpdatePost.defaultValue
+      && formUpdatePost.defaultValue.length === 1) {
+      return (
+        <div className="preview">
+          <div className="preview__item">
+            <img src={`http://localhost:3000/${formUpdatePost.defaultValue[0]}`}
+              alt="post document"
+              className="preview__img" />
+          </div>
+        </div>
+      )
+    } else if (formUpdatePost.defaultValue
+      && formUpdatePost.defaultValue.length > 2) {
+      return (
+        <div className="preview">
+          <Carousel
+            data={formUpdatePost.defaultValue} />
+        </div>
+      )
+    }
+    else {
+      return null
+    }
   }
 
   return (
@@ -143,6 +199,7 @@ export function EditPost(): JSX.Element {
                 placeholder="What's happening?"
                 className="text-area_primary"
               />
+              {renderPreview()}
             </form>
           )}
       </div>

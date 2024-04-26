@@ -26,10 +26,17 @@ export function CreatePost(): JSX.Element {
 
   useEffect(() => {
     if (isSubmit) {
-      setIsSubmit(false)
       const formData = new FormData()
       Object.entries(formCreatePost).forEach(([key, value]) => {
-        formData.append(key, value)
+        if (value !== null) {
+          if (value instanceof FileList) {
+            Array.from(value).forEach((file) => {
+              formData.append(key, file, file.name)
+            })
+          } else {
+            formData.append(key, value)
+          }
+        }
       })
 
       dispatch(fetchCreatePost(formData))

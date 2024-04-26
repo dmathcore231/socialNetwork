@@ -15,7 +15,15 @@ export type FormSignIn = {
 export type FormCreatePost = {
   title: string
   text: string
-  document: string | null | FileList
+  document: FileList | null
+  postScope: 'global' | 'personal'
+}
+
+export type FormUpdatePost = {
+  title: string
+  text: string
+  defaultValue: string[] | null
+  updateValue: FileList | null
   postScope: 'global' | 'personal'
 }
 

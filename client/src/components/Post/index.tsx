@@ -75,7 +75,8 @@ export function Post({ data }: PostProps): JSX.Element {
   }
 
   function renderDocumentInPost(): JSX.Element | null {
-    if (data.postData.document && data.postData.document.length > 2) {
+    if (data.postData.document
+      && data.postData.document.length > 2) {
       return (
         <Carousel
           data={data.postData.document}

@@ -1,4 +1,4 @@
-import { FormSignUp, FormSignIn, FormCreatePost } from "../types/FormState"
+import { FormSignUp, FormSignIn, FormCreatePost, FormUpdatePost } from "../types/FormState"
 import { ModalState } from "../types/ModalState"
 
 export const defaultFormSignUp: FormSignUp = {
@@ -24,4 +24,12 @@ export const defaultFormCreatePost: FormCreatePost = {
   text: '',
   document: null,
   postScope: 'global',
+}
+
+export const defaultFormUpdatePost: FormUpdatePost = {
+  title: '',
+  text: '',
+  defaultValue: null,
+  updateValue: null,
+  postScope: 'global'
 }
