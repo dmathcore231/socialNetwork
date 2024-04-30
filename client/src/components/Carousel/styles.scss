@@ -9,6 +9,7 @@
   &-toggle {
     position: absolute;
     @include flex-center;
+    z-index: 2;
 
     &__left {
       left: 2px;
@@ -35,8 +36,15 @@
   }
 
   &__item {
+    position: relative;
     height: 340px;
     flex: 0 0 calc(50% - 0.5rem);
+
+    &:hover {
+      .carousel__btn-edit {
+        display: inline-flex;
+      }
+    }
   }
 
   &__image {
@@ -45,5 +53,13 @@
     max-width: 100%;
     object-fit: cover;
     border-radius: var(--main-border-radius);
+  }
+
+  &__btn-edit {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: none;
+    z-index: 5;
   }
 }

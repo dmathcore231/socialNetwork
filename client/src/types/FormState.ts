@@ -22,8 +22,7 @@ export type FormCreatePost = {
 export type FormUpdatePost = {
   title: string
   text: string
-  defaultValue: string[] | null
-  updateValue: FileList | null
+  document: string[] | FileList | null
   postScope: 'global' | 'personal'
 }
 

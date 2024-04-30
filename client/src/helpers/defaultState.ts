@@ -29,7 +29,6 @@ export const defaultFormCreatePost: FormCreatePost = {
 export const defaultFormUpdatePost: FormUpdatePost = {
   title: '',
   text: '',
-  defaultValue: null,
-  updateValue: null,
+  document: null,
   postScope: 'global'
 }

@@ -20,6 +20,18 @@
     &:active {
       background-color: var(--gray-100);
     }
+
+    &_disabled {
+      cursor: default;
+
+      &:hover {
+        background-color: transparent;
+      }
+
+      &:active {
+        background-color: var(--red-color);
+      }
+    }
   }
 
   &__input {

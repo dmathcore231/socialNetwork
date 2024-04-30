@@ -6,6 +6,7 @@ import { fetchGetPostById, fetchEditPost, resetResponseState } from "../../../re
 import { LinkBack } from "../../../components/LinkBack"
 import { Btn } from "../../../components/Btn"
 import { Input } from "../../../components/Input"
+import { InputFile } from "../../../components/InputFile"
 import { TextArea } from "../../../components/TextArea"
 import { Spinner } from "../../../components/Spinner"
 import { Carousel } from "../../../components/Carousel"
@@ -20,6 +21,9 @@ export function EditPost(): JSX.Element {
 
   const [isSubmit, setIsSubmit] = useState(false)
   const [formUpdatePost, setFormUpdatePost] = useState(defaultFormUpdatePost)
+  const [updateFiles, setUpdateFiles] = useState<FileList | null>(null)
+  const [indexDeleteDocument, setIndexDeleteDocument] = useState<string | null>(null)
+  const [documentUrls, setDocumentUrls] = useState<string[] | null>(null)
 
   useEffect(() => {
     if (postId) {
@@ -32,8 +36,7 @@ export function EditPost(): JSX.Element {
       setFormUpdatePost({
         title: post.postData.title,
         text: post.postData.text,
-        defaultValue: post.postData.document,
-        updateValue: null,
+        document: post.postData.document,
         postScope: post.postData.postScope
       })
     }
@@ -69,6 +72,14 @@ export function EditPost(): JSX.Element {
     }
   }, [status, isSubmit, dispatch, navigate])
 
+  useEffect(() => {
+    if (formUpdatePost.document
+      && formUpdatePost.document instanceof Array
+      && indexDeleteDocument !== null) {
+      setDocumentUrls(formUpdatePost.document.filter((item) => item !== indexDeleteDocument))
+    }
+  }, [formUpdatePost.document, indexDeleteDocument])
+  console.log(documentUrls)
 
   function handleSubmitModal(e: FormEvent<HTMLFormElement>): void {
     e.preventDefault()
@@ -79,46 +90,49 @@ export function EditPost(): JSX.Element {
     setFormUpdatePost({
       title: post!.postData.title,
       text: post!.postData.text,
-      defaultValue: post!.postData.document,
-      updateValue: null,
+      document: post!.postData.document,
       postScope: post!.postData.postScope
     })
   }
 
   function renderPreview(): JSX.Element | null {
-    if (formUpdatePost.defaultValue
-      && formUpdatePost.defaultValue.length === 2) {
+    if (formUpdatePost.document
+      && formUpdatePost.document.length === 2) {
       return (
         <div className="preview">
           <div className="preview__item">
-            <img src={`http://localhost:3000/${formUpdatePost.defaultValue[0]}`}
+            <img src={`http://localhost:3000/${formUpdatePost.document[0]}`}
               alt="post document"
               className="preview__img" />
           </div>
           <div className="preview__item">
-            <img src={`http://localhost:3000/${formUpdatePost.defaultValue[1]}`}
+            <img src={`http://localhost:3000/${formUpdatePost.document[1]}`}
               alt="post document"
               className="preview__img" />
           </div>
         </div>
       )
-    } else if (formUpdatePost.defaultValue
-      && formUpdatePost.defaultValue.length === 1) {
+    } else if (formUpdatePost.document
+      && formUpdatePost.document.length === 1) {
       return (
         <div className="preview">
           <div className="preview__item">
-            <img src={`http://localhost:3000/${formUpdatePost.defaultValue[0]}`}
+            <img src={`http://localhost:3000/${formUpdatePost.document[0]}`}
               alt="post document"
               className="preview__img" />
           </div>
         </div>
       )
-    } else if (formUpdatePost.defaultValue
-      && formUpdatePost.defaultValue.length > 2) {
+    } else if (formUpdatePost.document
+      && formUpdatePost.document.length > 2
+      && formUpdatePost.document instanceof Array
+    ) {
       return (
         <div className="preview">
           <Carousel
-            data={formUpdatePost.defaultValue} />
+            data={formUpdatePost.document}
+            setChangedArrDocument={setIndexDeleteDocument}
+          />
         </div>
       )
     }
@@ -199,7 +213,21 @@ export function EditPost(): JSX.Element {
                 placeholder="What's happening?"
                 className="text-area_primary"
               />
+              <InputFile
+                getDataDocument={setUpdateFiles}
+                disabled={post?.postData.document?.length === 5 ? true : false}
+              />
               {renderPreview()}
+              {/* test */}
+              {documentUrls?.map((item, index) => {
+                return (
+                  <div key={index} className="preview__item">
+                    <img src={`http://localhost:3000/${item}`}
+                      alt="post document"
+                      className="preview__img" />
+                  </div>
+                )
+              })}
             </form>
           )}
       </div>

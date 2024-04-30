@@ -37,9 +37,12 @@ export async function validateCreatePostFormMiddleware(req: Request, res: Respon
         const timeStamp = Date.now()
 
 
+        console.log(files)
+        console.log(files.length)
+
         for (const file of files) {
           const { buffer } = file
-          const originalFileName = path.basename(`${userId}_${timeStamp}`, path.extname(file.originalname));
+          const originalFileName = path.basename(`${userId}_${timeStamp + files.indexOf(file)}`, path.extname(file.originalname));
           const resizedImagePath = `public/documentInPost/${originalFileName}${path.extname(file.originalname)}`
 
           await sharp(buffer)

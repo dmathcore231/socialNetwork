@@ -5,8 +5,9 @@ import { SIZE_ICON_MD } from '../../helpers'
 import { CarouselProps } from '../../types/interfaces/CarouselProps'
 import { ArrowLeftIcon } from '../../assets/icons/ArrowLeftIcon'
 import { ArrowRightIcon } from '../../assets/icons/ArrowRightIcon'
+import { CloseIcon } from '../../assets/icons/CloseIcon'
 
-export function Carousel({ data, blob }: CarouselProps): JSX.Element {
+export function Carousel({ data, blob, setChangedArrDocument }: CarouselProps): JSX.Element {
   const carouselListElement: RefObject<HTMLDivElement> = useRef(null)
   const itemElement: RefObject<HTMLDivElement> = useRef(null)
 
@@ -51,6 +52,17 @@ export function Carousel({ data, blob }: CarouselProps): JSX.Element {
       {data.map((item, index) => {
         return (
           <div className="carousel__item" key={index} ref={itemElement}>
+            <span className="carousel__btn-edit">
+              <Btn
+                type="button"
+                className="btn_transparent_shadow_enabled btn_transparent_shadow_color_white"
+                onClick={setChangedArrDocument
+                  ? () => setChangedArrDocument(item)
+                  : undefined}
+              >
+                <CloseIcon width="16" height="16" />
+              </Btn>
+            </span>
             <img
               src={blob
                 ? item
