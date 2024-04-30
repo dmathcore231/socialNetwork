@@ -36,10 +36,6 @@ export async function validateCreatePostFormMiddleware(req: Request, res: Respon
         const userId = dataFromClient.user._id
         const timeStamp = Date.now()
 
-
-        console.log(files)
-        console.log(files.length)
-
         for (const file of files) {
           const { buffer } = file
           const originalFileName = path.basename(`${userId}_${timeStamp + files.indexOf(file)}`, path.extname(file.originalname));

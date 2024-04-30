@@ -18,3 +18,4 @@ export function getDataFromLocalStorage(key: string): string | null {
 
 export const SIZE_ICON_MD = "24px"
 export const SIZE_ICON_SM = "20px"
+export const MAX_FILES_IN_POST = 5
