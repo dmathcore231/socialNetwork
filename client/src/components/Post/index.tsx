@@ -80,6 +80,7 @@ export function Post({ data }: PostProps): JSX.Element {
       return (
         <Carousel
           data={data.postData.document}
+          editBtnVisible={false}
         />
       )
     } else if (data.postData.document && data.postData.document.length === 2) {

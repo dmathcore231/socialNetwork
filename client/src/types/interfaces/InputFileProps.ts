@@ -1,5 +1,7 @@
 
 export interface InputFileProps {
-  getDataDocument: (document: FileList | null) => void
+  getDataDocument: (document: File[] | null) => void
+  dataDocument: (string | File)[] | null
+  maxFiles: number
   disabled?: boolean
 }

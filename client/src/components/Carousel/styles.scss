@@ -12,11 +12,11 @@
     z-index: 2;
 
     &__left {
-      left: 2px;
+      left: 0.125rem;
     }
 
     &__right {
-      right: 10px;
+      right: 0.125rem;
     }
   }
 
@@ -24,10 +24,10 @@
     width: 100%;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
     overflow-x: scroll;
     overflow-y: hidden;
     scroll-behavior: smooth;
+    gap: 1rem;
 
     &::-webkit-scrollbar {
       display: none;
@@ -37,7 +37,7 @@
 
   &__item {
     position: relative;
-    height: 340px;
+    height: 21.25rem;
     flex: 0 0 calc(50% - 0.5rem);
 
     &:hover {
@@ -57,8 +57,8 @@
 
   &__btn-edit {
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: 0.313rem;
+    right: 0.313rem;
     display: none;
     z-index: 5;
   }

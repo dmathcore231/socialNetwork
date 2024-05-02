@@ -7,24 +7,22 @@ import { ArrowLeftIcon } from '../../assets/icons/ArrowLeftIcon'
 import { ArrowRightIcon } from '../../assets/icons/ArrowRightIcon'
 import { CloseIcon } from '../../assets/icons/CloseIcon'
 
-export function Carousel({ data, blob, setChangedArrDocument }: CarouselProps): JSX.Element {
+export function Carousel({ data, editBtnVisible, setChangedArrDocument }: CarouselProps): JSX.Element {
   const carouselListElement: RefObject<HTMLDivElement> = useRef(null)
   const itemElement: RefObject<HTMLDivElement> = useRef(null)
 
   function handleClickBtnLeft() {
     if (carouselListElement.current && itemElement.current) {
-      const itemWidth = itemElement.current.offsetWidth
-        + parseFloat(getComputedStyle(itemElement.current).marginRight) * 2
-      const scrollAmount = itemWidth + 0.5 * 16
+      const itemWidth = itemElement.current.offsetWidth + 16
+      const scrollAmount = itemWidth
       carouselListElement.current.scrollLeft -= scrollAmount
     }
   }
 
   function handleClickBtnRight() {
     if (carouselListElement.current && itemElement.current) {
-      const itemWidth = itemElement.current.offsetWidth
-        + parseFloat(getComputedStyle(itemElement.current).marginRight) * 2
-      const scrollAmount = itemWidth + 0.5 * 16
+      const itemWidth = itemElement.current.offsetWidth + 16
+      const scrollAmount = itemWidth
       carouselListElement.current.scrollLeft += scrollAmount
     }
   }
@@ -49,30 +47,58 @@ export function Carousel({ data, blob, setChangedArrDocument }: CarouselProps): 
       </Btn>
     </span>
     <div className="carousel__list" ref={carouselListElement}>
-      {data.map((item, index) => {
-        return (
-          <div className="carousel__item" key={index} ref={itemElement}>
-            <span className="carousel__btn-edit">
-              <Btn
-                type="button"
-                className="btn_transparent_shadow_enabled btn_transparent_shadow_color_white"
-                onClick={setChangedArrDocument
-                  ? () => setChangedArrDocument(item)
-                  : undefined}
-              >
-                <CloseIcon width="16" height="16" />
-              </Btn>
-            </span>
-            <img
-              src={blob
-                ? item
-                : `http://localhost:3000/${item}`}
-              alt="post-img"
-              className="carousel__image"
-            />
-          </div>
-        )
-      })}
+      {data
+        ? data.map((item, index) => {
+          if (typeof item === 'string') {
+            return (
+              <div className="carousel__item" key={index} ref={itemElement}>
+                {editBtnVisible
+                  ? (<span className="carousel__btn-edit">
+                    <Btn
+                      type="button"
+                      className="btn_transparent_shadow_enabled btn_transparent_shadow_color_white"
+                      onClick={setChangedArrDocument
+                        ? () => setChangedArrDocument(item)
+                        : undefined}
+                    >
+                      <CloseIcon width="16" height="16" />
+                    </Btn>
+                  </span>)
+                  : (null)}
+                <img
+                  src={`http://localhost:3000/${item}`}
+                  alt="post-img"
+                  className="carousel__image"
+                />
+              </div>
+            )
+          } else if (item instanceof File) {
+            const itemBlobUrl = URL.createObjectURL(item)
+            return (
+              <div className="carousel__item" key={index} ref={itemElement}>
+                {editBtnVisible
+                  ? (<span className="carousel__btn-edit">
+                    <Btn
+                      type="button"
+                      className="btn_transparent_shadow_enabled btn_transparent_shadow_color_white"
+                      onClick={setChangedArrDocument
+                        ? () => setChangedArrDocument(item)
+                        : undefined}
+                    >
+                      <CloseIcon width="16" height="16" />
+                    </Btn>
+                  </span>)
+                  : (null)}
+                <img
+                  src={itemBlobUrl}
+                  alt="post-img"
+                  className="carousel__image"
+                />
+              </div>
+            )
+          }
+        })
+        : null}
     </div>
   </div>
 }

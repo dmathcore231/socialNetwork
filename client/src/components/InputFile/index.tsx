@@ -3,30 +3,33 @@ import { useState } from "react"
 import { InputFileProps } from "../../types/interfaces/InputFileProps"
 import { MediaIcon } from '../../assets/icons/MediaIcon'
 
-export function InputFile({ getDataDocument, disabled }: InputFileProps): JSX.Element {
-  const [value, setValue] = useState<FileList | null>(null)
+export function InputFile({ getDataDocument, dataDocument, maxFiles, disabled }: InputFileProps): JSX.Element {
   const [limitFiles, setLimitFiles] = useState(false)
 
   function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     const files = event.target.files
-    if (files && files?.length > 5) {
-      return setLimitFiles(true)
-    } else {
-      setLimitFiles(false)
+    if (files) {
+      const arrFiles = Array.from(files)
+      if (arrFiles.length > maxFiles) {
+        return setLimitFiles(true)
+      } else {
+        setLimitFiles(false)
+      }
+
+      getDataDocument(arrFiles)
     }
-    setValue(files)
-    getDataDocument(files)
   }
+
 
   function renderTextFile() {
     if (disabled || limitFiles) {
       return (
-        <p className="error"> Max 5 files</p>
+        <p className="error">{maxFiles === 0 ? 'Max files' : `Max ${maxFiles} files`}</p>
       )
     } else {
-      if (value) {
+      if (dataDocument && dataDocument.length > 0) {
         return (
-          <p>Selected {value.length} files</p>
+          <p>Selected {dataDocument.length} files</p>
         )
       } else {
         return null

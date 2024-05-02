@@ -89,8 +89,23 @@
   gap: 1rem;
 
   &__item {
+    position: relative;
     height: 340px;
     flex: 0 0 calc(50% - 0.5rem);
+
+    &:hover {
+      .preview__btn-edit {
+        display: inline-flex;
+      }
+    }
+  }
+
+  &__btn-edit {
+    position: absolute;
+    top: 0.313rem;
+    right: 0.313rem;
+    display: none;
+    z-index: 5;
   }
 
   &__img {

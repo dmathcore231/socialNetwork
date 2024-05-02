@@ -42,17 +42,14 @@ export function NavBar({ isActiveBurgerMenu, setIsActiveBurgerMenu }: NavBarProp
   useEffect(() => {
     if (isSubmit) {
       const formData = new FormData()
-      Object.entries(formCreatePost).forEach(([key, value]) => {
-        if (value !== null) {
-          if (value instanceof FileList) {
-            Array.from(value).forEach((file) => {
-              formData.append(key, file, file.name)
-            })
-          } else {
-            formData.append(key, value)
-          }
-        }
-      })
+      formData.append('title', formCreatePost.title)
+      formData.append('text', formCreatePost.text)
+      formData.append('postScope', formCreatePost.postScope)
+      if (formCreatePost.document) {
+        Array.from(formCreatePost.document).forEach((file) => {
+          formData.append('document', file, file.name)
+        })
+      }
 
       dispatch(fetchCreatePost(formData))
     }
@@ -72,7 +69,7 @@ export function NavBar({ isActiveBurgerMenu, setIsActiveBurgerMenu }: NavBarProp
     setIsSubmit(true)
   }
 
-  function handleGetDataDocument(document: FileList | null): void {
+  function handleGetDataDocument(document: File[] | null): void {
     setFormCreatePost({
       ...formCreatePost,
       document
@@ -85,15 +82,14 @@ export function NavBar({ isActiveBurgerMenu, setIsActiveBurgerMenu }: NavBarProp
   }
 
   function renderPreview(): JSX.Element | null {
-    if (formCreatePost.document && formCreatePost.document instanceof FileList) {
-      const arrFiles = Array.from(formCreatePost.document)
-      const UrlsDocument = arrFiles.map(file => URL.createObjectURL(file))
+    if (formCreatePost.document) {
+      const UrlsDocument = formCreatePost.document.map(file => URL.createObjectURL(file))
 
       if (UrlsDocument.length > 2) {
         return (
           <Carousel
+            editBtnVisible={false}
             data={UrlsDocument}
-            blob={true}
           />
         )
       } else if (UrlsDocument.length === 2) {

@@ -1,4 +1,4 @@
 
 export interface ToolBarProps {
-  getDataDocument: (document: FileList | null) => void
+  getDataDocument: (document: File[] | null) => void
 }

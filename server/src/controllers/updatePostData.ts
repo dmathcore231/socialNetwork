@@ -5,7 +5,7 @@ export async function updatePostData(req: Request, res: Response, next: NextFunc
   const { dataFromClient } = res.locals
   const { status } = dataFromClient.error
   const { id } = req.params
-  const { title, text, postScope } = dataFromClient.postData
+  const { title, text, document, postScope } = dataFromClient.postData
 
   if (status) return next()
 
@@ -14,7 +14,7 @@ export async function updatePostData(req: Request, res: Response, next: NextFunc
   post!.postData = {
     title: title,
     text: text,
-    document: req.file ? [req.file.path] : null,
+    document: document ? document : null,
     postScope: postScope
   }
 

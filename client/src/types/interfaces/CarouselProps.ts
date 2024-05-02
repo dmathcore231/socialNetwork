@@ -1,6 +1,6 @@
 
 export interface CarouselProps {
-  data: string[]
-  blob?: boolean
-  setChangedArrDocument?: (item: string) => void
+  data: (string | File)[] | null
+  editBtnVisible: boolean
+  setChangedArrDocument?: (item: string | File) => void
 }

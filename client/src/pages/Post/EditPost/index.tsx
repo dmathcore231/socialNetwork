@@ -12,6 +12,7 @@ import { Spinner } from "../../../components/Spinner"
 import { Carousel } from "../../../components/Carousel"
 import { defaultFormUpdatePost } from "../../../helpers/defaultState"
 import { MAX_FILES_IN_POST } from "../../../helpers"
+import { CloseIcon } from "../../../assets/icons/CloseIcon"
 
 export function EditPost(): JSX.Element {
   const dispatch = useAppDispatch()
@@ -22,9 +23,8 @@ export function EditPost(): JSX.Element {
 
   const [isSubmit, setIsSubmit] = useState(false)
   const [formUpdatePost, setFormUpdatePost] = useState(defaultFormUpdatePost)
-  const [updateFiles, setUpdateFiles] = useState<FileList | null>(null)
-  const [postDeleteDocument, setPostDeleteDocument] = useState<string | null>(null)
-  const [updateDocumentUrls, setUpdateDocumentUrls] = useState<string[] | null>(null)
+  const [uploadedFiles, setUploadedFiles] = useState<File[] | null>(null)
+  console.log(formUpdatePost)
 
   useEffect(() => {
     if (postId) {
@@ -44,23 +44,25 @@ export function EditPost(): JSX.Element {
   }, [post])
 
   useEffect(() => {
+    if (uploadedFiles) {
+      setFormUpdatePost(prevState => ({
+        ...prevState,
+        document: prevState.document ? [...prevState.document, ...uploadedFiles] : uploadedFiles
+      }))
+    }
+  }, [uploadedFiles])
+
+  useEffect(() => {
     if (isSubmit) {
       const formData = new FormData()
-      Object.entries(formUpdatePost).forEach(([key, value]) => {
-        if (value !== null) {
-          if (value instanceof FileList) {
-            Array.from(value).forEach((file) => {
-              formData.append(key, file, file.name)
-            })
-          } else if (Array.isArray(value)) {
-            value.forEach((item) => {
-              formData.append(key, item)
-            })
-          } else {
-            formData.append(key, value)
-          }
-        }
-      })
+      formData.append('title', formUpdatePost.title)
+      formData.append('text', formUpdatePost.text)
+      formData.append('postScope', formUpdatePost.postScope)
+      if (formUpdatePost.document) {
+        formUpdatePost.document.forEach((item) => {
+          formData.append('document', item)
+        })
+      }
 
       dispatch(fetchEditPost({ id: postId!, body: formData }))
     }
@@ -72,19 +74,6 @@ export function EditPost(): JSX.Element {
       dispatch(resetResponseState())
     }
   }, [status, isSubmit, dispatch, navigate])
-
-  useEffect(() => {
-    if (formUpdatePost.document instanceof Array) {
-      setUpdateDocumentUrls(formUpdatePost.document)
-    }
-  }, [formUpdatePost.document])
-
-  useEffect(() => {
-    if (postDeleteDocument) {
-      setUpdateDocumentUrls([...updateDocumentUrls!.filter((item) => item !== postDeleteDocument)])
-    }
-    setPostDeleteDocument(null)
-  }, [postDeleteDocument, updateDocumentUrls])
 
   function handleSubmitModal(e: FormEvent<HTMLFormElement>): void {
     e.preventDefault()
@@ -100,43 +89,69 @@ export function EditPost(): JSX.Element {
     })
   }
 
-  function renderPreview(data: string[] | null): JSX.Element | null {
-    if (data) {
-      if (data.length === 2) {
-        return (
-          <div className="preview">
-            <div className="preview__item">
-              <img src={`http://localhost:3000/${data[0]}`}
-                alt="post document"
+  function handleClickBtnDeleteDocument(document: string | File | null) {
+    if (typeof document === 'string' && formUpdatePost.document) {
+      setFormUpdatePost({
+        ...formUpdatePost,
+        document: formUpdatePost.document.filter((item) => {
+          if (typeof item === 'string') {
+            return item !== document
+          }
+        })
+      })
+    } else if (document instanceof File && formUpdatePost.document) {
+      setFormUpdatePost({
+        ...formUpdatePost,
+        document: formUpdatePost.document.filter((item) => {
+          if (item instanceof File) {
+            return (item.name && item.lastModified) !== (document.name && document.lastModified)
+          }
+        })
+      })
+    }
+    else {
+      setFormUpdatePost({
+        ...formUpdatePost,
+        document: null
+      })
+    }
+  }
+
+  function renderPreview(): JSX.Element | null {
+    if (formUpdatePost.document && formUpdatePost.document.length > 2) {
+      return (
+        <div className="preview">
+          <Carousel
+            data={formUpdatePost.document}
+            editBtnVisible={true}
+            setChangedArrDocument={handleClickBtnDeleteDocument}
+          />
+        </div>
+      )
+    } else if (formUpdatePost.document && formUpdatePost.document.length <= 2) {
+      return (
+        <div className="preview">
+          {formUpdatePost.document.map((item, index) => (
+            <div className="preview__item" key={index}>
+              <span className="preview__btn-edit">
+                <Btn
+                  type="button"
+                  className="btn_transparent_shadow_enabled btn_transparent_shadow_color_white"
+                  onClick={() => handleClickBtnDeleteDocument(item)}
+                >
+                  <CloseIcon width="16" height="16" />
+                </Btn>
+              </span>
+              <img src={item instanceof File
+                ? URL.createObjectURL(item)
+                : `http://localhost:3000/${item}`}
                 className="preview__img" />
             </div>
-            <div className="preview__item">
-              <img src={`http://localhost:3000/${data[1]}`}
-                alt="post document"
-                className="preview__img" />
-            </div>
-          </div>
-        )
-      } else if (data.length === 1) {
-        return (
-          <div className="preview">
-            <div className="preview__item">
-              <img src={`http://localhost:3000/${data[0]}`}
-                alt="post document"
-                className="preview__img" />
-            </div>
-          </div>
-        )
-      } else {
-        return (
-          <div className="preview">
-            <Carousel
-              data={data}
-              setChangedArrDocument={setPostDeleteDocument}
-            />
-          </div>
-        )
-      }
+          ))
+
+          }
+        </div>
+      )
     } else {
       return null
     }
@@ -215,10 +230,14 @@ export function EditPost(): JSX.Element {
                 className="text-area_primary"
               />
               <InputFile
-                getDataDocument={setUpdateFiles}
-                disabled={updateDocumentUrls?.length === MAX_FILES_IN_POST ? true : false}
+                getDataDocument={setUploadedFiles}
+                dataDocument={formUpdatePost.document}
+                maxFiles={formUpdatePost.document
+                  ? MAX_FILES_IN_POST - formUpdatePost.document.length
+                  : MAX_FILES_IN_POST}
+                disabled={formUpdatePost.document?.length === MAX_FILES_IN_POST ? true : false}
               />
-              {renderPreview(updateDocumentUrls)}
+              {renderPreview()}
             </form>
           )}
       </div>
