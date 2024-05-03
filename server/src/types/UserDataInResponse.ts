@@ -14,16 +14,13 @@ export type UserDataInResponse = {
       lastName: string
       fullName: string
     }
-    userBirthDay?: string
-    userGender?: string
     userTag: string
-    userAvatar?: {
-      avatarSizeSm: string
-      avatarSizeLg: string
-    }
-    userBanner?: string
-    userAbout?: string
-    userLocation?: string
+    userAvatar?: string | null
+    userBanner?: string | null
+    userAbout?: string | null
+    userLocation?: string | null
+    userBirthDay?: string | null
+    userGender?: string | null
   }
 
   userPersonalData: {

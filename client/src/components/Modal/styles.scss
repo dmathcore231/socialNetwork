@@ -14,17 +14,19 @@
   --modal-content-border-color: var(--black-color);
 
   position: fixed;
-  z-index: 2;
+  z-index: 10;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  @include flex-center;
+  @include flex-column;
+  justify-content: center;
+  align-items: center;
   overflow: auto;
   background-color: var(--modal-color-shadow);
 
   &-content {
-    z-index: 100;
+    z-index: 10;
     width: var(--modal-content-width);
     height: var(--modal-content-height);
     @include flex-column;
@@ -33,6 +35,7 @@
     border-radius: var(--modal-content-border-radius);
     border: var(--modal-content-border-size) solid var(--modal-content-border-color);
     padding: var(--modal-content-padding);
+    overflow: auto;
 
     &__title {
       width: 100%;

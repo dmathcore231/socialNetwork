@@ -49,6 +49,12 @@
       align-items: flex-start;
       gap: 1rem
     }
+
+    &__avatar {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 
   &-body {
@@ -102,6 +108,8 @@
   }
 
   @media (max-width:22rem) {
+    max-width: 100%;
+
     &-creator-data {
       flex-direction: column;
       align-items: flex-start;

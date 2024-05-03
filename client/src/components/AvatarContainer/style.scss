@@ -22,6 +22,11 @@
 
   &_size {
 
+    &_lg {
+      --avatar-width: 10rem;
+      --avatar-height: 10rem;
+    }
+
     &_sm {
       --avatar-width: 2.5rem;
       --avatar-height: 2.5rem;

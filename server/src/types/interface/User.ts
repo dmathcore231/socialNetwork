@@ -12,15 +12,12 @@ export interface User extends Document {
       lastName: string
       fullName: string
     }
+    userTag: string
     userBirthDay?: string
     userGender?: string
-    userTag: string
-    userAvatar?: {
-      avatarSizeSm: string
-      avatarSizeLg: string
-    }
-    userBanner?: string
-    userAbout?: string
+    userAvatar?: string | null
+    userBanner?: string | null
+    userAbout?: string | null
     userLocation?: string
   }
 

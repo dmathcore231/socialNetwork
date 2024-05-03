@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit"
 import { AxiosError } from "axios"
 import { UserState } from '../types/interfaces/User'
 import { requestSignUp, requestSignIn, requestGetUserDataByToken, requestLogout } from "../services/auth"
+import { requestCreateUserAvatar } from "../services/user"
 import { ResponseWithoutPayload, ResponseWithUserDataPayload } from "../types/interfaces/ResponseFromServer"
 import { setDataInLocalStorage } from "../helpers"
 
@@ -54,6 +55,17 @@ export const fetchLogout = createAsyncThunk<ResponseWithoutPayload, void, { reje
   async (_, { rejectWithValue }) => {
     try {
       return await requestLogout()
+    } catch (error) {
+      const err = error as AxiosError
+      const errResponse = err.response?.data as ResponseWithoutPayload
+      return rejectWithValue(errResponse)
+    }
+  })
+
+export const fetchCreateUserAvatar = createAsyncThunk<ResponseWithUserDataPayload, FormData, { rejectValue: ResponseWithoutPayload }>('user/fetchCreateUserAvatar',
+  async (body: FormData, { rejectWithValue }) => {
+    try {
+      return await requestCreateUserAvatar(body)
     } catch (error) {
       const err = error as AxiosError
       const errResponse = err.response?.data as ResponseWithoutPayload
@@ -182,6 +194,33 @@ export const userSlice = createSlice({
           state.ResponseState.message = payload.message
           state.ResponseState.loading = false
           state.accessToken = null
+          state.user = null
+          setDataInLocalStorage('token', null)
+        }
+      })
+
+      //createUserAvatar
+      .addCase(fetchCreateUserAvatar.pending, (state) => {
+        state.ResponseState.loading = true
+        state.ResponseState.error = false
+      })
+      .addCase(fetchCreateUserAvatar.fulfilled, (state, action: PayloadAction<ResponseWithUserDataPayload>) => {
+        state.ResponseState.status = action.payload.status
+        state.ResponseState.error = action.payload.error
+        state.ResponseState.errorNumber = action.payload.errorNumber
+        state.ResponseState.message = action.payload.message
+        state.ResponseState.loading = false
+        state.user = action.payload.user
+        setDataInLocalStorage('token', action.payload.token)
+      })
+      .addCase(fetchCreateUserAvatar.rejected, (state, action) => {
+        const payload = action.payload as ResponseWithoutPayload
+        if (payload) {
+          state.ResponseState.status = payload.status
+          state.ResponseState.error = payload.error
+          state.ResponseState.errorNumber = payload.errorNumber
+          state.ResponseState.message = payload.message
+          state.ResponseState.loading = false
           state.user = null
           setDataInLocalStorage('token', null)
         }

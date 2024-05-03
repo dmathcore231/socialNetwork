@@ -6,6 +6,7 @@ import { setLocalDataMiddleware } from './middlewares/setLocalDataMiddleware'
 import { authRouter } from './routes/Auth'
 import { postRouter } from './routes/Post'
 import { homeRouter } from './routes/Home'
+import { userRouter } from './routes/User'
 
 const app = express()
 
@@ -29,6 +30,7 @@ app.use(setLocalDataMiddleware)
 app.use(authRouter)
 app.use(postRouter)
 app.use(homeRouter)
+app.use(userRouter)
 
 async function main() {
   try {

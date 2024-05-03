@@ -6,4 +6,6 @@ export const authLogoutEndPoint = `${authEndPoint}/logout`
 export const postEndPoint = "/post"
 export const postCreateEndPoint = `${postEndPoint}/create`
 export const homeEndPoint = "/home"
+export const userEndPoint = "/user"
+export const userAvatarEndPoint = `${userEndPoint}/avatar`
 

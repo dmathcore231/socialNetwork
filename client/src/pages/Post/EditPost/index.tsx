@@ -70,7 +70,7 @@ export function EditPost(): JSX.Element {
 
   useEffect(() => {
     if (status === 200 && isSubmit) {
-      navigate(-1)
+      navigate('/')
       dispatch(resetResponseState())
     }
   }, [status, isSubmit, dispatch, navigate])

@@ -105,10 +105,10 @@ export function Post({ data }: PostProps): JSX.Element {
       <div className="post-header">
         <div className="post-header__item">
           <AvatarContainer
-            className='avatar_border_color_white avatar_size_sm avatar_bg_color_gray-200'
+            className="avatar_border_color_white avatar_size_sm avatar_bg_color_gray-200"
           >
-            {userAvatar?.avatarSizeSm
-              ? userAvatar.avatarSizeSm
+            {userAvatar
+              ? <img src={`http://localhost:3000/${userAvatar}`} alt="user avatar" className="post-header__avatar" />
               : <AvatarDefaultIcon width={sizeIcon} height={sizeIcon} />}
           </AvatarContainer>
           <div className="post-creator-data">

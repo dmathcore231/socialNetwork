@@ -19,12 +19,7 @@ export async function createPost(req: Request, res: Response, next: NextFunction
         _role: user._role,
         fullName: user.userData.userName.fullName,
         tag: user.userData.userTag,
-        ...(user.userPersonalData.avatar && {
-          userAvatar: {
-            avatarSizeSm: user.userPersonalData.avatar.avatarSizeSm,
-            avatarSizeLg: user.userPersonalData.avatar.avatarSizeLg
-          }
-        })
+        userAvatar: user.userData.userAvatar
       }
     },
     postData: postData

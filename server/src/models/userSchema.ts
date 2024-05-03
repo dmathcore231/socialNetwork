@@ -16,12 +16,9 @@ const userSchema: Schema<User> = new Schema<User>({
     userBirthDay: String,
     userGender: String,
     userTag: String,
-    userAvatar: {
-      avatarSizeSm: String,
-      avatarSizeLg: String
-    },
-    userBanner: String,
-    userAbout: String,
+    userAvatar: String || null,
+    userBanner: String || null,
+    userAbout: String || null,
     userLocation: String
   },
 

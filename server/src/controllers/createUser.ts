@@ -18,7 +18,13 @@ export async function createUser(req: Request, res: Response, next: NextFunction
           lastName,
           fullName: `${firstName} ${lastName}`
         },
-        userTag: formDefaultUserTag(firstName, lastName)
+        userTag: formDefaultUserTag(firstName, lastName),
+        userBirthDay: null,
+        userGender: null,
+        userAvatar: null,
+        userBanner: null,
+        userAbout: null,
+        userLocation: null
       },
 
       userPersonalData: {
