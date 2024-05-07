@@ -1,7 +1,7 @@
 import './styles.scss'
 import { useState, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../hooks'
-import { fetchGetUserDataByToken } from '../../redux/userSlice'
+import { fetchGetUserDataByToken, resetResponseState } from '../../redux/userSlice'
 import { LinkBack } from '../../components/LinkBack'
 import { AvatarContainer } from '../../components/AvatarContainer'
 import { Btn } from '../../components/Btn'
@@ -17,11 +17,12 @@ import { AvatarDefaultIcon } from '../../assets/icons/AvatarDefaultIcon'
 export function Profile(): JSX.Element {
   const dispatch = useAppDispatch()
 
-  const { user } = useAppSelector(state => state.user)
+  const { user, ResponseState: { status } } = useAppSelector(state => state.user)
 
   const [isModalActive, setIsModalActive] = useState(false)
   const [modalNavItemActive, setModalNavItemActive] = useState(0)
   const [isSubmitSave, setIsSubmitSave] = useState(false)
+  const [uploadAvatarFile, setUploadAvatar] = useState<File | null>(null)
 
   const modalItem: ModalStateSettings[] = [
     {
@@ -29,6 +30,8 @@ export function Profile(): JSX.Element {
       component: <AvatarSettings
         isSubmit={isSubmitSave}
         indexItemActive={modalNavItemActive}
+        getValueUploadAvatar={setUploadAvatar}
+
       />
     },
     {
@@ -50,6 +53,14 @@ export function Profile(): JSX.Element {
       dispatch(fetchGetUserDataByToken())
     }
   }, [])
+
+  useEffect(() => {
+    if (status === 200) {
+      setIsSubmitSave(false)
+      setUploadAvatar(null)
+      dispatch(resetResponseState())
+    }
+  }, [status, dispatch])
 
   function renderModalProfileSettings(): JSX.Element {
     return (
@@ -79,6 +90,11 @@ export function Profile(): JSX.Element {
 
   function handleClickBtnSave() {
     setIsSubmitSave(true)
+  }
+
+  function handleClickBtnCloseBtnModal() {
+    setIsModalActive(false)
+    setUploadAvatar(null)
   }
 
   return (
@@ -131,11 +147,12 @@ export function Profile(): JSX.Element {
         <Modal
           title="Settings Profile"
           isActive={isModalActive}
-          onClose={() => setIsModalActive(false)}
+          onClose={() => handleClickBtnCloseBtnModal()}
           cancelBtn={{ visible: false }}
           submitBtn={{
             visible: true,
             title: "Save",
+            disabled: uploadAvatarFile ? false : true,
             onClick: handleClickBtnSave
           }}
         >
@@ -163,6 +180,3 @@ export function Profile(): JSX.Element {
     </div>
   )
 }
-
-
-

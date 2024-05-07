@@ -130,8 +130,6 @@
         }
       }
     }
-
-
   }
 
   &_size {
@@ -170,5 +168,13 @@
   &_disabled {
     pointer-events: none;
     opacity: 0.7;
+  }
+
+  &_padding {
+    &_none {
+      &_vertical {
+        padding: 0 0.313rem;
+      }
+    }
   }
 }

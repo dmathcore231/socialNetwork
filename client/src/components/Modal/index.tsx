@@ -32,7 +32,7 @@ export function Modal({ isActive, title, children, onClose, cancelBtn, submitBtn
             ? (
               <Btn
                 type="submit"
-                className="btn_primary"
+                className={"btn_primary" + (submitBtn.disabled ? " btn_disabled" : "")}
                 formId={idForm}
                 onClick={submitBtn.onClick}
               >

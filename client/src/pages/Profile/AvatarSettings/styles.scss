@@ -37,5 +37,22 @@
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &:active {
+      opacity: 0.6;
+    }
+  }
+
+  &__text {
+    @include flex-center;
+    gap: 1rem;
+  }
+
+  &__spinner {
+    fill: none;
   }
 }

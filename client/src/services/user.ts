@@ -16,3 +16,13 @@ export const requestCreateUserAvatar = async (body: FormData): Promise<ResponseW
     throw err
   }
 }
+
+export const requestDeleteUserAvatar = async (): Promise<ResponseWithUserDataPayload> => {
+  try {
+    const { data } = await client.delete(userAvatarEndPoint)
+    return data
+  } catch (error) {
+    const err = error as AxiosError
+    throw err
+  }
+}

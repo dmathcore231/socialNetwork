@@ -14,6 +14,7 @@ export interface ModalProps {
     visible: boolean
     title?: string | null
     onClick?: MouseEventHandler<HTMLButtonElement>
+    disabled?: boolean
   }
   className?: string
   idForm?: string
