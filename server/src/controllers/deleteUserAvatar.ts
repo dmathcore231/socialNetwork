@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { UserModel } from '../models/userSchema'
 import { PostModel } from '../models/postSchema'
+import { getFormattedUserData } from '../helpers/getFormattedUserData'
 
 export async function deleteUserAvatar(req: Request, res: Response, next: NextFunction) {
   const { dataFromClient } = res.locals
@@ -26,6 +27,7 @@ export async function deleteUserAvatar(req: Request, res: Response, next: NextFu
 
     await user.save()
 
+    dataFromClient.user = getFormattedUserData(user)
     dataFromClient.message = 'User avatar successfully deleted'
 
     return next()

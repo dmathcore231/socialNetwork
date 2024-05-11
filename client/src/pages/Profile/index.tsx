@@ -1,7 +1,8 @@
 import './styles.scss'
 import { useState, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../hooks'
-import { fetchGetUserDataByToken, resetResponseState } from '../../redux/userSlice'
+import { fetchGetUserDataByToken, fetchCreateUserAvatar, fetchDeleteUserAvatar } from '../../redux/userSlice'
+import { setUserAvatarData } from '../../redux/userSettings'
 import { LinkBack } from '../../components/LinkBack'
 import { AvatarContainer } from '../../components/AvatarContainer'
 import { Btn } from '../../components/Btn'
@@ -18,9 +19,11 @@ export function Profile(): JSX.Element {
   const dispatch = useAppDispatch()
 
   const { user, ResponseState: { status } } = useAppSelector(state => state.user)
+  const { userAvatarData, userAvatarData: { uploadedUserAvatar, userAvatarDeleted } } = useAppSelector(state => state.userSettings)
 
   const [isModalActive, setIsModalActive] = useState(false)
   const [modalNavItemActive, setModalNavItemActive] = useState(0)
+  const [disabledBtnSubmit, setDisabledBtnSubmit] = useState<boolean>(true)
   const [isSubmitSave, setIsSubmitSave] = useState(false)
   const [uploadAvatarFile, setUploadAvatar] = useState<File | null>(null)
 
@@ -28,10 +31,7 @@ export function Profile(): JSX.Element {
     {
       componentName: 'Avatar',
       component: <AvatarSettings
-        isSubmit={isSubmitSave}
-        indexItemActive={modalNavItemActive}
-        getValueUploadAvatar={setUploadAvatar}
-
+        setFileUploaded={setUploadAvatar}
       />
     },
     {
@@ -49,18 +49,50 @@ export function Profile(): JSX.Element {
   ]
 
   useEffect(() => {
-    if (user) {
-      dispatch(fetchGetUserDataByToken())
-    }
+    dispatch(fetchGetUserDataByToken())
   }, [])
 
   useEffect(() => {
-    if (status === 200) {
-      setIsSubmitSave(false)
-      setUploadAvatar(null)
-      dispatch(resetResponseState())
+    if (user && user.userData.userAvatar) {
+      dispatch(setUserAvatarData({
+        defaultUserAvatar: user.userData.userAvatar,
+        uploadedUserAvatar: null,
+        userAvatarDeleted: false
+      }))
+    } else if (user && !user.userData.userAvatar) {
+      dispatch(setUserAvatarData({
+        defaultUserAvatar: null,
+        uploadedUserAvatar: null,
+        userAvatarDeleted: false
+      }))
     }
-  }, [status, dispatch])
+
+  }, [user, dispatch])
+
+  useEffect(() => {
+    if (uploadedUserAvatar || userAvatarDeleted) {
+      setDisabledBtnSubmit(false)
+    } else {
+      setDisabledBtnSubmit(true)
+    }
+  }, [uploadedUserAvatar, userAvatarDeleted])
+
+  useEffect(() => {
+    if (isSubmitSave && userAvatarDeleted) {
+      dispatch(fetchDeleteUserAvatar())
+    } else if (isSubmitSave && uploadedUserAvatar && uploadAvatarFile) {
+      const formData = new FormData()
+      formData.append('avatar', uploadAvatarFile)
+      dispatch(fetchCreateUserAvatar(formData))
+    }
+  }, [isSubmitSave, userAvatarDeleted, uploadedUserAvatar, uploadAvatarFile, dispatch])
+
+  useEffect(() => {
+    if (status === 200 && isSubmitSave) {
+      dispatch(fetchGetUserDataByToken())
+      setIsSubmitSave(false)
+    }
+  }, [status, isSubmitSave, dispatch])
 
   function renderModalProfileSettings(): JSX.Element {
     return (
@@ -95,6 +127,11 @@ export function Profile(): JSX.Element {
   function handleClickBtnCloseBtnModal() {
     setIsModalActive(false)
     setUploadAvatar(null)
+    dispatch(setUserAvatarData({
+      ...userAvatarData,
+      uploadedUserAvatar: null,
+      userAvatarDeleted: false
+    }))
   }
 
   return (
@@ -152,7 +189,7 @@ export function Profile(): JSX.Element {
           submitBtn={{
             visible: true,
             title: "Save",
-            disabled: uploadAvatarFile ? false : true,
+            disabled: disabledBtnSubmit,
             onClick: handleClickBtnSave
           }}
         >

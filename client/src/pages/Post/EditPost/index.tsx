@@ -24,7 +24,6 @@ export function EditPost(): JSX.Element {
   const [isSubmit, setIsSubmit] = useState(false)
   const [formUpdatePost, setFormUpdatePost] = useState(defaultFormUpdatePost)
   const [uploadedFiles, setUploadedFiles] = useState<File[] | null>(null)
-  console.log(formUpdatePost)
 
   useEffect(() => {
     if (postId) {

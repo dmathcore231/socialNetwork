@@ -1,56 +1,44 @@
 import './styles.scss'
 import { useState, useEffect, useRef } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../hooks'
-import { fetchCreateUserAvatar, fetchDeleteUserAvatar } from '../../../redux/userSlice'
+import { setUserAvatarData } from '../../../redux/userSettings'
 import { AvatarContainer } from '../../../components/AvatarContainer'
 import { Btn } from '../../../components/Btn'
 import { Spinner } from '../../../components/Spinner'
 import { AvatarSettingsProps } from '../../../types/interfaces/AvatarSettingsProps'
 import { AvatarDefaultIcon } from '../../../assets/icons/AvatarDefaultIcon'
 
-export function AvatarSettings({ isSubmit, indexItemActive, getValueUploadAvatar }: AvatarSettingsProps): JSX.Element {
+export function AvatarSettings({ setFileUploaded }: AvatarSettingsProps): JSX.Element {
   const dispatch = useAppDispatch()
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const { user, ResponseState: { loading } } = useAppSelector(state => state.user)
+  const { ResponseState: { loading } } = useAppSelector(state => state.user)
+  const { userAvatarData } = useAppSelector(state => state.userSettings)
 
-  const [uploadAvatar, setUploadAvatar] = useState<File | null>(null)
-  const [isDeleteAvatar, setIsDeleteAvatar] = useState(false)
-
-  useEffect(() => {
-    setUploadAvatar(null)
-  }, [])
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null)
 
   useEffect(() => {
-    if (isSubmit && indexItemActive === 0 && uploadAvatar) {
-      const formData = new FormData()
-      formData.append('avatar', uploadAvatar)
-      dispatch(fetchCreateUserAvatar(formData))
-      setUploadAvatar(null)
+    if (uploadedFile) {
+      setFileUploaded(uploadedFile)
     }
-  }, [isSubmit, indexItemActive, uploadAvatar, dispatch])
-
-  useEffect(() => {
-    if (uploadAvatar) {
-      getValueUploadAvatar(uploadAvatar)
-    }
-  }, [uploadAvatar, getValueUploadAvatar])
-
-  useEffect(() => {
-    if (isDeleteAvatar) {
-      dispatch(fetchDeleteUserAvatar())
-      setIsDeleteAvatar(prev => !prev)
-    }
-  }, [isDeleteAvatar, dispatch])
+  }, [uploadedFile, setFileUploaded])
 
   function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files![0]
-    setUploadAvatar(file)
+    setUploadedFile(file)
+
+    dispatch(setUserAvatarData({
+      ...userAvatarData,
+      uploadedUserAvatar: URL.createObjectURL(file)
+    }))
   }
 
   function handleClickBtnDeleteAvatar() {
-    setUploadAvatar(null)
-    setIsDeleteAvatar(prev => !prev)
+    dispatch(setUserAvatarData({
+      ...userAvatarData,
+      uploadedUserAvatar: null,
+      userAvatarDeleted: true
+    }))
   }
 
   function renderAvatarSettingBody(): JSX.Element {
@@ -60,7 +48,10 @@ export function AvatarSettings({ isSubmit, indexItemActive, getValueUploadAvatar
           <Spinner width='24px' height='24px' />
         </div>
       )
-    } else if (user && user.userData.userAvatar && !uploadAvatar) {
+    } else if (userAvatarData.defaultUserAvatar
+      && !userAvatarData.uploadedUserAvatar
+      && !userAvatarData.userAvatarDeleted
+    ) {
       return (
         <>
           <div className="avatar-setting__text">
@@ -86,12 +77,12 @@ export function AvatarSettings({ isSubmit, indexItemActive, getValueUploadAvatar
                 multiple
                 onChange={handleFileChange}
               />
-              <img src={`http://localhost:3000/${user.userData.userAvatar}`} alt="avatar" className="avatar-setting__upload-avatar" />
+              <img src={`http://localhost:3000/${userAvatarData.defaultUserAvatar}`} alt="avatar" className="avatar-setting__upload-avatar" />
             </label>
           </AvatarContainer>
         </>
       )
-    } else if (uploadAvatar) {
+    } else if (userAvatarData.uploadedUserAvatar) {
       return (
         <>
           <div className="avatar-setting__text">
@@ -100,7 +91,7 @@ export function AvatarSettings({ isSubmit, indexItemActive, getValueUploadAvatar
               <Btn
                 type="button"
                 className="btn_primary btn_padding_none_vertical"
-                onClick={() => setUploadAvatar(null)}
+                onClick={handleClickBtnDeleteAvatar}
               >
                 Deleted Avatar
               </Btn>
@@ -117,7 +108,7 @@ export function AvatarSettings({ isSubmit, indexItemActive, getValueUploadAvatar
                 multiple
                 onChange={handleFileChange}
               />
-              <img src={URL.createObjectURL(uploadAvatar)} alt="avatar" className="avatar-setting__upload-avatar" />
+              <img src={userAvatarData.uploadedUserAvatar} alt="avatar" className="avatar-setting__upload-avatar" />
             </label>
           </AvatarContainer>
         </>
@@ -132,7 +123,7 @@ export function AvatarSettings({ isSubmit, indexItemActive, getValueUploadAvatar
               <Btn
                 type="button"
                 className="btn_primary btn_padding_none_vertical"
-                onClick={() => setUploadAvatar(null)}
+                onClick={handleClickBtnDeleteAvatar}
               >
                 Deleted Avatar
               </Btn>
