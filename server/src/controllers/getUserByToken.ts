@@ -18,8 +18,8 @@ export async function getUserByToken(req: Request, res: Response, next: NextFunc
         { expiresIn: EXP_IN_ACCESS_TOKEN }
       )
 
-      dataFromClient.user = getFormattedUserData(user)
-      dataFromClient.message = 'User Data successfully get '
+      dataFromClient.user = await getFormattedUserData(user)
+      dataFromClient.message = 'User Data successfully get'
       accessToken.value = (accessToken.expired ? setAccessToken : accessToken.value)
       accessToken.validToken = true
       accessToken.expired = false

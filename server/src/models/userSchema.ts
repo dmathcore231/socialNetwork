@@ -29,7 +29,7 @@ const userSchema: Schema<User> = new Schema<User>({
   },
 
   userActivityData: {
-    posts: Array<Post> || null,
+    posts: { type: [Schema.Types.ObjectId], ref: 'Post', default: null },
     comments: Array<CommentData> || null,
     likes: Array<LikeData> || null,
     reposts: Array<RepostData> || null,

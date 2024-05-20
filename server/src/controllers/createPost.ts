@@ -28,7 +28,8 @@ export async function createPost(req: Request, res: Response, next: NextFunction
   if (user.userActivityData.posts === null) {
     const updateUser = await UserModel.findOneAndUpdate(
       { _id: user._id },
-      { $set: { "userActivityData.posts": [newPost] } }
+      { $set: { "userActivityData.posts": [newPost] } },
+      { new: true }
     )
 
     await updateUser!.save()
@@ -37,7 +38,8 @@ export async function createPost(req: Request, res: Response, next: NextFunction
   } else {
     const updateUser = await UserModel.findOneAndUpdate(
       { _id: user._id },
-      { $push: { "userActivityData.posts": newPost } }
+      { $push: { "userActivityData.posts": newPost } },
+      { new: true }
     )
 
     await updateUser!.save()

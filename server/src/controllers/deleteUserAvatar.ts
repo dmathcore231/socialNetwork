@@ -27,7 +27,7 @@ export async function deleteUserAvatar(req: Request, res: Response, next: NextFu
 
     await user.save()
 
-    dataFromClient.user = getFormattedUserData(user)
+    dataFromClient.user = await getFormattedUserData(user)
     dataFromClient.message = 'User avatar successfully deleted'
 
     return next()

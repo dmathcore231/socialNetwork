@@ -23,12 +23,7 @@ export async function createUserAvatar(req: Request, res: Response, next: NextFu
       { $set: { 'creationData.userDataCreator.userAvatar': userAvatar } }
     )
 
-    await UserModel.updateMany(
-      { '_id': _id },
-      { $set: { 'userActivityData.posts.$[].creationData.userDataCreator.userAvatar': userAvatar } }
-    )
-
-    dataFromClient.user = getFormattedUserData(user!)
+    dataFromClient.user = await getFormattedUserData(user!)
     dataFromClient.message = 'User avatar successfully created'
   }
 
