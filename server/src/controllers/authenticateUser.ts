@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 import { SECRET_KEY, EXP_IN_ACCESS_TOKEN, EXP_IN_REFRESH_TOKEN } from '../utils/constants'
 import { UserModel } from '../models/userSchema'
-import { UserDataInResponse } from '../types/UserDataInResponse'
 
 export async function authenticateUser(req: Request, res: Response, next: NextFunction) {
   const { email } = req.body
@@ -23,19 +22,8 @@ export async function authenticateUser(req: Request, res: Response, next: NextFu
       { expiresIn: EXP_IN_REFRESH_TOKEN }
     )
 
-    const dataUser: UserDataInResponse = {
-      _role: user._role,
-      _id: user._id,
-      formattedRegistrationDate: user.formattedRegistrationDate,
-      userData: { ...user.userData },
-      userPersonalData: {
-        email: user.userPersonalData.email,
-        phone: user.userPersonalData.phone
-      },
-      userActivityData: { ...user.userActivityData },
-    }
-
-    dataFromClient.user = dataUser
+    dataFromClient.user = await UserModel.findOne({ _id: user._id })
+      .select('-userPersonalData.password')
     dataFromClient.message = 'User successfully authenticated'
     accessToken.value = setAccessToken
     refreshToken.value = setRefreshToken

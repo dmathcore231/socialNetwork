@@ -31,7 +31,6 @@ export async function createPost(req: Request, res: Response, next: NextFunction
       { $set: { "userActivityData.posts": [newPost] } },
       { new: true }
     )
-
     await updateUser!.save()
 
     return next()

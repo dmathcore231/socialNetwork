@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 import { SECRET_KEY, EXP_IN_ACCESS_TOKEN } from '../utils/constants'
 import { UserModel } from '../models/userSchema'
-import { getFormattedUserData } from '../helpers/getFormattedUserData'
 
 export async function getUserByToken(req: Request, res: Response, next: NextFunction) {
   const { dataFromClient } = res.locals
@@ -18,7 +17,9 @@ export async function getUserByToken(req: Request, res: Response, next: NextFunc
         { expiresIn: EXP_IN_ACCESS_TOKEN }
       )
 
-      dataFromClient.user = await getFormattedUserData(user)
+      dataFromClient.user = await UserModel.findOne({ _id: user._id })
+        .select('-userPersonalData.password')
+        .populate('userActivityData.posts')
       dataFromClient.message = 'User Data successfully get'
       accessToken.value = (accessToken.expired ? setAccessToken : accessToken.value)
       accessToken.validToken = true

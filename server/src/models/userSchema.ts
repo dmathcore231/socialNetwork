@@ -1,6 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
 import { User } from '../types/interface/User'
-import { Post } from '../types/interface/Post'
 import { CommentData } from '../types/CommentData'
 import { LikeData } from '../types/likeData'
 import { RepostData } from '../types/RepostData'

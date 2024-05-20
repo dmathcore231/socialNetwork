@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import { UserModel } from '../models/userSchema'
 import { PostModel } from '../models/postSchema'
-import { getFormattedUserData } from '../helpers/getFormattedUserData'
 
 export async function deleteUserAvatar(req: Request, res: Response, next: NextFunction) {
   const { dataFromClient } = res.locals
@@ -20,14 +19,10 @@ export async function deleteUserAvatar(req: Request, res: Response, next: NextFu
       { $set: { 'creationData.userDataCreator.userAvatar': null } }
     )
 
-    await UserModel.updateMany(
-      { '_id': _id },
-      { $set: { 'userActivityData.posts.$[].creationData.userDataCreator.userAvatar': null } }
-    )
-
     await user.save()
 
-    dataFromClient.user = await getFormattedUserData(user)
+    dataFromClient.user = await UserModel.findOne({ _id: _id })
+      .populate('userActivityData.posts')
     dataFromClient.message = 'User avatar successfully deleted'
 
     return next()
