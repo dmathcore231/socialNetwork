@@ -11,6 +11,8 @@ client/node_modules
 server/node_modules
 server/public/documentInPost/*
 server/public/userAvatars/*
+!/server/public/documentInPost
+!/server/public/userAvatars
 dist
 dist-ssr
 *.local
