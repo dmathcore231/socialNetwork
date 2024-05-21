@@ -111,6 +111,22 @@
         --btn-radius: 50%;
         --btn-padding: 2px;
         --btn-hover-box-shadow: 0px 0px 8px 3px rgba(0, 0, 0, 0.6);
+
+        &_fill {
+          &_red {
+
+            --btn-color: var(--black-color);
+            --btn-color-active: var(--gray-500);
+
+            --btn-fill: var(--red-color);
+            --btn-fill-hover: var(--red-color);
+            --btn-fill-active: var(--gray-500);
+
+            --btn-radius: 50%;
+            --btn-padding: 2px;
+            --btn-hover-box-shadow: 0px 0px 8px 3px rgba(0, 0, 0, 0.6);
+          }
+        }
       }
 
       &_color {
@@ -128,6 +144,7 @@
 
           --btn-hover-box-shadow: 0px 0px 8px 3px rgba(255, 255, 255, 0.6);
         }
+
       }
     }
   }

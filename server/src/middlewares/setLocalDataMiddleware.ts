@@ -28,7 +28,7 @@ export function setLocalDataMiddleware(req: Request, res: Response, next: NextFu
       document: null,
       postScope: null
     },
-    allPosts: null,
+    allPosts: [],
     postById: null,
     message: null
   }

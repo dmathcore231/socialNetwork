@@ -63,7 +63,7 @@ export async function validateCreatePostFormMiddleware(req: Request, res: Respon
         errorNumber: 3,
         message: error.message
       }
-      console.log(error)
+
       return next()
     }
   })

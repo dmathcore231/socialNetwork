@@ -29,7 +29,7 @@ export interface DataFromClient {
     postScope: 'global' | 'personal' | null
   }
 
-  allPosts: Post[] | null
+  allPosts: Post[] | []
   postById: Post | null
   message: string | null
 }

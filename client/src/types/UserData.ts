@@ -1,6 +1,5 @@
 import { PostData } from "./PostData"
 import { CommentData } from "./CommentData"
-import { LikeData } from "./likeData"
 import { RepostData } from "./RepostData"
 import { ReportData } from "./ReportData"
 
@@ -29,12 +28,12 @@ export type UserData = {
   }
 
   userActivityData: {
-    posts: PostData[] | null
-    comments: CommentData[] | null
-    likes: LikeData[] | null
-    reposts: RepostData[] | null
-    subscriptions: string[] | null
-    reports: ReportData[] | null
+    posts: PostData[]
+    comments: CommentData[]
+    likes: PostData[]
+    reposts: RepostData[]
+    subscriptions: string[]
+    reports: ReportData[]
   }
 }
 

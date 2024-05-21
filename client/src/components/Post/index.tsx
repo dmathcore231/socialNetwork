@@ -1,8 +1,9 @@
 import './styles.scss'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useMediaQuery } from 'react-responsive'
-import { useAppSelector } from '../../hooks'
+import { useAppSelector, useAppDispatch } from '../../hooks'
+import { fetchToggleLikePost } from '../../redux/postSlice'
 import { PostProps } from '../../types/interfaces/PostProps'
 import { AvatarContainer } from '../AvatarContainer'
 import { SIZE_ICON_MD, SIZE_ICON_SM } from '../../helpers'
@@ -22,16 +23,41 @@ import { EditIcon } from '../../assets/icons/EditIcon'
 import { DeleteIcon } from '../../assets/icons/DeleteIcon'
 
 export function Post({ data }: PostProps): JSX.Element {
+  const dispatch = useAppDispatch()
+
   const { user } = useAppSelector(state => state.user)
+  const { post } = useAppSelector(state => state.post)
 
   const breakPointSm = useMediaQuery({ query: '(max-width: 36rem)' })
   const sizeIcon = breakPointSm ? SIZE_ICON_SM : SIZE_ICON_MD
   const { fullName, tag, userAvatar } = data.creationData.userDataCreator
 
   const [isDropDownActive, setIsDropDownActive] = useState(false)
+  const [isClickFooterItem, setIsClickFooterItem] = useState<string | null>(null)
+  const [isLiked, setIsLiked] = useState(false)
+
+  useEffect(() => {
+    if (isClickFooterItem === 'likes') {
+      dispatch(fetchToggleLikePost({ id: data._id }))
+      setIsClickFooterItem(null)
+    }
+  }, [isClickFooterItem, dispatch])
+
+  useEffect(() => {
+    const { likes } = data.postActivityData
+
+    if (likes && user) {
+      setIsLiked(likes.some(item => item.userDataCreator._id === user._id))
+    }
+  }, [data.postActivityData, user])
 
   function handleDropDownClick() {
     setIsDropDownActive(prev => !prev)
+  }
+
+  function handleClickBtnLike() {
+    setIsClickFooterItem('likes')
+    setIsLiked(prev => !prev)
   }
 
   function renderDropdownList(): JSX.Element {
@@ -181,12 +207,12 @@ export function Post({ data }: PostProps): JSX.Element {
         <span className="post-footer__item">
           <Btn
             type="button"
-            className="btn_transparent_shadow_enabled title"
-            onClick={() => console.log('click likes')}
+            className={isLiked ? "btn_transparent_shadow_enabled_fill_red title" : "btn_transparent_shadow_enabled title"}
+            onClick={handleClickBtnLike}
           >
             <LikeIcon width={sizeIcon} height={sizeIcon} />
           </Btn>
-          {data.postActivityData.likes?.length || 0}
+          {post ? post.postActivityData.likes.length : data.postActivityData.likes?.length}
         </span>
         <span className="post-footer__item">
           <Btn

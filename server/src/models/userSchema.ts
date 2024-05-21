@@ -12,13 +12,33 @@ const userSchema: Schema<User> = new Schema<User>({
       lastName: String,
       fullName: String
     },
-    userBirthDay: String,
-    userGender: String,
-    userTag: String,
-    userAvatar: String || null,
-    userBanner: String || null,
-    userAbout: String || null,
-    userLocation: String
+    userBirthDay: {
+      type: String,
+      default: null
+    },
+    userGender: {
+      type: String,
+      default: null
+    },
+    userTag: {
+      type: String,
+    },
+    userAvatar: {
+      type: String || null,
+      default: null
+    },
+    userBanner: {
+      type: String || null,
+      default: null
+    },
+    userAbout: {
+      type: String || null,
+      default: null
+    },
+    userLocation: {
+      type: String || null,
+      default: null
+    }
   },
 
   userPersonalData: {
@@ -28,12 +48,32 @@ const userSchema: Schema<User> = new Schema<User>({
   },
 
   userActivityData: {
-    posts: { type: [Schema.Types.ObjectId], ref: 'Post', default: null },
-    comments: Array<CommentData> || null,
-    likes: Array<LikeData> || null,
-    reposts: Array<RepostData> || null,
-    subscriptions: Array || null,
-    reports: Array<ReportData> || null
+    posts: {
+      type: [Schema.Types.ObjectId],
+      ref: 'Post',
+      default: []
+    },
+    comments: {
+      type: Array<CommentData>,
+      default: []
+    },
+    likes: {
+      type: [Schema.Types.ObjectId],
+      ref: 'Post',
+      default: []
+    },
+    reposts: {
+      type: Array<RepostData>,
+      default: []
+    },
+    subscriptions: {
+      type: Array<String>,
+      default: []
+    },
+    reports: {
+      type: Array<ReportData>,
+      default: []
+    }
   },
 
   registrationDate: {

@@ -18,7 +18,7 @@ export interface User extends Document {
     userAvatar?: string | null
     userBanner?: string | null
     userAbout?: string | null
-    userLocation?: string
+    userLocation?: string | null
   }
 
   userPersonalData: {
@@ -28,12 +28,12 @@ export interface User extends Document {
   }
 
   userActivityData: {
-    posts: Post[] | null
-    comments: CommentData[] | null
-    likes: LikeData[] | null
-    reposts: RepostData[] | null
-    subscriptions: string[] | null
-    reports: ReportData[] | null
+    posts: Post[]
+    comments: CommentData[]
+    likes: LikeData[]
+    reposts: RepostData[]
+    subscriptions: string[]
+    reports: ReportData[]
   }
 
   registrationDate: Date

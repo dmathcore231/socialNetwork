@@ -1,5 +1,6 @@
 import mongoose, { Schema } from 'mongoose'
 import { Post } from '../types/interface/Post'
+import { ActivityData } from '../types/interface/ActivityData'
 
 const postSchema: Schema<Post> = new Schema<Post>({
   creationData: {
@@ -25,10 +26,10 @@ const postSchema: Schema<Post> = new Schema<Post>({
   postActivityData: {
     type: Object,
     default: {
-      comments: null,
-      reposts: null,
-      likes: null,
-      views: null
+      comments: [],
+      reposts: [],
+      likes: [],
+      views: [],
     }
   },
 

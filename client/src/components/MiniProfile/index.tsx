@@ -40,8 +40,11 @@ export function MiniProfile({ size }: MiniProfileProps): JSX.Element {
             avatar_size_sm
             avatar_bg_color_gray-200"
           >
-            {user?.userData.userAvatar?.avatarSizeSm
-              ? user.userData.userAvatar.avatarSizeSm
+            {user?.userData.userAvatar
+              ? <img src={`http://localhost:3000/${user?.userData.userAvatar}`}
+                alt="user avatar"
+                className="mini-profile__avatar"
+              />
               : <ProfileIcon width={SIZE_ICON_MD} height={SIZE_ICON_MD} />}
           </AvatarContainer>
           <div className="mini-profile__item-wrapper">
@@ -103,8 +106,11 @@ export function MiniProfile({ size }: MiniProfileProps): JSX.Element {
             avatar_size_sm
             avatar_bg_color_gray-200"
             >
-              {user?.userData.userAvatar?.avatarSizeSm
-                ? user.userData.userAvatar.avatarSizeSm
+              {user?.userData
+                ? <img src={`http://localhost:3000/${user?.userData.userAvatar}`}
+                  alt="user avatar"
+                  className="mini-profile__avatar"
+                />
                 : <ProfileIcon width="40px" height="40px" />}
             </AvatarContainer>
           </Btn>
@@ -139,8 +145,11 @@ export function MiniProfile({ size }: MiniProfileProps): JSX.Element {
             avatar_size_sm
             avatar_bg_color_gray-200"
           >
-            {user?.userData.userAvatar?.avatarSizeSm
-              ? user.userData.userAvatar.avatarSizeSm
+            {user?.userData.userAvatar
+              ? <img src={`http://localhost:3000/${user?.userData.userAvatar}`}
+                alt="user avatar"
+                className="mini-profile__avatar"
+              />
               : <ProfileIcon width={SIZE_ICON_MD} height={SIZE_ICON_MD} />}
           </AvatarContainer>
         </div>

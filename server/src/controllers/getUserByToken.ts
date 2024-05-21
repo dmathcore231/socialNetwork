@@ -20,6 +20,7 @@ export async function getUserByToken(req: Request, res: Response, next: NextFunc
       dataFromClient.user = await UserModel.findOne({ _id: user._id })
         .select('-userPersonalData.password')
         .populate('userActivityData.posts')
+        .populate('userActivityData.likes')
       dataFromClient.message = 'User Data successfully get'
       accessToken.value = (accessToken.expired ? setAccessToken : accessToken.value)
       accessToken.validToken = true

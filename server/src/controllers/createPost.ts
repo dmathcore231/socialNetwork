@@ -25,24 +25,13 @@ export async function createPost(req: Request, res: Response, next: NextFunction
     postData: postData
   })
 
-  if (user.userActivityData.posts === null) {
-    const updateUser = await UserModel.findOneAndUpdate(
-      { _id: user._id },
-      { $set: { "userActivityData.posts": [newPost] } },
-      { new: true }
-    )
-    await updateUser!.save()
+  const updateUser = await UserModel.findOneAndUpdate(
+    { _id: user._id },
+    { $push: { "userActivityData.posts": newPost } },
+    { new: true }
+  )
 
-    return next()
-  } else {
-    const updateUser = await UserModel.findOneAndUpdate(
-      { _id: user._id },
-      { $push: { "userActivityData.posts": newPost } },
-      { new: true }
-    )
+  await updateUser!.save()
 
-    await updateUser!.save()
-
-    return next()
-  }
+  return next()
 }

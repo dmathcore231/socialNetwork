@@ -40,3 +40,13 @@ export const requestEditPost = async (id: string, body: FormData): Promise<Respo
     throw err
   }
 }
+
+export const requestToggleLikePost = async (id: string): Promise<ResponseWithPostDataPayload> => {
+  try {
+    const { data } = await client.patch(`${postEndPoint}/${id}/like`)
+    return data
+  } catch (error) {
+    const err = error as AxiosError
+    throw err
+  }
+}

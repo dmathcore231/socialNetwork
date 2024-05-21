@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import { UserModel } from '../models/userSchema'
-import { PostModel } from '../models/postSchema';
-import { getFormattedUserData } from '../helpers/getFormattedUserData'
+import { PostModel } from '../models/postSchema'
 
 export async function createUserAvatar(req: Request, res: Response, next: NextFunction) {
   const { dataFromClient } = res.locals
@@ -24,7 +23,7 @@ export async function createUserAvatar(req: Request, res: Response, next: NextFu
     )
 
     dataFromClient.user = await UserModel.findOne({ _id: _id })
-      .populate('userActivityData.posts')//await getFormattedUserData(user!)
+      .populate('userActivityData.posts')
     dataFromClient.message = 'User avatar successfully created'
   }
 
