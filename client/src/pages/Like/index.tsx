@@ -8,10 +8,15 @@ export function Like(): JSX.Element {
   const dispatch = useAppDispatch()
 
   const { user } = useAppSelector(state => state.user)
+  const { post } = useAppSelector(state => state.post)
 
   useEffect(() => {
     dispatch(fetchGetUserDataByToken())
   }, [dispatch])
+
+  useEffect(() => {
+    dispatch(fetchGetUserDataByToken())
+  }, [post, dispatch])
 
   function renderLikesPost() {
     if (user && user.userActivityData.likes.length > 0) {

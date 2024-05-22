@@ -1,0 +1,7 @@
+@import '../../styles/app.scss';
+
+.like {
+  @include flex-column;
+  align-items: center;
+  gap: 1rem;
+}

@@ -6,6 +6,7 @@ export function Posts(): JSX.Element {
   const { user } = useAppSelector(state => state.user)
 
   function renderPosts() {
+    console.log(user?.userActivityData.posts)
     if (user && user.userActivityData.posts) {
       return (
         user.userActivityData.posts.slice()

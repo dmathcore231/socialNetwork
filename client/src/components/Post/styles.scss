@@ -85,8 +85,12 @@
     display: flex;
     justify-content: space-between;
 
-    &__item {
+    &-item {
       @include flex-center;
+
+      &__text {
+        min-width: 21px;
+      }
     }
   }
 

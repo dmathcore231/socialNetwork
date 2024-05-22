@@ -26,38 +26,44 @@ export function Post({ data }: PostProps): JSX.Element {
   const dispatch = useAppDispatch()
 
   const { user } = useAppSelector(state => state.user)
-  const { post } = useAppSelector(state => state.post)
 
   const breakPointSm = useMediaQuery({ query: '(max-width: 36rem)' })
   const sizeIcon = breakPointSm ? SIZE_ICON_SM : SIZE_ICON_MD
   const { fullName, tag, userAvatar } = data.creationData.userDataCreator
 
   const [isDropDownActive, setIsDropDownActive] = useState(false)
-  const [isClickFooterItem, setIsClickFooterItem] = useState<string | null>(null)
-  const [isLiked, setIsLiked] = useState(false)
+  const [isClickedLike, setIsClickedLike] = useState(false)
+  const [counterLikes, setCounterLikes] = useState<number>(0)
+  const [postLikeState, setPostLikeState] = useState<boolean | null>(null)
 
   useEffect(() => {
-    if (isClickFooterItem === 'likes') {
+    if (user) {
+      setPostLikeState(data.postActivityData.likes.some(item => item.userDataCreator._id === user._id))
+    }
+
+    setCounterLikes(data.postActivityData.likes.length)
+  }, [user, data.postActivityData.likes])
+
+  useEffect(() => {
+    if (isClickedLike) {
       dispatch(fetchToggleLikePost({ id: data._id }))
-      setIsClickFooterItem(null)
+      setIsClickedLike(prev => !prev)
     }
-  }, [isClickFooterItem, dispatch])
-
-  useEffect(() => {
-    const { likes } = data.postActivityData
-
-    if (likes && user) {
-      setIsLiked(likes.some(item => item.userDataCreator._id === user._id))
-    }
-  }, [data.postActivityData, user])
+  }, [dispatch, isClickedLike, data._id])
 
   function handleDropDownClick() {
     setIsDropDownActive(prev => !prev)
   }
 
   function handleClickBtnLike() {
-    setIsClickFooterItem('likes')
-    setIsLiked(prev => !prev)
+    setIsClickedLike(prev => !prev)
+    if (postLikeState) {
+      setCounterLikes(prev => prev - 1)
+      setPostLikeState(prev => !prev)
+    } else {
+      setCounterLikes(prev => prev + 1)
+      setPostLikeState(prev => !prev)
+    }
   }
 
   function renderDropdownList(): JSX.Element {
@@ -184,46 +190,65 @@ export function Post({ data }: PostProps): JSX.Element {
         </div>
       </div>
       <div className="post-footer">
-        <span className="post-footer__item">
-          <Btn
-            type="button"
-            className="btn_transparent_shadow_enabled title"
-            onClick={() => console.log('click comments')}
-          >
-            <CommentsIcon width={sizeIcon} height={sizeIcon} />
-          </Btn>
-          {data.postActivityData.comments?.length || 0}
-        </span>
-        <span className="post-footer__item">
-          <Btn
-            type="button"
-            className="btn_transparent_shadow_enabled title"
-            onClick={() => console.log('click reposts')}
-          >
-            <RepostIcon width={sizeIcon} height={sizeIcon} />
-          </Btn>
-          {data.postActivityData.reposts?.length || 0}
-        </span>
-        <span className="post-footer__item">
-          <Btn
-            type="button"
-            className={isLiked ? "btn_transparent_shadow_enabled_fill_red title" : "btn_transparent_shadow_enabled title"}
-            onClick={handleClickBtnLike}
-          >
-            <LikeIcon width={sizeIcon} height={sizeIcon} />
-          </Btn>
-          {post ? post.postActivityData.likes.length : data.postActivityData.likes?.length}
-        </span>
-        <span className="post-footer__item">
-          <Btn
-            type="button"
-            className="btn_transparent_shadow_enabled title"
-            onClick={() => console.log('click viewed')}
-          >
-            <ViewedIcon width={sizeIcon} height={sizeIcon} />
-          </Btn>
-          {data.postActivityData.views?.length || 0}
-        </span>
+        <div className="post-footer-item">
+          <div className="post-footer-item__btn">
+            <Btn
+              type="button"
+              className="btn_transparent_shadow_enabled title"
+              onClick={() => console.log('click comments')}
+            >
+              <CommentsIcon width={sizeIcon} height={sizeIcon} />
+            </Btn>
+          </div>
+          <div className="post-footer-item__text">
+            {data.postActivityData.comments?.length || 0}
+          </div>
+        </div>
+        <div className="post-footer-item">
+          <div className="post-footer-item__btn">
+            <Btn
+              type="button"
+              className="btn_transparent_shadow_enabled title"
+              onClick={() => console.log('click reposts')}
+            >
+              <RepostIcon width={sizeIcon} height={sizeIcon} />
+            </Btn>
+          </div>
+          <div className="post-footer-item__text">
+
+            {data.postActivityData.reposts?.length || 0}
+          </div>
+        </div>
+        <div className="post-footer-item">
+          <div className="post-footer-item__btn">
+            <Btn
+              type="button"
+              className={(postLikeState
+                ? "btn_transparent_shadow_enabled_fill_red "
+                : "btn_transparent_shadow_enabled ") + "title"}
+              onClick={handleClickBtnLike}
+            >
+              <LikeIcon width={sizeIcon} height={sizeIcon} />
+            </Btn>
+          </div>
+          <div className="post-footer-item__text">
+            {counterLikes}
+          </div>
+        </div>
+        <div className="post-footer-item">
+          <div className="post-footer-item__btn">
+            <Btn
+              type="button"
+              className="btn_transparent_shadow_enabled title"
+              onClick={() => console.log('click viewed')}
+            >
+              <ViewedIcon width={sizeIcon} height={sizeIcon} />
+            </Btn>
+          </div>
+          <div className="post-footer-item__text">
+            {data.postActivityData.views?.length || 0}
+          </div>
+        </div>
       </div>
     </div>
   )
