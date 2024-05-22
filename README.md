@@ -29,6 +29,7 @@
 
 1. Клонируйте репозиторий: `git clone https://github.com/dmathcore231/socialNetwork.git`.
 2. Установите Node.js и npm.
+3. Установите MongoDB. Вы можете скачать установщик MongoDB с официального сайта MongoDB (https://www.mongodb.com/) и следовать инструкциям для вашей операционной системы.
 
 ### Серверная часть
 
