@@ -14,4 +14,5 @@ export interface TextAreaProps {
   col?: number
   row?: number
   spellCheck?: boolean
+  btnInTextArea?: JSX.Element
 }

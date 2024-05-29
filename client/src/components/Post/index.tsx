@@ -1,9 +1,9 @@
 import './styles.scss'
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useMediaQuery } from 'react-responsive'
 import { useAppSelector, useAppDispatch } from '../../hooks'
-import { fetchToggleLikePost } from '../../redux/postSlice'
+import { fetchToggleLikePost, fetchDeletePost } from '../../redux/postSlice'
 import { PostProps } from '../../types/interfaces/PostProps'
 import { AvatarContainer } from '../AvatarContainer'
 import { SIZE_ICON_MD, SIZE_ICON_SM } from '../../helpers'
@@ -24,15 +24,19 @@ import { DeleteIcon } from '../../assets/icons/DeleteIcon'
 
 export function Post({ data }: PostProps): JSX.Element {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const { user } = useAppSelector(state => state.user)
+  const { ResponseState: { status } } = useAppSelector(state => state.post)
 
   const breakPointSm = useMediaQuery({ query: '(max-width: 36rem)' })
   const sizeIcon = breakPointSm ? SIZE_ICON_SM : SIZE_ICON_MD
   const { fullName, tag, userAvatar } = data.creationData.userDataCreator
 
   const [isDropDownActive, setIsDropDownActive] = useState(false)
+  const [isDropDownDeleteConfirm, setIsDropDownDeleteConfirm] = useState(false)
   const [isClickedLike, setIsClickedLike] = useState(false)
+  const [confirmDelete, setConfirmDelete] = useState(false)
   const [counterLikes, setCounterLikes] = useState<number>(0)
   const [postLikeState, setPostLikeState] = useState<boolean | null>(null)
 
@@ -50,6 +54,19 @@ export function Post({ data }: PostProps): JSX.Element {
       setIsClickedLike(prev => !prev)
     }
   }, [dispatch, isClickedLike, data._id])
+
+  useEffect(() => {
+    if (confirmDelete) {
+      dispatch(fetchDeletePost({ id: data._id }))
+    }
+  }, [dispatch, confirmDelete, data._id])
+
+  useEffect(() => {
+    if (confirmDelete && status === 200) {
+      setConfirmDelete(prev => !prev)
+      navigate('/profile')
+    }
+  }, [status, confirmDelete, navigate])
 
   function handleDropDownClick() {
     setIsDropDownActive(prev => !prev)
@@ -80,7 +97,31 @@ export function Post({ data }: PostProps): JSX.Element {
               Edit post
             </Link>
           </li>
-          <li className="dropdown-list__item">
+          <DropDown
+            isActive={isDropDownDeleteConfirm}
+            setIsActive={setIsDropDownDeleteConfirm}
+            defaultPosition={false}
+          >
+            <div className="post-delete-confirm">
+              <Btn
+                type="button"
+                className="btn_primary btn_outline btn_padding_none_vertical"
+                onClick={() => setConfirmDelete(true)}
+
+              >
+                Confirm
+              </Btn>
+              <Btn
+                type="button"
+                className="btn_primary btn_outline btn_padding_none_vertical"
+                onClick={() => { setIsDropDownDeleteConfirm(false) }}
+              >
+                Cancel
+              </Btn>
+            </div>
+          </DropDown>
+          <li className="dropdown-list__item"
+            onClick={() => setIsDropDownDeleteConfirm(true)}>
             <DeleteIcon width={sizeIcon} height={sizeIcon} />
             Delete post
           </li>
@@ -155,7 +196,6 @@ export function Post({ data }: PostProps): JSX.Element {
                 {tag}
               </span>
             </div>
-
             <span className="post-creator-data__date-creation">
               | {data.creationData.formattedCreationDate}
             </span>
@@ -195,7 +235,7 @@ export function Post({ data }: PostProps): JSX.Element {
             <Btn
               type="button"
               className="btn_transparent_shadow_enabled title"
-              onClick={() => console.log('click comments')}
+              onClick={() => navigate(`/post/comments/${data._id}`)}
             >
               <CommentsIcon width={sizeIcon} height={sizeIcon} />
             </Btn>
@@ -215,7 +255,6 @@ export function Post({ data }: PostProps): JSX.Element {
             </Btn>
           </div>
           <div className="post-footer-item__text">
-
             {data.postActivityData.reposts?.length || 0}
           </div>
         </div>

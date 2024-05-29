@@ -11,7 +11,7 @@ import { ResponseWithoutPayload, ResponseWithUserDataPayload } from "../types/in
 
 const authRouter = express.Router()
 
-function setResponseSignUp(req: Request, res: Response) {
+function setResponseSignUp(req: Request, res: Response): Response {
   const { status, errorNumber, message } = res.locals.dataFromClient.error
   try {
     if (status) {
@@ -45,7 +45,7 @@ function setResponseSignUp(req: Request, res: Response) {
   }
 }
 
-function setResponseSignIN(req: Request, res: Response) {
+function setResponseSignIN(req: Request, res: Response): Response {
   const { dataFromClient } = res.locals
   const { status, errorNumber, message } = dataFromClient.error
   const { user } = dataFromClient
@@ -86,7 +86,7 @@ function setResponseSignIN(req: Request, res: Response) {
   }
 }
 
-function setResponseGetUserByToken(req: Request, res: Response) {
+function setResponseGetUserByToken(req: Request, res: Response): Response {
   const { dataFromClient } = res.locals
   const { status, errorNumber, message } = dataFromClient.error
   const { user } = dataFromClient
@@ -132,7 +132,7 @@ function setResponseGetUserByToken(req: Request, res: Response) {
 
 }
 
-function setResponseLogoutUser(req: Request, res: Response) {
+function setResponseLogoutUser(req: Request, res: Response): Response {
   const { dataFromClient } = res.locals
   const { status, errorNumber, message } = dataFromClient.error
 

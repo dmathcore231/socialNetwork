@@ -4,7 +4,7 @@ import { formDataWithoutFile } from '../utils/multerConfig'
 import { createResForMissingFields } from '../utils/createResForMissingFields'
 import { UserModel } from '../models/userSchema'
 
-export function validateSignInFormMiddleware(req: Request, res: Response, next: NextFunction) {
+export function validateSignInFormMiddleware(req: Request, res: Response, next: NextFunction): void {
   formDataWithoutFile(req, res, async (err) => {
     const { email, password } = req.body
 

@@ -3,11 +3,11 @@ import { PostModel } from '../models/postSchema'
 import { LikeData } from '../types/likeData'
 import { UserModel } from '../models/userSchema'
 
-export async function toggleLikePost(req: Request, res: Response, next: NextFunction) {
+export async function toggleLikePost(req: Request, res: Response, next: NextFunction): Promise<void> {
   const { dataFromClient } = res.locals
   const { user } = dataFromClient
   const { userTag, userAvatar, userName: { fullName } } = user.userData
-  const { status, errorNumber, message } = dataFromClient.error
+  const { status } = dataFromClient.error
   const { id } = req.params
 
   if (status) return next()
@@ -39,6 +39,7 @@ export async function toggleLikePost(req: Request, res: Response, next: NextFunc
         { $pull: { 'postActivityData.likes': { 'userDataCreator._id': { $in: [dataFromClient.user._id] } } } },
         { new: true }
       )
+        .populate('postActivityData.comments')
 
       await UserModel.findByIdAndUpdate(
         { _id: dataFromClient.user._id },
@@ -53,6 +54,7 @@ export async function toggleLikePost(req: Request, res: Response, next: NextFunc
         { $push: { 'postActivityData.likes': userLikeData } },
         { new: true }
       )
+        .populate('postActivityData.comments')
 
       await UserModel.findByIdAndUpdate(
         { _id: dataFromClient.user._id },

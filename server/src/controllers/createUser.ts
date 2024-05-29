@@ -4,7 +4,7 @@ import { UserModel } from '../models/userSchema'
 import { formDefaultUserTag } from '../helpers/formDefaultUserTag'
 import { getFormattedDate } from '../helpers/getFormattedDate'
 
-export async function createUser(req: Request, res: Response, next: NextFunction) {
+export async function createUser(req: Request, res: Response, next: NextFunction): Promise<void> {
   const { firstName, lastName, email, password } = req.body
   const { status } = res.locals.dataFromClient.error
 

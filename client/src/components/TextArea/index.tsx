@@ -1,10 +1,10 @@
 import './styles.scss'
 import { TextAreaProps } from '../../types/interfaces/TextAreaProps'
 
-export function TextArea({ name, maxLength, minLength, required, onChange, disabled, id, placeholder, className, value, col, row, spellCheck }: TextAreaProps): JSX.Element {
+export function TextArea({ name, maxLength, minLength, required, onChange, disabled, id, placeholder, className, value, col, row, spellCheck, btnInTextArea }: TextAreaProps): JSX.Element {
   return (
-    <div className='text-area-wrapper'>
-      <div className='text-area__item'>
+    <div className="text-area-wrapper">
+      <div className="text-area__item">
         <textarea
           name={name}
           id={id}
@@ -20,6 +20,7 @@ export function TextArea({ name, maxLength, minLength, required, onChange, disab
           rows={row}
           spellCheck={spellCheck}
         />
+        {btnInTextArea ? btnInTextArea : null}
       </div>
     </div>
   )

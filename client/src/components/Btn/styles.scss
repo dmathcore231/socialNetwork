@@ -1,4 +1,4 @@
-@import '../../styles/app.scss';
+@import '../../styles/scss/mixins';
 
 .btn {
   --btn-color: var(--white-color);
@@ -189,6 +189,8 @@
 
   &_padding {
     &_none {
+      padding: 0;
+
       &_vertical {
         padding: 0 0.313rem;
       }

@@ -1,5 +1,5 @@
 
-export function getFormattedDate() {
+export function getFormattedDate(): string {
   const currentDate = new Date()
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',

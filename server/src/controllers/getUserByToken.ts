@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import { SECRET_KEY, EXP_IN_ACCESS_TOKEN } from '../utils/constants'
 import { UserModel } from '../models/userSchema'
 
-export async function getUserByToken(req: Request, res: Response, next: NextFunction) {
+export async function getUserByToken(req: Request, res: Response, next: NextFunction): Promise<void> {
   const { dataFromClient } = res.locals
   const { accessToken } = dataFromClient.token
   const { status } = dataFromClient.error
@@ -21,6 +21,7 @@ export async function getUserByToken(req: Request, res: Response, next: NextFunc
         .select('-userPersonalData.password')
         .populate('userActivityData.posts')
         .populate('userActivityData.likes')
+        .populate('userActivityData.comments')
       dataFromClient.message = 'User Data successfully get'
       accessToken.value = (accessToken.expired ? setAccessToken : accessToken.value)
       accessToken.validToken = true

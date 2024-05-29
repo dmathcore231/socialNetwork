@@ -54,7 +54,8 @@ const userSchema: Schema<User> = new Schema<User>({
       default: []
     },
     comments: {
-      type: Array<CommentData>,
+      type: [Schema.Types.ObjectId],
+      ref: 'Comment',
       default: []
     },
     likes: {

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 
-export async function logoutUser(req: Request, res: Response, next: NextFunction) {
+export async function logoutUser(req: Request, res: Response, next: NextFunction): Promise<void> {
   const { dataFromClient } = res.locals
   const { status } = dataFromClient.error
 

@@ -1,4 +1,4 @@
-@import '../../../styles/app.scss';
+@import '../../../styles/scss/mixins';
 
 .edit-post {
   @include flex-column;

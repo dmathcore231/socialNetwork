@@ -3,9 +3,8 @@ import path from 'path'
 import { Request, Response, NextFunction } from 'express'
 import { documentInPostUpload } from '../utils/multerConfig'
 import { createResForMissingFields } from '../utils/createResForMissingFields'
-import { UserModel } from '../models/userSchema'
 
-export async function validateCreatePostFormMiddleware(req: Request, res: Response, next: NextFunction) {
+export async function validateCreatePostFormMiddleware(req: Request, res: Response, next: NextFunction): Promise<void> {
   documentInPostUpload.array('document', 5)(req, res, async (err) => {
     const { dataFromClient } = res.locals
     const { status } = dataFromClient.error

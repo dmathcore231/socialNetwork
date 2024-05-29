@@ -33,7 +33,7 @@ export function CreatePost(): JSX.Element {
             Array.from(value).forEach((file) => {
               formData.append(key, file, file.name)
             })
-          } else {
+          } else if (typeof value === "string") {
             formData.append(key, value)
           }
         }

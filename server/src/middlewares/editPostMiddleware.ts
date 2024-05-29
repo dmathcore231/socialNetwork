@@ -5,7 +5,7 @@ import { documentInPostUpload } from '../utils/multerConfig'
 import { PostModel } from '../models/postSchema'
 import { createResForMissingFields } from '../utils/createResForMissingFields'
 
-export async function editPostMiddleware(req: Request, res: Response, next: NextFunction) {
+export async function editPostMiddleware(req: Request, res: Response, next: NextFunction): Promise<void> {
   documentInPostUpload.array('document', 5)(req, res, async (err) => {
     const { dataFromClient } = res.locals
     const { status } = dataFromClient.error

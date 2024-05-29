@@ -3,7 +3,7 @@ import { UserModel } from '../models/userSchema'
 import { getFormattedDate } from '../helpers/getFormattedDate'
 import { PostModel } from '../models/postSchema'
 
-export async function createPost(req: Request, res: Response, next: NextFunction) {
+export async function createPost(req: Request, res: Response, next: NextFunction): Promise<void> {
   const { dataFromClient } = res.locals
   const { status } = dataFromClient.error
   const { postData } = dataFromClient

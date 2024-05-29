@@ -3,9 +3,11 @@ import { LikeData } from "./likeData"
 import { UserDataCreator } from "./UserDataCreator"
 
 export type CommentData = {
+  _id: string
+  _postId: string
   _timestamp: number
-  formattedDate: string
   userDataCreator: UserDataCreator
+  formattedDate: string
   text: string
   likes: LikeData[]
   reports: ReportData[]

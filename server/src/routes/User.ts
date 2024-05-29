@@ -7,7 +7,7 @@ import { ResponseWithoutPayload, ResponseWithUserDataPayload } from "../types/in
 
 const userRouter = express.Router()
 
-function setResponseCreateUserAvatar(req: Request, res: Response) {
+function setResponseCreateUserAvatar(req: Request, res: Response): Response {
   const { dataFromClient } = res.locals
   const { status, errorNumber, message } = dataFromClient.error
   const { accessToken } = dataFromClient.token
@@ -51,7 +51,7 @@ function setResponseCreateUserAvatar(req: Request, res: Response) {
   }
 }
 
-function setResponseDeleteUserAvatar(req: Request, res: Response) {
+function setResponseDeleteUserAvatar(req: Request, res: Response): Response {
   const { dataFromClient } = res.locals
   const { status, errorNumber, message } = dataFromClient.error
   const { accessToken } = dataFromClient.token
@@ -83,7 +83,14 @@ function setResponseDeleteUserAvatar(req: Request, res: Response) {
 
     return res.status(response.status).send(response)
   } catch (error) {
+    const response: ResponseWithoutPayload = {
+      status: 500,
+      errorNumber: 8,
+      error: true,
+      message: "Internal Server Error"
+    }
 
+    return res.status(response.status).send(response)
   }
 }
 

@@ -157,7 +157,7 @@ export function EditPost(): JSX.Element {
   }
 
   return (
-    <div className="edit-post container">
+    <div className="edit-post">
       <div className="edit-post-header">
         <div className="edit-post-header__item">
           <LinkBack BackToHome={false} />

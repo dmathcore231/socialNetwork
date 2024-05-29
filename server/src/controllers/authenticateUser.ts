@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import { SECRET_KEY, EXP_IN_ACCESS_TOKEN, EXP_IN_REFRESH_TOKEN } from '../utils/constants'
 import { UserModel } from '../models/userSchema'
 
-export async function authenticateUser(req: Request, res: Response, next: NextFunction) {
+export async function authenticateUser(req: Request, res: Response, next: NextFunction): Promise<void> {
   const { email } = req.body
   const { status } = res.locals.dataFromClient.error
   const { dataFromClient } = res.locals

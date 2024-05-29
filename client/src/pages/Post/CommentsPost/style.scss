@@ -1,0 +1,27 @@
+@import '../../../styles/scss/mixins';
+
+.comments-post {
+  @include flex-column;
+  gap: 1rem;
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  &-body {
+    @include flex-column;
+    gap: 0.5rem;
+  }
+
+  &-footer {
+    @include flex-center;
+    gap: 1rem;
+  }
+
+  &-feed {
+    width: 100%;
+    @include flex-column;
+  }
+}

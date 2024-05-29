@@ -1,4 +1,4 @@
-@import '../../styles/app.scss';
+@import '../../styles/scss/mixins';
 
 .input {
   --input-bg-color: var(--white-color);
@@ -98,5 +98,12 @@
     --input-border-color: var(--red-color);
     --input-border-color-focus: var(--red-color);
     --input-border-color-focus-visible: var(--red-color);
+  }
+
+  &__btn {
+    position: absolute;
+    top: 50%;
+    right: 0.625rem;
+    transform: translateY(-50%);
   }
 }

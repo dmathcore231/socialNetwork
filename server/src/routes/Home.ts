@@ -8,7 +8,7 @@ import {
 
 const homeRouter = express.Router()
 
-export function setResponseHome(req: Request, res: Response) {
+export function setResponseHome(req: Request, res: Response): Response {
   const { dataFromClient } = res.locals
   const { status, errorNumber, message } = dataFromClient.error
   const { accessToken } = dataFromClient.token

@@ -1,6 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
 import { Post } from '../types/interface/Post'
-import { ActivityData } from '../types/interface/ActivityData'
 
 const postSchema: Schema<Post> = new Schema<Post>({
   creationData: {
@@ -9,7 +8,15 @@ const postSchema: Schema<Post> = new Schema<Post>({
       default: Date.now
     },
     formattedCreationDate: String,
-    userDataCreator: Object
+    userDataCreator: {
+      type: {
+        _id: String,
+        _role: String,
+        fullName: String,
+        tag: String,
+        userAvatar: String || null
+      }
+    }
   },
 
   postData: {
@@ -24,13 +31,59 @@ const postSchema: Schema<Post> = new Schema<Post>({
   },
 
   postActivityData: {
-    type: Object,
-    default: {
-      comments: [],
-      reposts: [],
-      likes: [],
-      views: [],
-    }
+    comments: {
+      type: [Schema.Types.ObjectId],
+      ref: 'Comment',
+      default: []
+    },
+
+    likes: {
+      type: [{
+        _timestamp: Number,
+        _postId: String,
+        userDataCreator: {
+          type: {
+            _id: String,
+            _role: String,
+            fullName: String,
+            tag: String,
+            userAvatar: String || null
+          }
+        }
+      }],
+      default: []
+    },
+    reposts: {
+      type: [{
+        _timestamp: Number,
+        _postId: String,
+        userDataCreator: {
+          type: {
+            _id: String,
+            _role: String,
+            fullName: String,
+            tag: String,
+            userAvatar: String || null
+          }
+        }
+      }],
+      default: []
+    },
+    views: {
+      type: [{
+        _timeStamp: Number,
+        userDataCreator: {
+          type: {
+            _id: String,
+            _role: String,
+            fullName: String,
+            tag: String,
+            userAvatar: String || null
+          }
+        }
+      }],
+      default: []
+    },
   },
 
   reports: {

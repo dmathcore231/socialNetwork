@@ -3,7 +3,7 @@ import path from 'path'
 import sharp from 'sharp'
 import { userAvatarsUpload } from '../utils/multerConfig'
 
-export async function createUserAvatarMiddleware(req: Request, res: Response, next: NextFunction) {
+export async function createUserAvatarMiddleware(req: Request, res: Response, next: NextFunction): Promise<void> {
   userAvatarsUpload.single('avatar')(req, res, async (err) => {
     const { dataFromClient } = res.locals
     const { status } = dataFromClient.error

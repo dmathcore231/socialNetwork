@@ -17,6 +17,7 @@ import { Search } from '../pages/Search'
 import { Post } from '../pages/Post'
 import { CreatePost } from '../pages/Post/CreatePost'
 import { EditPost } from '../pages/Post/EditPost'
+import { CommentsPost } from '../pages/Post/CommentsPost'
 
 export const router = createBrowserRouter([
   {
@@ -73,25 +74,29 @@ export const router = createBrowserRouter([
         path: "/communities",
         element: <Communities />,
       },
+      {
+        element: <PrivateRouter redirectTo="/authorization">
+          <Post />
+        </PrivateRouter>,
+        children: [
+          {
+            path: "/post/create",
+            element: <CreatePost />
+          },
+          {
+            path: "/post/edit/:id",
+            element: <EditPost />
+          },
+          {
+            path: "/post/comments/:id",
+            element: <CommentsPost />
+          }
+        ]
+      }
     ]
   },
   {
     path: "/authorization",
     element: <Authorization />,
   },
-  {
-    element: <PrivateRouter redirectTo="/authorization">
-      <Post />
-    </PrivateRouter>,
-    children: [
-      {
-        path: "/post/create",
-        element: <CreatePost />
-      },
-      {
-        path: "/post/edit/:id",
-        element: <EditPost />
-      }
-    ]
-  }
 ])

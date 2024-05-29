@@ -2,8 +2,7 @@ import './styles.scss'
 import { useRef, useState, useEffect } from 'react'
 import { InputProps } from '../../types/interfaces/InputProps'
 
-
-export function Input({ type, id, label, placeholder, className, required, value, name, onChange, error, multiple }: InputProps): JSX.Element {
+export function Input({ type, id, label, placeholder, className, required, value, name, onChange, error, multiple, btnInInput }: InputProps): JSX.Element {
   const inputRef = useRef<HTMLInputElement>(null)
   const labelRef = useRef<HTMLLabelElement>(null)
   const [isFocused, setIsFocused] = useState(false)
@@ -44,6 +43,13 @@ export function Input({ type, id, label, placeholder, className, required, value
         >
           {placeholder}
         </span>
+        {btnInInput
+          ? (
+            <div className="input__btn">
+              {btnInInput}
+            </div>
+          )
+          : null}
       </div>
       {label.text ?
         (<label

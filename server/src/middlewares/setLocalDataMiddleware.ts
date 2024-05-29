@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { DataFromClient } from '../types/interface/DataFromClient'
 
-export function setLocalDataMiddleware(req: Request, res: Response, next: NextFunction) {
+export function setLocalDataMiddleware(req: Request, res: Response, next: NextFunction): void {
 
   const data: DataFromClient = {
     user: null,
@@ -32,7 +32,9 @@ export function setLocalDataMiddleware(req: Request, res: Response, next: NextFu
     postById: null,
     message: null
   }
+
   res.locals.dataFromClient = data
+
   return next()
 }
 

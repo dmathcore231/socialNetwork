@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { PostModel } from '../models/postSchema'
-import { UserModel } from '../models/userSchema'
 
-export async function updatePostData(req: Request, res: Response, next: NextFunction) {
+export async function updatePostData(req: Request, res: Response, next: NextFunction): Promise<void> {
   const { dataFromClient } = res.locals
   const { status } = dataFromClient.error
   const { id } = req.params

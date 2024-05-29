@@ -13,4 +13,5 @@ export interface InputProps {
   name?: string
   error?: boolean
   multiple?: boolean
+  btnInInput?: JSX.Element
 }

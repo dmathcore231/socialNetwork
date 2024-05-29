@@ -4,8 +4,5 @@ export type UserDataCreator = {
   _role: string
   fullName: string
   tag: string
-     userAvatar?: {
-      avatarSizeSm: string
-      avatarSizeLg: string
-    }
+  userAvatar: string
 }

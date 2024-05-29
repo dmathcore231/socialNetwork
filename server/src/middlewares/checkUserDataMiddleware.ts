@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 
-export async function checkUserDataMiddleware(req: Request, res: Response, next: NextFunction) {
+export async function checkUserDataMiddleware(req: Request, res: Response, next: NextFunction): Promise<void> {
   const { dataFromClient } = res.locals
   const { user } = dataFromClient
   const { status } = dataFromClient.error

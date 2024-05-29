@@ -1,5 +1,3 @@
-@import '../../styles/app.scss';
-
 .text-area {
   --text-area-width: 100%;
   --text-area-height: 7.188rem;
@@ -13,7 +11,7 @@
   --text-area-text-align: start;
   --text-area-font-size: 1rem;
   --text-area-line-height: 1rem;
-  --text-area-color: var(--black-color);
+  --text-area-color: $black-color;
 
   --text-area-placeholder-font-size: 1rem;
   --text-area-placeholder-line-height: 1rem;
@@ -57,5 +55,23 @@
 
     --text-area-focus-visible-shadow: 0px 0px 8px 3px rgba(0, 0, 0, 0.6);
     --text-area-focus-visible-outline: none;
+  }
+
+  &__item {
+    position: relative;
+  }
+
+  &__btn {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+  }
+
+  &_padding {
+    &_size {
+      &_btn-size {
+        --text-area-padding: 10px 75px 1rem 1rem
+      }
+    }
   }
 }

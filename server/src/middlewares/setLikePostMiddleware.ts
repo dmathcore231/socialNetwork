@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { PostModel } from '../models/postSchema'
 
-export async function setLikePostMiddleware(req: Request, res: Response, next: NextFunction) {
+export async function setLikePostMiddleware(req: Request, res: Response, next: NextFunction): Promise<void> {
   const { dataFromClient } = res.locals
   const { status } = dataFromClient.error
   const { id } = req.params
@@ -29,5 +29,6 @@ export async function setLikePostMiddleware(req: Request, res: Response, next: N
   }
 
   dataFromClient.postById = post
+
   return next()
 }

@@ -4,7 +4,7 @@ import { UserModel } from '../models/userSchema'
 import { SECRET_KEY } from '../utils/constants'
 import cookieParser from 'cookie-parser'
 
-export function checkTokenMiddleware(req: Request, res: Response, next: NextFunction) {
+export function checkTokenMiddleware(req: Request, res: Response, next: NextFunction): void {
   cookieParser()(req, res, async () => {
     const { dataFromClient } = res.locals
     const { accessToken, refreshToken } = dataFromClient.token
