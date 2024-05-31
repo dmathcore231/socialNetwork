@@ -1,0 +1,21 @@
+@import '../../styles/app.scss';
+
+:root {
+  --bg-test-color: transparent;
+}
+
+.test {
+  width: 200px;
+  height: 200px;
+  background-color: var(--bg-test-color);
+  border: 1px solid $color-dark;
+  color: $color-dark;
+
+  &:hover {
+    --bg-test-color: #{$color-gray-300};
+  }
+
+  &:active {
+    --bg-test-color: #{$color-gray-600};
+  }
+}

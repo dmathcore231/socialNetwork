@@ -1,4 +1,4 @@
-@import '../../styles/scss/mixins';
+@import '../../styles/app.scss';
 
 .carousel {
   position: relative;
@@ -52,7 +52,7 @@
     height: 100%;
     max-width: 100%;
     object-fit: cover;
-    border-radius: var(--main-border-radius);
+    border-radius: $main-border-radius;
   }
 
   &__btn-edit {

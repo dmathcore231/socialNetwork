@@ -1,4 +1,4 @@
-@import '../../styles/scss/mixins';
+@import '../../styles/app.scss';
 
 .input-file {
   width: 100%;
@@ -14,11 +14,11 @@
 
 
     &:hover {
-      background-color: var(--gray-200);
+      background-color: $color-gray-200;
     }
 
     &:active {
-      background-color: var(--gray-100);
+      background-color: $color-gray-100;
     }
 
     &_disabled {
@@ -29,7 +29,7 @@
       }
 
       &:active {
-        background-color: var(--red-color);
+        background-color: $color-danger;
       }
     }
   }

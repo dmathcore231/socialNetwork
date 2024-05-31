@@ -1,12 +1,12 @@
-@import '../../styles/scss/mixins';
+@import '../../styles/app.scss';
 
 .link-back {
-  --link-back-bg-color: var(--black-color);
+  --link-back-bg-color: #{$color-dark};
   --link-back-bg-color-hover: transparent;
   --link-back-bg-color-active: transparent;
 
   --link-back-border-color: transparent;
-  --link-back-border-color-hover: var(--black-color);
+  --link-back-border-color-hover: #{$color-dark};
   --link-back-border-color-active: transparent;
   --link-back-border-size: 2px;
   --link-back-border-radius: 2rem;
@@ -15,9 +15,9 @@
 
   --link-back-transition-time: 0.4s;
 
-  --link-back-fill: var(--white-color);
-  --link-back-fill-hover: var(--black-color);
-  --link-back-fill-active: var(--black-color);
+  --link-back-fill: #{$color-white};
+  --link-back-fill-hover: #{$color-dark};
+  --link-back-fill-active: #{$color-dark};
 
   @include flex-center;
   background-color: var(--link-back-bg-color);

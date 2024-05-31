@@ -1,4 +1,4 @@
-@import '../../styles/scss/mixins';
+@import '../../styles/app.scss';
 
 .burger-menu {
   position: relative;
@@ -20,7 +20,7 @@
       box-shadow: 0px 0px 8px 3px rgba(0, 0, 0, 0.6);
       border-radius: 0 0.5rem 0.5rem 0;
       padding: 1rem;
-      background-color: var(--white-color);
+      background-color: $color-white;
       animation: fadeInLeft 0.1s forwards;
     }
 
@@ -33,17 +33,17 @@
       display: flex;
       justify-content: start;
       gap: 1rem;
-      color: var(--black-color);
-      fill: var(--black-color);
+      color: $color-dark;
+      fill: $color-dark;
 
       &:hover {
-        color: var(--gray-400);
-        fill: var(--gray-400);
+        color: $color-gray-400;
+        fill: $color-gray-400;
       }
 
       &:active {
-        color: var(--gray-500);
-        fill: var(--gray-500);
+        color: $color-gray-500;
+        fill: $color-gray-500;
       }
     }
   }

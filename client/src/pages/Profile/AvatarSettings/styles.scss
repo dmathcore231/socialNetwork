@@ -1,4 +1,4 @@
-@import '../../../styles/scss/mixins';
+@import '../../../styles/app.scss';
 
 .avatar-setting {
   @include flex-column;
@@ -14,7 +14,7 @@
     @include flex-column;
     align-items: center;
     gap: 1rem;
-    fill: var(--gray-400);
+    fill: $color-gray-400;
   }
 
   &__label {

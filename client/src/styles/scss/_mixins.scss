@@ -1,3 +1,5 @@
+@import '../scss/variables';
+
 @mixin flex-center {
   display: flex;
   justify-content: center;
@@ -7,4 +9,61 @@
 @mixin flex-column {
   display: flex;
   flex-direction: column;
+}
+
+// btn mixin
+
+@mixin btn-color($color: $color-white, $color-hover: $color-dark, $color-active: $color-dark) {
+  color: $color;
+
+  &:hover {
+    color: $color-hover;
+  }
+
+  &:active {
+    color: $color-active;
+  }
+}
+
+@mixin btn-bg-color($bg-color: transparent, $bg-color-hover: transparent, $bg-color-active: transparent) {
+  background-color: $bg-color;
+
+  &:hover {
+    background-color: $bg-color-hover;
+  }
+
+  &:active {
+    background-color: $bg-color-active;
+  }
+}
+
+@mixin btn-border($border-size: 0.063rem, $border-radius: $main-border-radius, $border-color: transparent, $border-color-hover : transparent, $border-color-active: transparent) {
+  border: $border-size solid $border-color;
+  border-radius: $border-radius;
+
+  &:hover {
+    border-color: $border-color-hover;
+  }
+
+  &:active {
+    border-color: $border-color-active;
+  }
+}
+
+@mixin btn-font($font-size: 1.375rem, $font-weight: 400, $line-height: 1.75rem) {
+  font-size: $font-size;
+  font-weight: $font-weight;
+  line-height: $line-height;
+}
+
+@mixin btn-fill($fill: $color-dark, $fill-hover: $color-dark, $fill-active: $color-dark) {
+  fill: $fill;
+
+  &:hover {
+    fill: $fill-hover;
+  }
+
+  &:active {
+    fill: $fill-active;
+  }
 }

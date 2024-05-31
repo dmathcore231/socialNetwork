@@ -1,4 +1,4 @@
-@import '../../styles/scss/mixins';
+@import '../../styles/app.scss';
 
 .nav-bar {
   height: 100%;
@@ -17,17 +17,17 @@
     display: flex;
     justify-content: start;
     gap: 1rem;
-    color: var(--black-color);
-    fill: var(--black-color);
+    color: $color-dark;
+    fill: $color-dark;
 
     &:hover {
-      color: var(--gray-400);
-      fill: var(--gray-400);
+      color: $color-gray-400;
+      fill: $color-gray-400;
     }
 
     &:active {
-      color: var(--gray-500);
-      fill: var(--gray-500);
+      color: $color-gray-500;
+      fill: $color-gray-500;
     }
   }
 
@@ -52,12 +52,12 @@
       padding: 0.5rem;
 
       &:hover {
-        background-color: var(--gray-100);
-        fill: var(--black-color);
+        background-color: $color-gray-100;
+        fill: $color-dark;
       }
 
       &:active {
-        background-color: var(--gray-200);
+        background-color: $color-gray-200;
       }
     }
 
@@ -74,7 +74,7 @@
     justify-content: space-between;
     overflow-y: visible;
     border-right: none;
-    border-bottom: 1px solid var(--gray-300);
+    border-bottom: 1px solid $color-gray-300;
 
     &__burger-menu {
       display: inline-flex;
@@ -113,6 +113,6 @@
     height: 100%;
     max-width: 100%;
     object-fit: cover;
-    border-radius: var(--main-border-radius);
+    border-radius: $main-border-radius;
   }
 }

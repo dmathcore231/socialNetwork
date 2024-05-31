@@ -1,14 +1,14 @@
-@import '../../styles/scss/mixins';
+@import '../../styles/app.scss';
 
 .input {
-  --input-bg-color: var(--white-color);
-  --input-color: var(--black-color);
+  --input-bg-color: #{$color-white};
+  --input-color: #{$color-dark};
 
-  --input-border-color: var(--black-color);
-  --input-border-color-focus: var(--gray-200);
-  --input-border-color-focus-visible: var(--gray-400);
+  --input-border-color: #{$color-dark};
+  --input-border-color-focus: #{$color-gray-200};
+  --input-border-color-focus-visible: #{$color-gray-400};
   --input-border-size: 2px;
-  --input-border-radius: var(--main-border-radius);
+  --input-border-radius: #{$main-border-radius};
 
   --input-padding: 1.5rem 0.875rem 0.313rem 0.875rem;
 
@@ -43,7 +43,7 @@
     --placeholder-padding-top: 1rem;
     --placeholder-padding-left: 1rem;
 
-    --placeholder-color: var(--gray-300);
+    --placeholder-color: #{$color-gray-300};
 
     --placeholder-font-size: 1.125rem;
     --placeholder-font-weight: 400;
@@ -66,20 +66,20 @@
     }
 
     &_error {
-      --placeholder-color: var(--red-color);
+      --placeholder-color: #{$color-danger};
     }
   }
 
   &__label {
     padding-left: 0.5rem;
-    color: var(--black-color);
+    color: #{$color-dark};
 
     &_invisible {
       display: none;
     }
 
     &_error {
-      color: var(--red-color);
+      color: $color-danger;
       display: block;
     }
   }
@@ -93,11 +93,11 @@
   }
 
   &_error {
-    --input-color: var(--red-color);
+    --input-color: #{$color-danger};
 
-    --input-border-color: var(--red-color);
-    --input-border-color-focus: var(--red-color);
-    --input-border-color-focus-visible: var(--red-color);
+    --input-border-color: #{$color-danger};
+    --input-border-color-focus: #{$color-danger};
+    --input-border-color-focus-visible: #{$color-danger};
   }
 
   &__btn {

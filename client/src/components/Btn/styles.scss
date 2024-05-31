@@ -1,9 +1,9 @@
-@import '../../styles/scss/mixins';
+@import '../../styles/app.scss';
 
 .btn {
-  --btn-color: var(--white-color);
-  --btn-color-hover: var(--black-color);
-  --btn-color-active: var(--black-color);
+  --btn-color: #{$color-white};
+  --btn-color-hover: #{$color-dark};
+  --btn-color-active: #{$color-dark};
 
   --btn-bg-color: transparent;
   --btn-bg-color-hover: transparent;
@@ -14,7 +14,7 @@
   --btn-border-color-hover: transparent;
   --btn-border-color-active: transparent;
 
-  --btn-radius: 0.5rem;
+  --btn-radius: #{$main-border-radius};
 
   --btn-font-size: 1.375rem;
   --btn-font-weight: 400;
@@ -24,16 +24,14 @@
 
   --btn-transition-time: 0.4s;
 
-  --btn-fill: var(--black-color);
-  --btn-fill-hover: var(--black-color);
-  --btn-fill-active: var(--black-color);
+  --btn-fill: #{$color-dark};
+  --btn-fill-hover: #{$color-dark};
+  --btn-fill-active: #{$color-dark};
 
   --btn-focus-visibility: 0px 0px 8px 3px rgba(0, 0, 0, 0.6);
   --btn-hover-box-shadow: none;
 
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
   text-transform: capitalize;
   color: var(--btn-color);
   background-color: var(--btn-bg-color);
@@ -70,43 +68,43 @@
   }
 
   &_primary {
-    --btn-bg-color: var(--black-color);
+    --btn-bg-color: #{$color-dark};
     --btn-border-size: 2px;
-    --btn-border-color: var(--black-color);
+    --btn-border-color: #{$color-dark};
 
-    --btn-color-hover: var(--black-color);
-    --btn-border-color-hover: var(--black-color);
+    --btn-color-hover: #{$color-dark};
+    --btn-border-color-hover: #{$color-dark};
     --btn-hover-box-shadow: 0px 0px 8px 3px rgba(0, 0, 0, 0.6);
 
     &_hover_color {
-      --btn-color-hover: var(--white-color);
-      --btn-fill-hover: var(--white-color);
-      --btn-bg-color-hover: var(--black-light-color);
+      --btn-color-hover: #{$color-white};
+      --btn-fill-hover: #{$color-white};
+      --btn-bg-color-hover: #{$color-dark-light};
 
-      --btn-bg-color-active: var(--gray-600);
-      --btn-color-active: var(--white-color);
-      --btn-fill-active: var(--white-color);
+      --btn-bg-color-active: #{$color-gray-600};
+      --btn-color-active: #{$color-white};
+      --btn-fill-active: #{$color-white};
     }
   }
 
   &_transparent {
-    --btn-color: var(--black-color);
-    --btn-color-hover: var(--gray-400);
-    --btn-color-active: var(--gray-500);
+    --btn-color: #{$color-dark};
+    --btn-color-hover: #{$color-gray-400};
+    --btn-color-active: #{$color-gray-500};
 
     --btn-padding: none;
 
-    --btn-fill: var(--black-color);
-    --btn-fill-hover: var(--gray-400);
-    --btn-fill-active: var(--gray-500);
+    --btn-fill: #{$color-dark};
+    --btn-fill-hover: #{$color-gray-400};
+    --btn-fill-active: #{$color-gray-500};
 
     &_shadow {
       &_enabled {
-        --btn-color: var(--black-color);
-        --btn-color-active: var(--gray-500);
+        --btn-color: #{$color-dark};
+        --btn-color-active: #{$color-gray-500};
 
-        --btn-fill: var(--black-color);
-        --btn-fill-active: var(--gray-500);
+        --btn-fill: #{$color-dark};
+        --btn-fill-active: #{$color-gray-500};
 
         --btn-radius: 50%;
         --btn-padding: 2px;
@@ -115,12 +113,12 @@
         &_fill {
           &_red {
 
-            --btn-color: var(--black-color);
-            --btn-color-active: var(--gray-500);
+            --btn-color: #{$color-dark};
+            --btn-color-active: #{$color-gray-500};
 
-            --btn-fill: var(--red-color);
-            --btn-fill-hover: var(--red-color);
-            --btn-fill-active: var(--gray-500);
+            --btn-fill: #{$color-danger};
+            --btn-fill-hover: #{$color-danger};
+            --btn-fill-active: #{$color-gray-500};
 
             --btn-radius: 50%;
             --btn-padding: 2px;
@@ -131,16 +129,16 @@
 
       &_color {
         &_white {
-          --btn-color: var(--white-color);
-          --btn-color-active: var(--white-color);
+          --btn-color: #{$color-white};
+          --btn-color-active: #{$color-white};
 
-          --btn-bg-color: var(--black-light-color);
-          --btn-bg-color-hover: var(--black-light-color);
-          --btn-bg-color-active: var(--black-light-color);
+          --btn-bg-color: #{$color-dark-light};
+          --btn-bg-color-hover: #{$color-dark-light};
+          --btn-bg-color-active: #{$color-dark-light};
 
-          --btn-fill: var(--white-color);
-          --btn-fill-hover: var(--white-color);
-          --btn-fill-active: var(--gray-300);
+          --btn-fill: #{$color-white};
+          --btn-fill-hover: #{$color-white};
+          --btn-fill-active: #{$color-gray-300};
 
           --btn-hover-box-shadow: 0px 0px 8px 3px rgba(255, 255, 255, 0.6);
         }
@@ -166,8 +164,8 @@
 
   &_color {
     &_white {
-      --btn-color: var(--white-color);
-      --btn-fill: var(--white-color);
+      --btn-color: #{$color-white};
+      --btn-fill: #{$color-white};
     }
   }
 
@@ -178,7 +176,7 @@
   }
 
   &_outline {
-    --btn-color: var(--black-color);
+    --btn-color: #{$color-dark};
     --btn-bg-color: transparent;
   }
 

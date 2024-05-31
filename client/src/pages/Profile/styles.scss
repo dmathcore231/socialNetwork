@@ -1,4 +1,4 @@
-@import '../../styles/scss/mixins';
+@import '../../styles/app.scss';
 
 .profile {
   @include flex-column;
@@ -34,14 +34,14 @@
 
     &__user-banner {
       height: 200px;
-      background-color: var(--gray-100);
+      background-color: $color-gray-100;
     }
 
     &__user-avatar {
       position: absolute;
       bottom: 0;
       left: 5%;
-      fill: var(--gray-400);
+      fill: $color-gray-400;
     }
 
     &__avatar {
@@ -83,24 +83,24 @@
       &-item {
         cursor: pointer;
         padding: 0.5rem 1rem;
-        border-radius: var(--main-border-radius);
+        border-radius: $main-border-radius;
         border-end-end-radius: 0;
         border-end-start-radius: 0;
-        color: var(--black-color);
+        color: $color-dark;
         transition: background-color 0.4s;
 
         &:hover {
-          background-color: var(--gray-100);
+          background-color: $color-gray-100;
         }
 
         &:active {
-          color: var(--gray-500);
+          color: $color-gray-500;
           background-color: transparent;
           transition: color 0.4s;
         }
 
         &_active {
-          border-bottom: 3px solid var(--black-color);
+          border-bottom: 3px solid $color-dark;
         }
       }
     }

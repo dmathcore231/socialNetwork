@@ -1,11 +1,11 @@
-@import '../../styles/scss/mixins';
+@import '../../styles/app.scss';
 
 .spinner {
   animation: rotate 2s linear infinite;
   fill: inherit;
 
   & .path {
-    stroke: var(--black-color);
+    stroke: $color-dark;
     stroke-linecap: round;
     animation: dash 1.5s ease-in-out infinite;
   }

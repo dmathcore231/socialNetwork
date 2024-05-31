@@ -1,4 +1,9 @@
-@import './scaffold';
+@import './variables.scss';
+
+@font-face {
+  font-family: 'Patrick Hand';
+  src: url('../assets/fonts/PatrickHand-Regular.ttf') format('truetype');
+}
 
 h1 {
   font-size: 65px;
@@ -46,7 +51,7 @@ h5 {
     &_gray {
 
       &-500 {
-        color: var(--gray-500);
+        color: $color-gray-500;
       }
     }
   }

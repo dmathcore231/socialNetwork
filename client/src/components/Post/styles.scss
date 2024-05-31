@@ -1,4 +1,4 @@
-@import '../../styles/scss/mixins';
+@import '../../styles/app.scss';
 
 .post {
   position: relative;
@@ -7,8 +7,8 @@
   @include flex-column;
   gap: 1rem;
   padding: 1rem;
-  border: 0.063rem solid black;
-  border-radius: var(--main-border-radius);
+  border: 0.063rem solid $color-dark;
+  border-radius: $main-border-radius;
 
 
   &-creator-data {
@@ -27,7 +27,7 @@
 
       &_color {
         &_gray {
-          color: var(--gray-500);
+          color: $color-gray-500;
         }
       }
     }
@@ -77,7 +77,7 @@
       width: 50%;
       height: 340px;
       object-fit: cover;
-      border-radius: var(--main-border-radius);
+      border-radius: $main-border-radius;
     }
   }
 

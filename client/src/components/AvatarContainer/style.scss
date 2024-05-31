@@ -1,9 +1,9 @@
-@import '../../styles/scss/mixins';
+@import '../../styles/app.scss';
 
 .avatar {
   @include flex-center;
 
-  --avatar-border-color: var(--black-color);
+  --avatar-border-color: #{$color-dark};
   --avatar-border-size: 0.063rem;
 
   --avatar-border-radius: 50%;
@@ -36,7 +36,7 @@
   &_border {
     &_color {
       &_white {
-        --avatar-border-color: var(--white-color);
+        --avatar-border-color: #{$color-white};
       }
     }
 
@@ -50,7 +50,7 @@
   &_bg {
     &_color {
       &_gray-200 {
-        --avatar-bg-color: var(--gray-200);
+        --avatar-bg-color: #{$color-gray-200};
       }
     }
   }
