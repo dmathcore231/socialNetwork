@@ -1,0 +1,10 @@
+@import '../../styles/app.scss';
+
+.answer {
+  width: 100%;
+
+  &__user-tag {
+    display: flex;
+    padding-left: 1rem;
+  }
+}

@@ -8,12 +8,13 @@ import { Post } from '../../../components/Post'
 import { Btn } from '../../../components/Btn'
 import { TextArea } from '../../../components/TextArea'
 import { Comment } from '../../../components/Comment'
+import { Spinner } from '../../../components/Spinner'
 
 export function CommentsPost(): JSX.Element {
   const id = useParams().id as string
   const dispatch = useAppDispatch()
 
-  const { post } = useAppSelector(state => state.post)
+  const { post, ResponseState: { status, error, loading } } = useAppSelector(state => state.post)
 
   const [valueComment, setValueComment] = useState<string>('')
   const [isSubmit, setIsSubmit] = useState(false)
@@ -27,6 +28,9 @@ export function CommentsPost(): JSX.Element {
       const formData = new FormData()
       formData.append('textComment', valueComment)
       dispatch(fetchCreateComment({ id, body: formData }))
+        .then(() => {
+          dispatch(fetchGetPostById(id))
+        })
 
       setIsSubmit(false)
     }
@@ -37,13 +41,39 @@ export function CommentsPost(): JSX.Element {
     setIsSubmit(true)
   }
 
+  if (loading) {
+    return (
+      <div className="comments-post">
+        <div className="comments-post-header">
+          <div className="comments-post-header__item">
+            <LinkBack BackToHome={false} />
+          </div>
+          <div className="comments-post-header__item">
+            <Btn
+              type="button"
+              className="btn_primary btn_outline btn_flat"
+              onClick={() => console.log("drafts")}
+            >
+              Drafts
+            </Btn>
+          </div>
+        </div>
+        <div className="comments-post-body">
+          <div className="comments-post-body__item comments-post-body__item_fill_transparent">
+            <Spinner width='40px' height='40px' />
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="comments-post">
       <div className="comments-post-header">
-        <div className="comments-post__item">
+        <div className="comments-post-header__item">
           <LinkBack BackToHome={false} />
         </div>
-        <div className="comments-post__item">
+        <div className="comments-post-header__item">
           <Btn
             type="button"
             className="btn_primary btn_outline btn_flat"
@@ -54,10 +84,10 @@ export function CommentsPost(): JSX.Element {
         </div>
       </div>
       <div className="comments-post-body">
-        <div className="comments-post__item">
+        <div className="comments-post-body__item">
           {post ? <Post data={post} /> : null}
         </div>
-        <div className="comments-post__item">
+        <div className="comments-post-body__item">
           <form className="comments-post-form"
             onSubmit={handleSubmitForm}
           >
@@ -88,7 +118,12 @@ export function CommentsPost(): JSX.Element {
       </div>
       <div className="comments-post-footer">
         <div className="comments-post-feed">
-          {post && <Comment data={post.postActivityData.comments} />}
+          {post?.postActivityData.comments.map(comment => (
+            <Comment
+              key={comment._id}
+              data={comment}
+            />
+          ))}
         </div>
       </div>
     </div>

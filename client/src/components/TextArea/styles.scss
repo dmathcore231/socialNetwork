@@ -13,7 +13,7 @@
   --text-area-text-align: start;
   --text-area-font-size: 1rem;
   --text-area-line-height: 1rem;
-  --text-area-color: $black-color;
+  --text-area-color: #{$color-dark};
 
   --text-area-placeholder-font-size: 1rem;
   --text-area-placeholder-line-height: 1rem;
@@ -76,4 +76,13 @@
       }
     }
   }
+
+  &_height {
+    &_size {
+      &_sm {
+        --text-area-height: 4rem;
+      }
+    }
+  }
+
 }

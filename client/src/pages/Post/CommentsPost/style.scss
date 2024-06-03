@@ -13,6 +13,17 @@
   &-body {
     @include flex-column;
     gap: 0.5rem;
+
+    &__item {
+      fill: $color-dark;
+
+
+      &_fill {
+        &_transparent {
+          fill: transparent;
+        }
+      }
+    }
   }
 
   &-footer {
